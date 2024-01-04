@@ -15,7 +15,7 @@ const light = {
     },
     primary: {
       contrastText: "#ffffff",
-      main: "#1976d2",
+      main: "#fc9823",
     },
     secondary: {
       main: "#c40909",
@@ -55,6 +55,7 @@ theme = createTheme(theme, {
         maxWidthLg: {
           [theme.breakpoints.up("lg")]: {
             maxWidth: "1320px",
+            padding: 0,
           },
         },
       },
