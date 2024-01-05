@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,10 +14,10 @@ const Header = () => {
         spaceBetween={0}
         loop={true}
         centeredSlides={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 6000,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
@@ -35,12 +35,13 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
+              <Button className="signin_btn">Sign in</Button>
             </Box>
           </Box>
           <Box
             sx={{
               backgroundImage: "url(/images/header_img/glass-dog.png)",
-              backgroundSize: "55%",
+              backgroundSize: "63%",
             }}
             className="image_box"
           />
@@ -56,6 +57,7 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
+              <Button className="signin_btn">Sign in</Button>
             </Box>
           </Box>
           <Box
@@ -74,12 +76,32 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
+              <Button className="signin_btn">Sign in</Button>
+            </Box>
+          </Box>
+          <Box
+            sx={{ backgroundImage: "url(/images/header_img/ord-dog.png)" }}
+            className="image_box"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="swiper_slide">
+          <Box className="text_box">
+            <Box className="text_wrap">
+              <h3 className="sup_title">Your Dog Deserve The Best</h3>
+              <h2 className="head_title">Shop All Dog Collections</h2>
+              <h4 className="head_text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Necessitatibus hic provident accusantium magnam veritatis
+                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
+                labore obcaecati eum!
+              </h4>
+              <Button className="signin_btn">Sign in</Button>
             </Box>
           </Box>
           <Box
             sx={{
               backgroundImage: "url(/images/header_img/parfume.png)",
-              backgroundSize: "75%",
+              backgroundSize: "83%",
             }}
             className="image_box"
           />
@@ -95,12 +117,13 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
+              <Button className="signin_btn">Sign in</Button>
             </Box>
           </Box>
           <Box
             sx={{
               backgroundImage: "url(/images/header_img/guitar-dog.png)",
-              backgroundSize: "75%",
+              backgroundSize: "89%",
             }}
             className="image_box"
           />
