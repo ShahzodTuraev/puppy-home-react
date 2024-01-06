@@ -44,16 +44,21 @@
             color: #777777;
             font-weight: 400;
           }
-          .signin_btn {
+          .start_btn {
             background: #fc9823;
             color: #ffffff;
             font-weight: 500;
             font-size: 18px;
-            width: 155px;
-            height: 40px;
-            margin-top: 15px;
+            width: 260px;
+            height: 50px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
             &:hover {
               background: #1f1f1f;
+            }
+            .right_dir {
+              margin-left: 5px;
             }
           }
         }
@@ -83,32 +88,202 @@
   font-size: 35px;
   text-align: center;
   font-family: "Nunito", sans-serif;
-  margin: 30px 0;
+  margin-bottom: 30px;
 }
-.mySwiper_category {
-  width: 100%;
-  cursor: pointer;
-  .swiper_slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .category_img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 1px solid rgb(122, 115, 115);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: all 0.3s;
-      &:hover {
-        transform: scale(90%);
+.category_container {
+  background: linear-gradient(#efeff1, #ffffff);
+  padding: 40px 0;
+  .mySwiper_category {
+    width: 100%;
+    cursor: pointer;
+    .swiper_slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .category_img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 1px solid rgb(122, 115, 115);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: all 0.3s;
+        &:hover {
+          transform: scale(90%);
+        }
       }
-    }
-    .category_name {
-      font-weight: 500;
-      margin-top: 15px;
+      .category_name {
+        font-weight: 500;
+        margin-top: 15px;
+      }
     }
   }
 }
-/*CATEGORIES START*/
+
+/*CATEGORIES END*/
+/*TRENDS START*/
+.trending_container {
+  margin: 80px 0;
+  .cart_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .shop_cart {
+      width: 300px;
+      height: auto;
+      margin-bottom: 30px;
+      border: 1px solid rgb(204, 204, 204);
+      box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+        rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+      cursor: pointer;
+      transition: all 0.3s;
+      .cart_img {
+        width: 100%;
+        height: 320px;
+        border-bottom: 1px solid rgb(224, 224, 224);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        transition: all 0.3s;
+        position: relative;
+        .sale_box {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 30px;
+          background: rgb(182, 182, 182);
+          display: none;
+        }
+        .like_btn_wrap {
+          position: absolute;
+          right: 5px;
+          top: 10px;
+          width: 45px;
+          height: 45px;
+          background: #1f1f1f91;
+          border-radius: 50%;
+          display: none;
+          justify-content: center;
+          align-items: center;
+          .like_btn {
+            width: 30px;
+            height: 30px;
+          }
+        }
+        .like_btn_wrap_active {
+          display: flex;
+        }
+        .discount_percent {
+          position: absolute;
+          left: 0;
+          top: 20px;
+          background: #e52c0a;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 60px;
+          height: 35px;
+          border-bottom-right-radius: 5px;
+          border-top-right-radius: 5px;
+          .percent_text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding-top: 5px;
+          }
+        }
+      }
+      .cart_desc {
+        font-family: "Rubik", sans-serif;
+        padding: 10px;
+        .cart_name {
+          font-weight: 410;
+          font-size: 18px;
+          color: #172b4d;
+        }
+        .price_box {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          // border: 1px solid blue;
+          .price_wrap {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            .cart_sale_price {
+              font-size: 22px;
+              font-weight: 500;
+              color: rgb(150, 0, 0);
+              margin-right: 5px;
+            }
+            .cart_price {
+              font-size: 16px;
+              text-decoration: line-through;
+              color: #777777;
+              margin-right: 20px;
+            }
+          }
+          .add_cart_wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #172b4d;
+            border-radius: 15px;
+            .add_cart_icon {
+              height: auto;
+              margin: 4px 10px;
+            }
+            .add_cart_icon_active {
+              fill: #ffffff;
+            }
+          }
+          .add_cart_wrap_active {
+            border-color: #fc9823;
+            background: #fc9823;
+          }
+        }
+        .cart_bottom {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-end;
+          .review_box {
+            display: flex;
+            // border: 1px solid red;
+            margin-top: 15px;
+            flex-direction: row;
+            .review_icon {
+              color: #fc9823;
+              margin-right: 5px;
+            }
+            .review_text {
+              font-size: 14px;
+              color: #777777;
+            }
+          }
+        }
+        .like_view_box {
+          color: #172b4d;
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          .like_view_btn {
+            width: 18px;
+            margin-right: 5px;
+            margin-left: 8px;
+          }
+          .like_view_cnt {
+            color: #172b4d;
+          }
+        }
+      }
+    }
+  }
+}
+/*TRENDS END*/

@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import React from "react";
+import EastIcon from "@mui/icons-material/East";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { Autoplay, Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
@@ -27,7 +27,7 @@ const Header = () => {
         <SwiperSlide className="swiper_slide">
           <Box className="text_box">
             <Box className="text_wrap">
-              <h3 className="sup_title">Your Dog Deserve The Best</h3>
+              <h3 className="sup_title">Your Dogs Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -35,7 +35,9 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
-              <Button className="signin_btn">Sign in</Button>
+              <Button className="start_btn">
+                start your journey <EastIcon className="right_dir" />
+              </Button>
             </Box>
           </Box>
           <Box
@@ -57,7 +59,9 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
-              <Button className="signin_btn">Sign in</Button>
+              <Button className="start_btn">
+                start your journey <EastIcon className="right_dir" />
+              </Button>
             </Box>
           </Box>
           <Box
@@ -76,7 +80,9 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
-              <Button className="signin_btn">Sign in</Button>
+              <Button className="start_btn">
+                start your journey <EastIcon className="right_dir" />
+              </Button>
             </Box>
           </Box>
           <Box
@@ -95,7 +101,9 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
-              <Button className="signin_btn">Sign in</Button>
+              <Button className="start_btn">
+                start your journey <EastIcon className="right_dir" />
+              </Button>
             </Box>
           </Box>
           <Box
@@ -117,7 +125,9 @@ const Header = () => {
                 voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
                 labore obcaecati eum!
               </h4>
-              <Button className="signin_btn">Sign in</Button>
+              <Button className="start_btn">
+                start your journey <EastIcon className="right_dir" />
+              </Button>
             </Box>
           </Box>
           <Box

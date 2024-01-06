@@ -20,33 +20,35 @@ const Categories = () => {
   ];
   /*HANDLERS*/
   return (
-    <Container>
-      <h2 className="component_title">Shop by Category</h2>
-      <Swiper
-        spaceBetween={20}
-        slidesPerView={7}
-        loop={true}
-        centeredSlides={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
-        className="mySwiper_category"
-      >
-        {category.map(({ imagePath, name }, id) => {
-          return (
-            <SwiperSlide className="swiper_slide">
-              <Box
-                className="category_img"
-                sx={{ backgroundImage: `url(${imagePath})` }}
-              />
-              <p className="category_name">{name}</p>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </Container>
+    <div className="category_container">
+      <Container>
+        <h2 className="component_title">Shop by Category</h2>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={7}
+          loop={true}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+          className="mySwiper_category"
+        >
+          {category.map(({ imagePath, name }, id) => {
+            return (
+              <SwiperSlide className="swiper_slide">
+                <Box
+                  className="category_img"
+                  sx={{ backgroundImage: `url(${imagePath})` }}
+                />
+                <p className="category_name">{name}</p>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </Container>
+    </div>
   );
 };
 

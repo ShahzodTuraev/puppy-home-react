@@ -1,15 +1,44 @@
 import { Badge, Box, Button, Container, IconButton, Menu } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Search, ShoppingCart, Notifications } from "@mui/icons-material";
+import {
+  Search,
+  ShoppingCart,
+  Notifications,
+  KeyboardArrowUp,
+} from "@mui/icons-material";
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
+import { Link } from "react-scroll";
 
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.pageYOffset;
+      setScrollPosition(position);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Check if scrollPosition is greater than or equal to 100
+  const isScrolled = scrollPosition >= 150;
+  const isTopScroll = scrollPosition >= 300;
+  const [menu, setMenu] = useState(false);
+  const onMenu = () => {
+    setMenu(!menu);
+  };
+
   /*HANDLERS*/
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -19,7 +48,11 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar_background">
+      <div
+        className={
+          isScrolled ? "navbar_background active_scroll" : "navbar_background"
+        }
+      >
         <Container className="navbar_container">
           <Box
             onClick={() => navigate("/")}
@@ -114,10 +147,23 @@ const Navbar = () => {
                 <Notifications className="icon" />
               </IconButton>
             </Badge>
-            <Button className="nav_btn">Log in</Button>
+            <Button className="nav_btn_sign">Sign up </Button>
+            <Button className="nav_btn">Log in </Button>
           </Box>
         </Container>
       </div>
+      {isTopScroll && (
+        <Link
+          to="pageHeader"
+          spy={true}
+          smooth={true}
+          offset={0}
+          duration={500}
+        >
+          <KeyboardArrowUp className="up_icon" />
+        </Link>
+      )}
+
       <Outlet />
     </>
   );
