@@ -27,6 +27,7 @@ export const cart_list = [
     product_likes: 25,
     product_views: 32,
     product_liken: true,
+    product_left_cnt: 0,
   },
   {
     product_id: 2,
@@ -101,6 +102,65 @@ export const cart_list = [
   {
     product_id: 7,
     product_price: 5800,
+    product_discount: 50,
+    product_name: "Puppy Toys new collection",
+    product_images: [
+      "/images/categories/test1.jpg",
+      "/images/categories/test2.jpg",
+    ],
+    product_review: 4.5,
+    product_review_cnt: 24,
+    product_likes: 25,
+    product_views: 32,
+  },
+];
+
+export const cart_trend = [
+  {
+    product_id: 13,
+    product_price: 9300,
+    product_discount: 50,
+    product_name: "Puppy Toys new collection",
+    product_images: [
+      "/images/categories/test1.jpg",
+      "/images/categories/test2.jpg",
+    ],
+    product_review: 4.5,
+    product_review_cnt: 24,
+    product_likes: 25,
+    product_views: 32,
+  },
+  {
+    product_id: 14,
+    product_price: 5400,
+    product_discount: 50,
+    product_name: "Puppy Toys new collection",
+    product_images: [
+      "/images/categories/test1.jpg",
+      "/images/categories/test2.jpg",
+    ],
+    product_review: 4.5,
+    product_review_cnt: 24,
+    product_likes: 25,
+    product_views: 32,
+  },
+  {
+    product_id: 15,
+    product_price: 12000,
+    product_discount: 50,
+    product_name: "Puppy Toys new collection",
+    product_images: [
+      "/images/categories/test1.jpg",
+      "/images/categories/test2.jpg",
+    ],
+    product_review: 4.5,
+    product_review_cnt: 24,
+    product_likes: 25,
+    product_views: 32,
+  },
+  {
+    product_id: 16,
+    product_price: 7200,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
     product_images: [

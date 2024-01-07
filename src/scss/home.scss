@@ -122,6 +122,7 @@
 }
 
 /*CATEGORIES END*/
+
 /*TRENDS START*/
 .trending_container {
   margin: 80px 0;
@@ -134,3 +135,18 @@
   }
 }
 /*TRENDS END*/
+/*BIG SALES STYLES START*/
+.title_wrap {
+  position: relative;
+  .gif_box {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    top: 5px;
+    right: 34%;
+    width: 150px;
+    height: 60px;
+    z-index: -1;
+  }
+}
+/*BIG SALES STYLES END*/

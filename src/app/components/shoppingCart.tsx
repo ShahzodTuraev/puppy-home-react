@@ -18,22 +18,9 @@ const ShoppingCart = ({ cartData }: any) => {
     product_views,
     product_review,
     product_review_cnt,
+    product_left_cnt,
     product_liken,
   } = cartData;
-  const image_list = [
-    "/images/categories/test1.jpg",
-    "/images/categories/test2.jpg",
-  ];
-  const cart_list = [
-    { id: 0, price: 5700, percent: 50 },
-    { id: 1, price: 10000, percent: 50 },
-    { id: 2, price: 6800, percent: 50 },
-    { id: 3, price: 9300, percent: 50 },
-    { id: 4, price: 5400, percent: 50 },
-    { id: 5, price: 12000, percent: 50 },
-    { id: 6, price: 7200, percent: 50 },
-    { id: 7, price: 5800, percent: 50 },
-  ];
   const [cartChange, setCartChange] = useState<number>(-1);
 
   /*HANDLERS*/
@@ -79,7 +66,13 @@ const ShoppingCart = ({ cartData }: any) => {
       <Box className="cart_desc">
         <h4 className="cart_name">{product_name || "product name"}</h4>
         <Box className="price_box">
-          <Box className="price_wrap">
+          <Box
+            className={
+              product_left_cnt === 0
+                ? "price_wrap price_wrap_passive"
+                : "price_wrap "
+            }
+          >
             <p className="cart_sale_price">
               &#8361;{" "}
               {product_discount > 0
@@ -95,20 +88,27 @@ const ShoppingCart = ({ cartData }: any) => {
           </Box>
           <Box
             className={
-              cartChange === product_id
+              cartChange === product_id && product_left_cnt !== 0
                 ? "add_cart_wrap add_cart_wrap_active"
                 : "add_cart_wrap"
             }
           >
             <AddShoppingCartIcon
               className={
-                cartChange === product_id
+                cartChange === product_id && product_left_cnt !== 0
                   ? "add_cart_icon add_cart_icon_active"
                   : "add_cart_icon"
               }
             />
           </Box>
         </Box>
+        <p
+          className={
+            product_left_cnt === 0 ? "sold_text " : "sold_text sold_text_none"
+          }
+        >
+          Sold Out
+        </p>
         <Box className="cart_bottom">
           <Box className="review_box">
             <Rating
