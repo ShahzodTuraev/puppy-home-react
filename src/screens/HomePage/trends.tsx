@@ -4,22 +4,15 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Rating from "@mui/material/Rating";
+import { cart_list } from "../../mock/cart_data";
+import ShoppingCart from "../../app/components/shoppingCart";
 const Trends = () => {
   /*INITIALIZATIONS*/
   const image_list = [
     "/images/categories/test1.jpg",
     "/images/categories/test2.jpg",
   ];
-  const cart_list = [
-    { id: 0, price: 5700, percent: 50 },
-    { id: 1, price: 10000, percent: 50 },
-    { id: 2, price: 6800, percent: 50 },
-    { id: 3, price: 9300, percent: 50 },
-    { id: 4, price: 5400, percent: 50 },
-    { id: 5, price: 12000, percent: 50 },
-    { id: 6, price: 7200, percent: 50 },
-    { id: 7, price: 5800, percent: 50 },
-  ];
+
   const [cartChange, setCartChange] = useState<number>(-1);
 
   /*HANDLERS*/
@@ -27,8 +20,13 @@ const Trends = () => {
     <Container className="trending_container">
       <h2 className="component_title">Trending Products</h2>
       <Stack className="cart_wrap">
-        {cart_list.map(({ id, price, percent }) => {
+        {cart_list.map((ele) => {
+          return <ShoppingCart cartData={ele} key={ele.product_id} />;
+        })}
+
+        {/* {cart_list.map(({ id, price, percent }) => {
           return (
+          
             <Box
               key={id}
               className="shop_cart"
@@ -105,6 +103,7 @@ const Trends = () => {
             </Box>
           );
         })}
+         */}
       </Stack>
     </Container>
   );
