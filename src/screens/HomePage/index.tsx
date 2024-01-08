@@ -7,6 +7,7 @@ import Video from "./video";
 import BigSales from "./bigSales";
 import Services from "./services";
 import Events from "./events";
+import Features from "./features";
 const HomePage: any = () => {
   return (
     <div>
@@ -17,6 +18,7 @@ const HomePage: any = () => {
       <BigSales />
       <Services />
       <Events />
+      <Features />
     </div>
   );
 };
