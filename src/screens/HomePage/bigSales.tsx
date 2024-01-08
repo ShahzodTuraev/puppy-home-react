@@ -2,7 +2,7 @@ import { Box, Container, Stack } from "@mui/material";
 import React from "react";
 import { cart_trend } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
-
+import EastIcon from "@mui/icons-material/East";
 const BigSales = () => {
   return (
     <Container className="trending_container sale_container">
@@ -18,6 +18,12 @@ const BigSales = () => {
           return <ShoppingCart key={ele.product_id} cartData={ele} />;
         })}
       </Stack>
+      <Box className="bottom_box">
+        <Box className="link_wrap">
+          <h4 className="link_all">See all products</h4>
+          <EastIcon />
+        </Box>
+      </Box>
     </Container>
   );
 };

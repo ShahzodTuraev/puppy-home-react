@@ -15,7 +15,7 @@ const Header = () => {
         loop={true}
         centeredSlides={true}
         autoplay={{
-          delay: 6000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{

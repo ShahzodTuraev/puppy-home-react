@@ -5,6 +5,7 @@ import Categories from "./categories";
 import Trends from "./trends";
 import Video from "./video";
 import BigSales from "./bigSales";
+import Services from "./services";
 const HomePage: any = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const HomePage: any = () => {
       <Trends />
       <Video />
       <BigSales />
+      <Services />
     </div>
   );
 };
