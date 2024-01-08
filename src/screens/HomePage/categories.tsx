@@ -37,7 +37,7 @@ const Categories = () => {
         >
           {category.map(({ imagePath, name }, id) => {
             return (
-              <SwiperSlide className="swiper_slide">
+              <SwiperSlide className="swiper_slide" key={id}>
                 <Box
                   className="category_img"
                   sx={{ backgroundImage: `url(${imagePath})` }}

@@ -48,6 +48,7 @@ const Services = () => {
                 onMouseEnter={() => setCartChange(id)}
                 onMouseLeave={() => setCartChange(-1)}
                 className="service_box"
+                key={id}
               >
                 <Box className="image_box">
                   <img
