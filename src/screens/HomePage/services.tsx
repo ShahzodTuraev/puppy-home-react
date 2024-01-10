@@ -13,7 +13,7 @@ const Services = () => {
         "/images/services/alt-service1.png",
       ],
       title: "Grooming",
-      text: "Modernize the way you manage your brick-and-mortar or mobile pet grooming business.",
+      text: "Modernize the way you manage your brick-and-mortar or mobile dog grooming activity.",
     },
     {
       id: 2,

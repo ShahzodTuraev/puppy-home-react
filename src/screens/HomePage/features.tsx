@@ -13,7 +13,7 @@ const Features = () => {
           </Box>
           <p className="feature_head">24 x 7 Free Support</p>
           <p className="feature_info">
-            Passage of Lorem ipsum dolor sit amet consectetur.
+            International call center for clients and business owners
           </p>
         </Box>
         <Box className="divider" />
@@ -21,9 +21,9 @@ const Features = () => {
           <Box className="feature_icon">
             <LocalShippingIcon className="phone_icon" />
           </Box>
-          <p className="feature_head">24 x 7 Free Support</p>
+          <p className="feature_head">Free Worldwide Shipping</p>
           <p className="feature_info">
-            Passage of Lorem ipsum dolor sit amet consectetur.
+            In the case of total order amount over <br /> &#8361; 100,000
           </p>
         </Box>
         <Box className="divider" />
@@ -31,9 +31,9 @@ const Features = () => {
           <Box className="feature_icon">
             <AttachMoneyIcon className="phone_icon" />
           </Box>
-          <p className="feature_head">24 x 7 Free Support</p>
+          <p className="feature_head">Money Back Gurantee</p>
           <p className="feature_info">
-            Passage of Lorem ipsum dolor sit amet consectetur.
+            Money back after order cancellation according to product features
           </p>
         </Box>
       </Stack>

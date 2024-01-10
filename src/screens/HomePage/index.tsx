@@ -8,6 +8,7 @@ import BigSales from "./bigSales";
 import Services from "./services";
 import Events from "./events";
 import Features from "./features";
+import Footer from "./footer";
 const HomePage: any = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const HomePage: any = () => {
       <Services />
       <Events />
       <Features />
+      <Footer />
     </div>
   );
 };

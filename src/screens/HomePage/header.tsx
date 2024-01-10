@@ -30,10 +30,10 @@ const Header = () => {
               <h3 className="sup_title">Your Dogs Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus hic provident accusantium magnam veritatis
-                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
-                labore obcaecati eum!
+                We are fully prepared to cater to your puppies. Understanding
+                that each puppy has distinct needs, we continually curate new
+                collections and services tailored to their preferences, ensuring
+                their joy and satisfaction.
               </h4>
               <Button className="start_btn">
                 start your journey <EastIcon className="right_dir" />
@@ -54,10 +54,10 @@ const Header = () => {
               <h3 className="sup_title">Your Dog Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus hic provident accusantium magnam veritatis
-                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
-                labore obcaecati eum!
+                We are fully prepared to cater to your puppies. Understanding
+                that each puppy has distinct needs, we continually curate new
+                collections and services tailored to their preferences, ensuring
+                their joy and satisfaction.
               </h4>
               <Button className="start_btn">
                 start your journey <EastIcon className="right_dir" />
@@ -75,10 +75,10 @@ const Header = () => {
               <h3 className="sup_title">Your Dog Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus hic provident accusantium magnam veritatis
-                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
-                labore obcaecati eum!
+                We are fully prepared to cater to your puppies. Understanding
+                that each puppy has distinct needs, we continually curate new
+                collections and services tailored to their preferences, ensuring
+                their joy and satisfaction.
               </h4>
               <Button className="start_btn">
                 start your journey <EastIcon className="right_dir" />
@@ -96,10 +96,10 @@ const Header = () => {
               <h3 className="sup_title">Your Dog Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus hic provident accusantium magnam veritatis
-                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
-                labore obcaecati eum!
+                We are fully prepared to cater to your puppies. Understanding
+                that each puppy has distinct needs, we continually curate new
+                collections and services tailored to their preferences, ensuring
+                their joy and satisfaction.
               </h4>
               <Button className="start_btn">
                 start your journey <EastIcon className="right_dir" />
@@ -120,10 +120,10 @@ const Header = () => {
               <h3 className="sup_title">Your Dog Deserve The Best</h3>
               <h2 className="head_title">Shop All Dog Collections</h2>
               <h4 className="head_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus hic provident accusantium magnam veritatis
-                voluptate! Nam delectus voluptatum aliquam omnis ipsum, aliquid
-                labore obcaecati eum!
+                We are fully prepared to cater to your puppies. Understanding
+                that each puppy has distinct needs, we continually curate new
+                collections and services tailored to their preferences, ensuring
+                their joy and satisfaction.
               </h4>
               <Button className="start_btn">
                 start your journey <EastIcon className="right_dir" />
