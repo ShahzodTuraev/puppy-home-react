@@ -10,6 +10,7 @@ import {
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
 import { Link } from "react-scroll";
+import Footer from "../footer";
 
 const Navbar = () => {
   /*INITIALIZATIONS*/
@@ -34,10 +35,10 @@ const Navbar = () => {
   // Check if scrollPosition is greater than or equal to 100
   const isScrolled = scrollPosition >= 150;
   const isTopScroll = scrollPosition >= 300;
-  const [menu, setMenu] = useState(false);
-  const onMenu = () => {
-    setMenu(!menu);
-  };
+  // const [menu, setMenu] = useState(false);
+  // const onMenu = () => {
+  //   setMenu(!menu);
+  // };
 
   /*HANDLERS*/
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -165,6 +166,7 @@ const Navbar = () => {
       )}
 
       <Outlet />
+      <Footer />
     </>
   );
 };

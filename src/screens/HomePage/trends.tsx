@@ -63,7 +63,7 @@ const Trends = () => {
           Latest
         </Button>
       </Box>
-      <Stack className="cart_wrap">
+      <Stack sx={{ gap: "20px" }} className="cart_wrap">
         {cart_list.map((ele) => {
           return <ShoppingCart cartData={ele} key={ele.product_id} />;
         })}

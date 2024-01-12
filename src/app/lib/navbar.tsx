@@ -3,8 +3,9 @@ import ShopPage from "../../screens/ShopPage";
 import ServicePage from "../../screens/ServicePage";
 import HelpPage from "../../screens/HelpPage";
 import BlogsPage from "../../screens/BlogsPage";
+import { NavbarObj } from "../../types/others";
 
-export const navbar: any[] = [
+export const navbar: NavbarObj[] = [
   {
     element: <HomePage />,
     title: "Home",
@@ -25,8 +26,8 @@ export const navbar: any[] = [
   },
   {
     element: <BlogsPage />,
-    title: "Blogs",
-    path: "/blogs",
+    title: "DaengGram",
+    path: "/daeng-gram",
     private: false,
   },
   {

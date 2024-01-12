@@ -9,6 +9,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import RoomIcon from "@mui/icons-material/Room";
 import PhoneIcon from "@mui/icons-material/Phone";
+import "../../../scss/navbar.scss";
 const Footer = () => {
   const navigate = useNavigate();
   return (
