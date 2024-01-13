@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -21,6 +21,7 @@ const Services = () => {
 
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
+  useEffect(() => {}, []);
   /*HANDLERS*/
   return (
     <Container className="products_container">
