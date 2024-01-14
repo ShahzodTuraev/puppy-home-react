@@ -5,6 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Rating from "@mui/material/Rating";
 import "../../scss/shoppingCart.scss";
+import { useNavigate } from "react-router-dom";
 const ShoppingCart = ({ cartData }: any) => {
   /*INITIALIZATIONS*/
   const {
@@ -22,13 +23,14 @@ const ShoppingCart = ({ cartData }: any) => {
     product_liken,
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
-
+  const navigate = useNavigate();
   /*HANDLERS*/
   return (
     <Box
       className="shop_cart"
       onMouseEnter={() => setCartChange(product_id)}
       onMouseLeave={() => setCartChange(-1)}
+      onClick={() => navigate(`/shop/${product_id}`)}
     >
       <Box
         className="cart_img"

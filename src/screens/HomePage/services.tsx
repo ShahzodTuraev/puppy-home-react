@@ -2,9 +2,11 @@ import { Box, Container, Stack } from "@mui/material";
 import React, { useState } from "react";
 
 import EastIcon from "@mui/icons-material/East";
+import { useNavigate } from "react-router-dom";
 const Services = () => {
   //* INITIALIZATIONS*/
   const [cartChange, setCartChange] = useState<number>(-1);
+  const navigate = useNavigate();
   const cart_data = [
     {
       id: 1,
@@ -67,6 +69,7 @@ const Services = () => {
                   />
                 </Box>
                 <Box
+                  onClick={() => navigate("/service")}
                   className={
                     cartChange === id
                       ? "bottom_box bottom_box_down"

@@ -37,10 +37,18 @@ const ChosenProduct = () => {
   /*INITIALIATIONS*/
   const [count, setCount] = useState<number>(1);
   const navigate = useNavigate();
+  const imgSrc = [
+    { id: 1, src: "/images/mock-img/full.jpg" },
+    { id: 2, src: "/images/mock-img/mock-2.jpg" },
+    { id: 3, src: "/images/mock-img/mock-3.jpg" },
+    { id: 4, src: "/images/mock-img/mock-2.jpg" },
+    { id: 5, src: "/images/mock-img/full.jpg" },
+  ];
+  const [imgChange, setImgChange] = useState(imgSrc[0].id);
+  const wide_img = imgSrc.filter((ele) => ele.id === imgChange)[0].src;
 
   return (
     <div className="chosen_product">
-      {/* <Header /> */}
       <Container className="chosen_container">
         <Box className="dir_box">
           <Box onClick={() => navigate("/")} className="dir_link">
@@ -60,32 +68,22 @@ const ChosenProduct = () => {
         <Stack className="pro_main_box">
           <Box className="pro_img_box">
             <Box className="select_box">
-              <img
-                src="/images/categories/bed.jpg"
-                className="select_item"
-                alt="product"
-              />
-
-              <img
-                src="/images/categories/bed.jpg"
-                className="select_item"
-                alt="product"
-              />
-              <img
-                src="/images/categories/bed.jpg"
-                className="select_item"
-                alt="product"
-              />
-              <img
-                src="/images/categories/bed.jpg"
-                className="select_item"
-                alt="product"
-              />
-              <img
-                src="/images/categories/bed.jpg"
-                className="select_item"
-                alt="product"
-              />
+              {imgSrc.map(({ id, src }) => {
+                return (
+                  <img
+                    onMouseEnter={() => setImgChange(id)}
+                    src={src}
+                    key={id}
+                    className="select_item"
+                    alt="product"
+                    style={
+                      imgChange === id
+                        ? { border: " 2px solid #346aff" }
+                        : { border: " 2px solid #ffffff" }
+                    }
+                  />
+                );
+              })}
             </Box>
             <Box className="main_img_box">
               <ReactImageMagnify
@@ -94,12 +92,12 @@ const ChosenProduct = () => {
                   smallImage: {
                     alt: "Wristwatch by Ted Baker London",
                     isFluidWidth: true,
-                    src: "/images/mock-img/full.jpg",
+                    src: wide_img,
                   },
                   largeImage: {
                     width: 700,
                     height: 700,
-                    src: "/images/mock-img/full.jpg",
+                    src: wide_img,
                   },
                 }}
               />
