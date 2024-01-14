@@ -90,7 +90,7 @@ const Products = () => {
         </Box>
         <p className="link_div">/</p>
         <Box className="dir_link">
-          <p className="before_icon">All Products</p>
+          <p className="before_icon">Shop</p>
           <Close onClick={() => navigate("/")} className="close" />
         </Box>
       </Box>

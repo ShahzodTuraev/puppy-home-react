@@ -3,4 +3,5 @@ export interface NavbarObj {
   title: string;
   path: string;
   private: boolean;
+  hidden: boolean;
 }

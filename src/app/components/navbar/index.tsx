@@ -33,7 +33,7 @@ const Navbar = () => {
   }, []);
 
   // Check if scrollPosition is greater than or equal to 100
-  const isScrolled = scrollPosition >= 150;
+  const isScrolled = scrollPosition >= 100;
   const isTopScroll = scrollPosition >= 300;
   // const [menu, setMenu] = useState(false);
   // const onMenu = () => {
@@ -65,17 +65,19 @@ const Navbar = () => {
             </h3>
           </Box>
           <Box className="navbar_section section_2">
-            {navbar.map(({ title, path }, id) => {
+            {navbar.map(({ title, path, hidden }, id) => {
               return (
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav_link active" : "nav_link"
-                  }
-                  key={id}
-                  to={path}
-                >
-                  {title}
-                </NavLink>
+                !hidden && (
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav_link active" : "nav_link"
+                    }
+                    key={id}
+                    to={path}
+                  >
+                    {title}
+                  </NavLink>
+                )
               );
             })}
           </Box>
