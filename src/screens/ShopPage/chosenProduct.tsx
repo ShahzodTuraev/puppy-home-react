@@ -1,5 +1,7 @@
 import {
   Add,
+  ArrowBack,
+  ArrowForward,
   Close,
   Favorite,
   FavoriteBorder,
@@ -13,6 +15,8 @@ import {
   Container,
   FormControl,
   FormControlLabel,
+  Pagination,
+  PaginationItem,
   Radio,
   RadioGroup,
   Rating,
@@ -274,6 +278,20 @@ const ChosenProduct = () => {
               </p>
             </Box>
           </Box>
+          <Pagination
+            sx={{ mt: "20px" }}
+            count={3}
+            page={1}
+            renderItem={(item) => (
+              <PaginationItem
+                components={{
+                  previous: ArrowBack,
+                  next: ArrowForward,
+                }}
+                {...item}
+              />
+            )}
+          />
           <Box className="title_line">
             <p>Seller info</p>
           </Box>
