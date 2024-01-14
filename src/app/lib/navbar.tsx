@@ -6,6 +6,7 @@ import BlogsPage from "../../screens/BlogsPage";
 import { NavbarObj } from "../../types/others";
 import ChosenProduct from "../../screens/ShopPage/chosenProduct";
 import ChosenService from "../../screens/ServicePage/chosenService";
+import OrdersPage from "../../screens/OrdersPage";
 
 export const navbar: NavbarObj[] = [
   {
@@ -56,5 +57,12 @@ export const navbar: NavbarObj[] = [
     path: "/help",
     private: false,
     hidden: false,
+  },
+  {
+    element: <OrdersPage />,
+    title: "Orders",
+    path: "/orders",
+    private: true,
+    hidden: true,
   },
 ];

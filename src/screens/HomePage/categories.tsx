@@ -1,7 +1,6 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,11 +27,6 @@ const Categories = () => {
           slidesPerView={7}
           loop={true}
           centeredSlides={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          modules={[Autoplay]}
           className="mySwiper_category"
         >
           {category.map(({ imagePath, name }, id) => {

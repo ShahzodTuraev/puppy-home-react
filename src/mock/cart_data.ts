@@ -176,7 +176,7 @@ export const cart_trend = [
 
 export const product_list = [
   {
-    product_id: 0,
+    product_id: 340,
     product_price: 5700,
     product_discount: 0,
     product_name: "Puppy Toys new collection",
@@ -190,7 +190,7 @@ export const product_list = [
     product_views: 32,
   },
   {
-    product_id: 1,
+    product_id: 341,
     product_price: 10000,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
@@ -206,7 +206,7 @@ export const product_list = [
     product_left_cnt: 0,
   },
   {
-    product_id: 2,
+    product_id: 672,
     product_price: 6800,
     product_discount: 50,
     // product_name: "Puppy Toys new collection",
@@ -220,7 +220,7 @@ export const product_list = [
     // product_views: 32,
   },
   {
-    product_id: 3,
+    product_id: 9673,
     product_price: 9300,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
@@ -234,7 +234,7 @@ export const product_list = [
     product_views: 32,
   },
   {
-    product_id: 4,
+    product_id: 67894,
     product_price: 5400,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
@@ -248,7 +248,7 @@ export const product_list = [
     product_views: 32,
   },
   {
-    product_id: 5,
+    product_id: 565,
     product_price: 12000,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
@@ -262,7 +262,7 @@ export const product_list = [
     product_views: 32,
   },
   {
-    product_id: 6,
+    product_id: 6789,
     product_price: 7200,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
@@ -276,7 +276,7 @@ export const product_list = [
     product_views: 32,
   },
   {
-    product_id: 7,
+    product_id: 7978,
     product_price: 5800,
     product_discount: 50,
     product_name: "Puppy Toys new collection",
