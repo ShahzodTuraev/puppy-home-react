@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -8,18 +8,14 @@ import {
   Pagination,
   PaginationItem,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import Rating from "@mui/material/Rating";
-import { product_list } from "../../mock/cart_data";
+
+import { service_list } from "../../mock/cart_data";
 import { ArrowBack, ArrowForward, Close, Home } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import PhoneIcon from "@mui/icons-material/Phone";
+import ServiceCard from "./serciveCard";
 const Services = () => {
   /*INITIALIZATIONS*/
 
-  const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
   useEffect(() => {}, []);
   /*HANDLERS*/
@@ -122,73 +118,8 @@ const Services = () => {
         </Box>
         <Box className="product_box">
           <Box className="product_wrap">
-            {product_list?.map((service) => {
-              return (
-                <Stack
-                  key={service.product_id}
-                  className={
-                    cartChange === service.product_id
-                      ? "service_cart service_cart_active"
-                      : "service_cart"
-                  }
-                  onMouseEnter={() => setCartChange(service.product_id)}
-                  onMouseLeave={() => setCartChange(-1)}
-                >
-                  <Box
-                    sx={{
-                      backgroundImage: "url(/images/mock-img/images.jpeg)",
-                    }}
-                    className="image_box"
-                  >
-                    <Box
-                      className={
-                        cartChange === service.product_id
-                          ? "like_btn_wrap like_btn_wrap_active"
-                          : "like_btn_wrap"
-                      }
-                    >
-                      <FavoriteIcon
-                        className="like_btn"
-                        sx={
-                          service.product_liken
-                            ? { fill: "red" }
-                            : { fill: "white" }
-                        }
-                      />
-                    </Box>
-                  </Box>
-                  <Box className="desc_box">
-                    <h4 className="cart_name">Dog Cafe</h4>
-                    <Box className="service_location">
-                      <LocationOnIcon />
-                      <p className="location_text">Seoul</p>
-                    </Box>
-                    <Box className="service_location">
-                      <PhoneIcon />
-                      <p className="location_text">010 5788 5120</p>
-                    </Box>
-                  </Box>
-                  <Box className="bottom_box">
-                    <Box className="review_box">
-                      <Rating
-                        className="review_icon"
-                        name="half-rating"
-                        defaultValue={4}
-                        precision={0.5}
-                        size="small"
-                        readOnly
-                      />
-                      <p className="review_text">(23)</p>
-                    </Box>
-                    <Box className="like_view_box">
-                      <FavoriteIcon className="like_view_btn" />
-                      <p className="like_view_cnt">30</p>
-                      <RemoveRedEyeIcon className="like_view_btn" />
-                      <p className="like_view_cnt">58</p>
-                    </Box>
-                  </Box>
-                </Stack>
-              );
+            {service_list?.map((service) => {
+              return <ServiceCard key={service} cartData={service} />;
             })}
           </Box>
 
