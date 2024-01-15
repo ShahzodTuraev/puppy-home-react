@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import PetsIcon from "@mui/icons-material/Pets";
 import {
@@ -14,11 +14,18 @@ import Slider, { SliderThumb } from "@mui/material/Slider";
 import { product_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward, Home, Close } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Products = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const AirbnbSlider = styled(Slider)(({ theme }) => ({
     color: "#3a8589",
     height: 3,

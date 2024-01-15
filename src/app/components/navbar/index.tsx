@@ -1,16 +1,16 @@
-import { Badge, Box, Button, Container, IconButton, Menu } from "@mui/material";
+import { Badge, Box, Container, IconButton, Menu } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Search,
   ShoppingCart,
   Notifications,
-  KeyboardArrowUp,
+  ArrowUpward,
 } from "@mui/icons-material";
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
-import { Link } from "react-scroll";
 import Footer from "../footer";
+// import { FullContext } from "../../context";
 
 const Navbar = () => {
   /*INITIALIZATIONS*/
@@ -18,6 +18,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
+  // const [loginPage, setLoginPage] = useContext(FullContext);
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
@@ -35,18 +36,25 @@ const Navbar = () => {
   // Check if scrollPosition is greater than or equal to 100
   const isScrolled = scrollPosition >= 100;
   const isTopScroll = scrollPosition >= 300;
-  // const [menu, setMenu] = useState(false);
-  // const onMenu = () => {
-  //   setMenu(!menu);
-  // };
+  const [menu, setMenu] = useState(false);
+  const onMenu = () => {
+    setMenu(!menu);
+  };
 
   /*HANDLERS*/
+  const topHandler = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <div
@@ -139,33 +147,33 @@ const Navbar = () => {
                 <Box className="search_button">Search</Box>
               </Box>
             </Menu>
-            <Badge badgeContent="2" color="primary" className="badge">
+            <Badge badgeContent="0" color="primary" className="badge">
               <IconButton className="icon_box cart_icon">
                 <ShoppingCart className="icon" />
               </IconButton>
             </Badge>
 
-            <Badge badgeContent="4" color="primary" className="badge">
+            <Badge badgeContent="0" color="primary" className="badge">
               <IconButton className="icon_box cart_icon">
                 <Notifications className="icon" />
               </IconButton>
             </Badge>
-            <Button className="nav_btn_sign">Sign up </Button>
-            <Button className="nav_btn">Log in </Button>
+            <NavLink to={"/sign-up"} className="nav_btn">
+              Sign up
+            </NavLink>
+            <NavLink to={"/log-in"} className="nav_btn">
+              Log in
+            </NavLink>
           </Box>
         </Container>
+        {isTopScroll && (
+          <ArrowUpward
+            sx={{ fill: "#ffffff ", width: "40px", height: "40px" }}
+            className="up_icon"
+            onClick={topHandler}
+          />
+        )}
       </div>
-      {isTopScroll && (
-        <Link
-          to="pageHeader"
-          spy={true}
-          smooth={true}
-          offset={0}
-          duration={500}
-        >
-          <KeyboardArrowUp className="up_icon" />
-        </Link>
-      )}
 
       <Outlet />
       <Footer />

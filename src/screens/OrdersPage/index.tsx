@@ -4,7 +4,6 @@ import {
   Container,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Pagination,
   PaginationItem,
   Radio,
@@ -12,7 +11,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../scss/orders.scss";
 import {
   ArrowBack,
@@ -22,12 +21,19 @@ import {
   ListAltOutlined,
   PinDropOutlined,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { product_list, service_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import ServiceCard from "../ServicePage/serciveCard";
 const OrdersPage = () => {
   /*INSTALIZATIONS*/
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const [side, setSide] = useState<number>(0);
   const [orderBtn, setOrderBtn] = useState<number>(0);
   const [wishType, setWishType] = useState<string>("product");

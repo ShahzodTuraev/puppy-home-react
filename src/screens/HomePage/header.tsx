@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 const Header = () => {
   return (
-    <div className="home_header">
+    <div id="homeHeader" className="home_header">
       <Swiper
         spaceBetween={0}
         loop={true}

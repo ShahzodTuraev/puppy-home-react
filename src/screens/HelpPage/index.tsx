@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import "../../scss/help.scss";
 import { Close, Home } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const HelpPage = () => {
   /*INITIALIZATIONS*/
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const navigate = useNavigate();
   const faq_data = [
     {

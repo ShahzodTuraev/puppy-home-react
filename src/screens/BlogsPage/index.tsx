@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -21,10 +21,17 @@ import {
 } from "@mui/icons-material";
 
 import "../../scss/blogs.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BlogsPage = () => {
   /*INITIALIZATIONS*/
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const navigate = useNavigate();
   const [comment, setComment] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);

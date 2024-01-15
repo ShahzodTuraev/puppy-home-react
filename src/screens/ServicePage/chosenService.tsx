@@ -25,8 +25,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { cart_list, service_list } from "../../mock/cart_data";
-import ShoppingCart from "../../app/components/shoppingCart";
+import { service_list } from "../../mock/cart_data";
 import ServiceCard from "./serciveCard";
 
 const ChosenService = () => {

@@ -7,6 +7,8 @@ import { NavbarObj } from "../../types/others";
 import ChosenProduct from "../../screens/ShopPage/chosenProduct";
 import ChosenService from "../../screens/ServicePage/chosenService";
 import OrdersPage from "../../screens/OrdersPage";
+import SignUp from "../../screens/SigninPage";
+import LogIn from "../../screens/LoginPage";
 
 export const navbar: NavbarObj[] = [
   {
@@ -63,6 +65,20 @@ export const navbar: NavbarObj[] = [
     title: "Orders",
     path: "/orders",
     private: true,
+    hidden: true,
+  },
+  {
+    element: <SignUp />,
+    title: "sign-up",
+    path: "/sign-up",
+    private: false,
+    hidden: true,
+  },
+  {
+    element: <LogIn />,
+    title: "log-in",
+    path: "/log-in",
+    private: false,
     hidden: true,
   },
 ];
