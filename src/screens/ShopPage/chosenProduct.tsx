@@ -22,8 +22,8 @@ import {
   Rating,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactImageMagnify from "react-image-magnify";
 import "../../scss/shop.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -35,6 +35,13 @@ import ShoppingCart from "../../app/components/shoppingCart";
 
 const ChosenProduct = () => {
   /*INITIALIATIONS*/
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const [count, setCount] = useState<number>(1);
   const navigate = useNavigate();
   const imgSrc = [

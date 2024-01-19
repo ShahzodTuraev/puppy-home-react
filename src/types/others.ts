@@ -5,3 +5,12 @@ export interface NavbarObj {
   private: boolean;
   hidden: boolean;
 }
+
+export interface ProductSearchObj {
+  page: number;
+  limit: number;
+  order: string;
+  product_collection?: string[];
+  min_price: number;
+  max_price: number;
+}

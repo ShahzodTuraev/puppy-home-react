@@ -18,8 +18,8 @@ import {
   Rating,
   Stack,
 } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../scss/shop.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -30,6 +30,13 @@ import ServiceCard from "./serciveCard";
 
 const ChosenService = () => {
   /*INITIALIATIONS*/
+  const pathname = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
   const navigate = useNavigate();
 
   return (
@@ -41,7 +48,7 @@ const ChosenService = () => {
             <p>Home</p>
           </Box>
           <p className="link_div">/</p>
-          <Box className="dir_link">
+          <Box className="dir_link" onClick={() => navigate("/service")}>
             <p className="before_icon">Service</p>
           </Box>
           <p className="link_div">/</p>

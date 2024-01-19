@@ -6,39 +6,45 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Rating from "@mui/material/Rating";
 import "../../scss/shoppingCart.scss";
 import { useNavigate } from "react-router-dom";
+import { serverApi } from "../lib/config";
+import Moment from "react-moment";
+import { useTimer } from "react-timer-hook";
 const ShoppingCart = ({ cartData }: any) => {
   /*INITIALIZATIONS*/
   const {
-    product_id,
+    _id,
     product_images,
     product_name,
     product_price,
     product_discount,
     product_discount_period,
+    product_discount_start,
     product_likes,
     product_views,
     product_review,
     product_review_cnt,
     product_left_cnt,
     product_liken,
+    createdAt,
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
+
   /*HANDLERS*/
   return (
     <Box
       className="shop_cart"
-      onMouseEnter={() => setCartChange(product_id)}
+      onMouseEnter={() => setCartChange(_id)}
       onMouseLeave={() => setCartChange(-1)}
-      onClick={() => navigate(`/shop/${product_id}`)}
+      onClick={() => navigate(`/shop/${_id}`)}
     >
       <Box
         className="cart_img"
         sx={{
           backgroundImage: `url(${
-            cartChange === product_id && product_images.length > 1
-              ? product_images[1]
-              : product_images[0]
+            cartChange === _id && product_images.length > 1
+              ? `${serverApi}/${product_images[1]}`
+              : `${serverApi}/${product_images[0]}`
           })`,
         }}
       >
@@ -50,8 +56,11 @@ const ShoppingCart = ({ cartData }: any) => {
           <p className="percent_text">{product_discount}%</p>
         </Box>
         <Box
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           className={
-            cartChange === product_id
+            cartChange === _id
               ? "like_btn_wrap like_btn_wrap_active"
               : "like_btn_wrap"
           }
@@ -60,9 +69,6 @@ const ShoppingCart = ({ cartData }: any) => {
             className="like_btn"
             sx={product_liken ? { fill: "red" } : { fill: "white" }}
           />
-        </Box>
-        <Box className={product_discount_period ? "sale_box" : "discount_zero"}>
-          Sale
         </Box>
       </Box>
       <Box className="cart_desc">
@@ -78,7 +84,10 @@ const ShoppingCart = ({ cartData }: any) => {
             <p className="cart_sale_price">
               &#8361;{" "}
               {product_discount > 0
-                ? (product_price * product_discount) / 100
+                ? Math.round(
+                    (product_price - (product_price * product_discount) / 100) /
+                      10
+                  ) * 10
                 : product_price}
             </p>
             <p
@@ -89,19 +98,26 @@ const ShoppingCart = ({ cartData }: any) => {
             </p>
           </Box>
           <Box
-            className={
-              cartChange === product_id && product_left_cnt !== 0
-                ? "add_cart_wrap add_cart_wrap_active"
-                : "add_cart_wrap"
-            }
+            className="add_icon_wrap"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
-            <AddShoppingCartIcon
+            <Box
               className={
-                cartChange === product_id && product_left_cnt !== 0
-                  ? "add_cart_icon add_cart_icon_active"
-                  : "add_cart_icon"
+                cartChange === _id && product_left_cnt !== 0
+                  ? "add_cart_wrap add_cart_wrap_active"
+                  : "add_cart_wrap"
               }
-            />
+            >
+              <AddShoppingCartIcon
+                className={
+                  cartChange === _id && product_left_cnt !== 0
+                    ? "add_cart_icon add_cart_icon_active"
+                    : "add_cart_icon"
+                }
+              />
+            </Box>
           </Box>
         </Box>
         <p

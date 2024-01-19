@@ -3,8 +3,20 @@ import React, { useState } from "react";
 import EastIcon from "@mui/icons-material/East";
 import { cart_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
+// REDUX
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveTrendingProducts } from "./selector";
+// REDUX SELECTOR
+const trendignProductsRetriever = createSelector(
+  retrieveTrendingProducts,
+  (trendingProducts) => ({
+    trendingProducts,
+  })
+);
 const Trends = () => {
   /*INITIALIZATIONS*/
+  const { trendingProducts } = useSelector(trendignProductsRetriever);
   const [activeBtn, setActiveBtn] = useState<any>({
     btn1: true,
     btn2: false,
@@ -64,8 +76,8 @@ const Trends = () => {
         </Button>
       </Box>
       <Stack sx={{ gap: "20px" }} className="cart_wrap">
-        {cart_list.map((ele) => {
-          return <ShoppingCart cartData={ele} key={ele.product_id} />;
+        {trendingProducts.map((ele) => {
+          return <ShoppingCart cartData={ele} key={ele._id} />;
         })}
       </Stack>
       <Box className="bottom_box">
