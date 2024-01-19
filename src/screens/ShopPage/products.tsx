@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import PetsIcon from "@mui/icons-material/Pets";
 import {
@@ -9,17 +9,56 @@ import {
   FormControlLabel,
   Pagination,
   PaginationItem,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import Slider, { SliderThumb } from "@mui/material/Slider";
 import { product_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward, Home, Close } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
-
+// REDUX
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setAllProducts } from "./slice";
+import { Product } from "../../types/product";
+import { retrieveAllProducts } from "./selector";
+import ProductApiService from "../../app/apiServices/productApiService";
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setAllProducts: (data: Product[]) => dispatch(setAllProducts(data)),
+});
+// REDUX SELECTOR
+const allProductsRetriever = createSelector(
+  retrieveAllProducts,
+  (allProducts) => ({
+    allProducts,
+  })
+);
 const Products = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
   const pathname = useLocation();
+  const { setAllProducts } = actionDispatch(useDispatch());
+  useEffect(() => {
+    const productService = new ProductApiService();
+    productService
+      .getTargetProducts({
+        order: "createdAt",
+        page: 1,
+        limit: 9,
+        product_collection: ["food", "beauty", "clothes", "toy", "etc"],
+        min_price: 0,
+        max_price: 2000000,
+      })
+      .then((data) => setAllProducts(data))
+      .catch((err) => console.log(err));
+  }, []);
+  const { allProducts } = useSelector(allProductsRetriever);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -27,7 +66,7 @@ const Products = () => {
     });
   }, [pathname]);
   const AirbnbSlider = styled(Slider)(({ theme }) => ({
-    color: "#3a8589",
+    color: "#fc9823",
     height: 3,
     padding: "13px 0",
     "& .MuiSlider-thumb": {
@@ -62,7 +101,7 @@ const Products = () => {
       width: 32,
       height: 32,
       borderRadius: "50% 50% 50% 0",
-      backgroundColor: "#3a8589",
+      backgroundColor: "#fc9823",
       transformOrigin: "bottom left",
       transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
       "&::before": { display: "none" },
@@ -86,6 +125,7 @@ const Products = () => {
       </SliderThumb>
     );
   }
+
   /*HANDLERS*/
 
   return (
@@ -109,11 +149,6 @@ const Products = () => {
           </Box>
           <Box className="filter_body">
             <Box className="filter_line">
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="All"
-              />
               <FormControlLabel
                 control={<Checkbox />}
                 className="check_box"
@@ -146,36 +181,45 @@ const Products = () => {
           </Box>
           <Box className="filter_body">
             <Box className="filter_line">
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="New "
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Sale "
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="View"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Like "
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Review "
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Points "
-              />
+              <FormControl>
+                <RadioGroup
+                  onChange={(e) => console.log(e.target.value)}
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="createdAt"
+                    control={<Radio />}
+                    label="New"
+                  />
+                  <FormControlLabel
+                    value="product_discount"
+                    control={<Radio />}
+                    label="Sale"
+                  />
+                  <FormControlLabel
+                    value="product_views"
+                    control={<Radio />}
+                    label="View"
+                  />
+                  <FormControlLabel
+                    value="product_likes"
+                    control={<Radio />}
+                    label="Like"
+                  />
+                  <FormControlLabel
+                    value="product_reviews"
+                    control={<Radio />}
+                    label="Review"
+                  />
+                  <FormControlLabel
+                    value="product_point"
+                    control={<Radio />}
+                    label="Points"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Box>
           </Box>
           <Box className="filter_head">
@@ -200,11 +244,11 @@ const Products = () => {
         </Box>
         <Box className="product_box">
           <Box className="product_wrap">
-            {product_list.map((ele) => {
+            {allProducts.map((ele) => {
               return (
                 <ShoppingCart
                   className="shopping_cart"
-                  key={ele.product_id}
+                  key={ele._id}
                   cartData={ele}
                 />
               );

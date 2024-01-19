@@ -17,15 +17,13 @@ const ShoppingCart = ({ cartData }: any) => {
     product_name,
     product_price,
     product_discount,
-    product_discount_period,
-    product_discount_start,
     product_likes,
     product_views,
     product_review,
     product_review_cnt,
     product_left_cnt,
     product_liken,
-    createdAt,
+    me_liked,
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
@@ -67,7 +65,7 @@ const ShoppingCart = ({ cartData }: any) => {
         >
           <FavoriteIcon
             className="like_btn"
-            sx={product_liken ? { fill: "red" } : { fill: "white" }}
+            sx={me_liked?.my_favorite ? { fill: "red" } : { fill: "white" }}
           />
         </Box>
       </Box>

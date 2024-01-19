@@ -1,14 +1,22 @@
 import { Box, Button, Container, Stack } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EastIcon from "@mui/icons-material/East";
-import { cart_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 // REDUX
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrieveTrendingProducts } from "./selector";
+import { Product } from "../../types/product";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setTrendingProducts } from "./slice";
+import ProductApiService from "../../app/apiServices/productApiService";
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTrendingProducts: (data: Product[]) => dispatch(setTrendingProducts(data)),
+});
 // REDUX SELECTOR
-const trendignProductsRetriever = createSelector(
+const trendingProductsRetriever = createSelector(
   retrieveTrendingProducts,
   (trendingProducts) => ({
     trendingProducts,
@@ -16,12 +24,29 @@ const trendignProductsRetriever = createSelector(
 );
 const Trends = () => {
   /*INITIALIZATIONS*/
-  const { trendingProducts } = useSelector(trendignProductsRetriever);
+  const [sorting, setSorting] = useState("product_views");
+  const { setTrendingProducts } = actionDispatch(useDispatch());
+  useEffect(() => {
+    const productService = new ProductApiService();
+    productService
+      .getTargetProducts({
+        order: sorting,
+        page: 1,
+        limit: 8,
+        product_collection: ["food", "beauty", "clothes", "toy", "etc"],
+        min_price: 0,
+        max_price: 2000000,
+      })
+      .then((data) => setTrendingProducts(data))
+      .catch((err) => console.log(err));
+  }, [sorting]);
+  const { trendingProducts } = useSelector(trendingProductsRetriever);
   const [activeBtn, setActiveBtn] = useState<any>({
     btn1: true,
     btn2: false,
     btn3: false,
   });
+
   /*HANDLERS*/
   const handleSort = (e: any) => {
     const id = e.target.id;
@@ -32,6 +57,7 @@ const Trends = () => {
           btn2: true,
           btn3: false,
         });
+        setSorting("product_sold_cnt");
         break;
       case "latest":
         setActiveBtn({
@@ -39,6 +65,7 @@ const Trends = () => {
           btn2: false,
           btn3: true,
         });
+        setSorting("createdAt");
         break;
       default:
         setActiveBtn({
@@ -46,6 +73,7 @@ const Trends = () => {
           btn2: false,
           btn3: false,
         });
+        setSorting("product_views");
         break;
     }
   };

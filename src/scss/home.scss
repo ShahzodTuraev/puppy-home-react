@@ -360,7 +360,7 @@
           height: 450px;
           flex-direction: column;
           margin: 20px;
-          padding: 15px 25px;
+          padding: 10px 15px;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
           border-radius: 30px;
           position: relative;
@@ -379,8 +379,8 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
-            margin-bottom: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
             .event_date {
               color: rgb(109, 101, 118);
             }
@@ -396,29 +396,11 @@
             }
           }
           .event_topic {
-            font-size: 22px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
           }
-          .event_link {
-            position: absolute;
-            bottom: 20px;
-            left: 30px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            color: #172b4d;
-            width: 160px;
-            cursor: pointer;
-            transition: all 0.3s;
-            .link_info {
-              font-size: 18px;
-              font-weight: 500;
-              text-transform: capitalize;
-            }
-          }
-          .event_link_active {
-            color: #fc9823;
-            gap: 10px;
+          .event_content {
+            font-size: 14px;
           }
         }
         .event_cart_active {

@@ -10,9 +10,9 @@ import Events from "./events";
 import Features from "./features";
 import { useLocation } from "react-router-dom";
 // REDUX
-import { useDispatch } from "react-redux"; // useSelector orqali o'qiladi
+import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setTrendingProducts, setBigSales, setNews } from "./slice";
+import { setBigSales, setNews } from "./slice";
 import { Product } from "../../types/product";
 import ProductApiService from "../../app/apiServices/productApiService";
 import EventApiService from "../../app/apiServices/eventApiService";
@@ -20,16 +20,13 @@ import { Event } from "../../types/event";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
-  setTrendingProducts: (data: Product[]) => dispatch(setTrendingProducts(data)),
   setBigSales: (data: Product[]) => dispatch(setBigSales(data)),
   setNews: (data: Event[]) => dispatch(setNews(data)),
 });
 
 const HomePage: any = () => {
   /*INITIALIZATIONS*/
-  const { setTrendingProducts, setBigSales, setNews } = actionDispatch(
-    useDispatch()
-  );
+  const { setBigSales, setNews } = actionDispatch(useDispatch());
   const pathname = useLocation();
   useEffect(() => {
     window.scrollTo({
@@ -40,17 +37,7 @@ const HomePage: any = () => {
   useEffect(() => {
     const productService = new ProductApiService();
     const eventService = new EventApiService();
-    productService
-      .getTargetProducts({
-        order: "createdAt",
-        page: 1,
-        limit: 8,
-        product_collection: ["food", "beauty", "clothes", "toy", "etc"],
-        min_price: 0,
-        max_price: 2000000,
-      })
-      .then((data) => setTrendingProducts(data))
-      .catch((err) => console.log(err));
+
     productService
       .getTargetProducts({
         order: "product_discount",
