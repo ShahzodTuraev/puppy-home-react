@@ -10,7 +10,7 @@ class MemberApiService {
     this.path = serverApi;
   }
 
-  public async loginRequest(login_data: any) {
+  public async loginRequest(login_data: any): Promise<Member> {
     try {
       const result = await axios.post(this.path + "/login", login_data, {
         withCredentials: true,
@@ -23,6 +23,23 @@ class MemberApiService {
       return member;
     } catch (err: any) {
       console.log(`ERROR::: loginRequest ${err.message}`);
+      throw err;
+    }
+  }
+
+  public async signupRequest(signup_data: any): Promise<Member> {
+    try {
+      const result = await axios.post(this.path + "/signup", signup_data, {
+        withCredentials: true,
+      });
+      console.log("state:", result.data.state);
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data.state !== "fail", result?.data?.message);
+      const member: Member = result.data.data;
+      localStorage.setItem("member_data", JSON.stringify(member));
+      return member;
+    } catch (err: any) {
+      console.log(`ERROR::: signupRequest ${err.message}`);
       throw err;
     }
   }

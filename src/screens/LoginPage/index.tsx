@@ -4,6 +4,8 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sweetErrorHandling } from "../../app/lib/sweetAlert";
 import MemberApiService from "../../app/apiServices/memberApiService";
+import { Definer } from "../../app/lib/Definer";
+import assert from "assert";
 // import { FullContext } from "../../app/context";
 const LogIn = () => {
   /*INSTALIZATIONS*/
@@ -48,6 +50,8 @@ const LogIn = () => {
 
         if (password === "") setPasswordError("Fill out this field");
       }
+      const is_fulfilled = nickName !== "" && password !== "";
+      assert.ok(is_fulfilled, Definer.input_err1);
       const login_data = {
         mb_nick: nickName,
         mb_password: password,

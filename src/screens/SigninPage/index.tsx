@@ -3,6 +3,10 @@ import "../../scss/signup.scss";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { FullContext } from "../../app/context";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Definer } from "../../app/lib/Definer";
+import assert from "assert";
+import MemberApiService from "../../app/apiServices/memberApiService";
+import { sweetErrorHandling } from "../../app/lib/sweetAlert";
 const SignUp = () => {
   /*INSTALIZATIONS*/
   const [nickName, setNickName] = useState<string>("");
@@ -33,26 +37,40 @@ const SignUp = () => {
     setPasswordError("");
   };
 
-  const signupHandler = () => {
-    if (
-      nickName !== "" &&
-      password !== "" &&
-      email.length > 3 &&
-      email.includes("@") &&
-      email.includes(".")
-    ) {
-      setNickName("");
-      setEmail("");
-      setPassword("");
-    } else {
-      if (nickName === "") setNickError("Fill out this field");
-      if (email === "") {
-        setEmailError("Fill out this field");
+  const signupHandler = async () => {
+    try {
+      if (
+        nickName !== "" &&
+        password !== "" &&
+        email.length > 3 &&
+        email.includes("@") &&
+        email.includes(".")
+      ) {
+        setNickName("");
+        setEmail("");
+        setPassword("");
       } else {
-        if (email.length <= 3 || !email.includes("@") || !email.includes("."))
-          setEmailError("This is invalid email address");
+        if (nickName === "") setNickError("Fill out this field");
+        if (email === "") {
+          setEmailError("Fill out this field");
+        } else {
+          if (email.length <= 3 || !email.includes("@") || !email.includes("."))
+            setEmailError("This is invalid email address");
+        }
+        if (password === "") setPasswordError("Fill out this field");
       }
-      if (password === "") setPasswordError("Fill out this field");
+      const is_fulfilled = nickName !== "" && password !== "" && email !== "";
+      assert.ok(is_fulfilled, Definer.input_err1);
+      const signup_data = {
+        mb_nick: nickName,
+        mb_email: email,
+        mb_password: password,
+      };
+      const mbApiService = new MemberApiService();
+      await mbApiService.signupRequest(signup_data);
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
     }
   };
 
@@ -71,7 +89,6 @@ const SignUp = () => {
             variant="outlined"
             onChange={nameChangeHandler}
             size="small"
-            defaultValue={null}
             helperText={nickError}
             value={nickName}
           />
