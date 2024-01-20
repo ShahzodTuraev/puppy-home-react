@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@material-ui/core": "^4.12.4",
@@ -36,6 +37,7 @@
     "redux-logger": "^3.0.6",
     "sass": "^1.69.6",
     "styled-components": "^6.1.6",
+    "sweetalert2": "^11.10.3",
     "swiper": "^11.0.5",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"

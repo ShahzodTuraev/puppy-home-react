@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../scss/signup.scss";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { sweetErrorHandling } from "../../app/lib/sweetAlert";
+import MemberApiService from "../../app/apiServices/memberApiService";
 // import { FullContext } from "../../app/context";
 const LogIn = () => {
   /*INSTALIZATIONS*/
@@ -36,14 +38,25 @@ const LogIn = () => {
     setRepassword(e.target.value);
     setRepasswordError("");
   };
-  const loginHandler = () => {
-    if (nickName !== "" && password !== "") {
-      setNickName("");
-      setPassword("");
-    } else {
-      if (nickName === "") setNickError("Fill out this field");
+  const loginHandler = async () => {
+    try {
+      if (nickName !== "" && password !== "") {
+        setNickName("");
+        setPassword("");
+      } else {
+        if (nickName === "") setNickError("Fill out this field");
 
-      if (password === "") setPasswordError("Fill out this field");
+        if (password === "") setPasswordError("Fill out this field");
+      }
+      const login_data = {
+        mb_nick: nickName,
+        mb_password: password,
+      };
+      const mbApiService = new MemberApiService();
+      await mbApiService.loginRequest(login_data);
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
     }
   };
 
@@ -74,7 +87,6 @@ const LogIn = () => {
         <Box className="input_wrap">
           <TextField
             error={!!nickError}
-            color="secondary"
             className="input_area"
             id="outlined-basic"
             label="Nick name"
@@ -88,7 +100,6 @@ const LogIn = () => {
 
         <Box className="input_wrap">
           <TextField
-            color="secondary"
             className="input_area"
             onChange={passwordChangeHandler}
             id="outlined-basic"
@@ -105,7 +116,6 @@ const LogIn = () => {
         {reset && (
           <Box className="input_wrap">
             <TextField
-              color="secondary"
               className="input_area"
               onChange={repasswordChangeHandler}
               id="outlined-basic"

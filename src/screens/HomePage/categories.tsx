@@ -1,23 +1,49 @@
 import { Box, Container } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { FullContext } from "../../app/context";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useNavigate } from "react-router-dom";
 const Categories = () => {
   /*INITIALIZATIONS*/
-  const category = [
-    { imagePath: "/images/categories/bag.jpg", name: "Bag" },
-    { imagePath: "/images/categories/accessory.png", name: "Accessory" },
-    { imagePath: "/images/categories/dress.png", name: "Dress" },
-    { imagePath: "/images/categories/food.png", name: "Food" },
-    { imagePath: "/images/categories/bed.jpg", name: "Bed" },
-    { imagePath: "/images/categories/toy.jpg", name: "Toy" },
-    { imagePath: "/images/categories/parfume.png", name: "Hygiene" },
-    { imagePath: "/images/categories/dish.jpg", name: "Bowl" },
+  const [category, setCategory] = useContext(FullContext);
+
+  const navigate = useNavigate();
+  const category_list = [
+    { collection: "etc", imagePath: "/images/categories/bag.jpg", name: "Bag" },
+    {
+      collection: "etc",
+      imagePath: "/images/categories/accessory.png",
+      name: "Accessory",
+    },
+    {
+      collection: "clothes",
+      imagePath: "/images/categories/dress.png",
+      name: "Dress",
+    },
+    {
+      collection: "food",
+      imagePath: "/images/categories/food.png",
+      name: "Food",
+    },
+    { collection: "etc", imagePath: "/images/categories/bed.jpg", name: "Bed" },
+    { collection: "toy", imagePath: "/images/categories/toy.jpg", name: "Toy" },
+    {
+      collection: "beauty",
+      imagePath: "/images/categories/parfume.png",
+      name: "Hygiene",
+    },
+    {
+      collection: "etc",
+      imagePath: "/images/categories/dish.jpg",
+      name: "Bowl",
+    },
   ];
   /*HANDLERS*/
+
   return (
     <div className="category_container">
       <Container>
@@ -29,9 +55,16 @@ const Categories = () => {
           centeredSlides={true}
           className="mySwiper_category"
         >
-          {category.map(({ imagePath, name }, id) => {
+          {category_list.map(({ imagePath, name, collection }, id) => {
             return (
-              <SwiperSlide className="swiper_slide" key={id}>
+              <SwiperSlide
+                className="swiper_slide"
+                onClick={() => {
+                  setCategory(collection);
+                  navigate("/shop");
+                }}
+                key={id}
+              >
                 <Box
                   className="category_img"
                   sx={{ backgroundImage: `url(${imagePath})` }}

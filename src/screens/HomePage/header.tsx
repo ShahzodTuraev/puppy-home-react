@@ -7,7 +7,10 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  /*INITIALIZATIONS*/
+  const navigate = useNavigate();
   return (
     <div id="homeHeader" className="home_header">
       <Swiper
@@ -35,7 +38,7 @@ const Header = () => {
                 collections and services tailored to their preferences, ensuring
                 their joy and satisfaction.
               </h4>
-              <Button className="start_btn">
+              <Button onClick={() => navigate("/shop")} className="start_btn">
                 start your journey <EastIcon className="right_dir" />
               </Button>
             </Box>
@@ -59,7 +62,7 @@ const Header = () => {
                 collections and services tailored to their preferences, ensuring
                 their joy and satisfaction.
               </h4>
-              <Button className="start_btn">
+              <Button onClick={() => navigate("/shop")} className="start_btn">
                 start your journey <EastIcon className="right_dir" />
               </Button>
             </Box>
@@ -80,7 +83,7 @@ const Header = () => {
                 collections and services tailored to their preferences, ensuring
                 their joy and satisfaction.
               </h4>
-              <Button className="start_btn">
+              <Button onClick={() => navigate("/shop")} className="start_btn">
                 start your journey <EastIcon className="right_dir" />
               </Button>
             </Box>
@@ -101,7 +104,7 @@ const Header = () => {
                 collections and services tailored to their preferences, ensuring
                 their joy and satisfaction.
               </h4>
-              <Button className="start_btn">
+              <Button onClick={() => navigate("/shop")} className="start_btn">
                 start your journey <EastIcon className="right_dir" />
               </Button>
             </Box>
@@ -125,7 +128,7 @@ const Header = () => {
                 collections and services tailored to their preferences, ensuring
                 their joy and satisfaction.
               </h4>
-              <Button className="start_btn">
+              <Button onClick={() => navigate("/shop")} className="start_btn">
                 start your journey <EastIcon className="right_dir" />
               </Button>
             </Box>

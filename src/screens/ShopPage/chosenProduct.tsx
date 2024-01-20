@@ -23,7 +23,7 @@ import {
   Stack,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ReactImageMagnify from "react-image-magnify";
 import "../../scss/shop.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -35,6 +35,7 @@ import ShoppingCart from "../../app/components/shoppingCart";
 
 const ChosenProduct = () => {
   /*INITIALIATIONS*/
+  let { product_id } = useParams<{ product_id: string }>();
   const pathname = useLocation();
   useEffect(() => {
     window.scrollTo({
@@ -152,6 +153,7 @@ const ChosenProduct = () => {
               </Box>
             </Box>
             <p className="product_desc">
+              {product_id}
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
               quibusdam tempore consectetur voluptatum suscipit, sed blanditiis
               molestias, itaque, repellendus quae numquam cupiditate aliquam

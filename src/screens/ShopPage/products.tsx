@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import PetsIcon from "@mui/icons-material/Pets";
 import {
@@ -18,6 +18,7 @@ import Slider, { SliderThumb } from "@mui/material/Slider";
 import { product_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward, Home, Close } from "@mui/icons-material";
+import { FullContext } from "../../app/context";
 import { useLocation, useNavigate } from "react-router-dom";
 // REDUX
 import { createSelector } from "reselect";
@@ -103,21 +104,18 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
 
 const Products = () => {
   /*INITIALIZATIONS*/
+  const [category, setCategory] = useContext(FullContext);
+
   const navigate = useNavigate();
   const pathname = useLocation();
-  const [collection, setCollection] = useState<any>([
-    "food",
-    "beauty",
-    "clothes",
-    "toy",
-    "etc",
-  ]);
-
   const [searchProductsObj, setSearchProductsObj] = useState<ProductSearchObj>({
     order: "product_views",
     page: 1,
     limit: 9,
-    product_collection: ["food", "beauty", "clothes", "toy", "etc"],
+    product_collection:
+      category === "all"
+        ? ["food", "beauty", "clothes", "toy", "etc"]
+        : [category],
     price: [0, 1000],
   });
   const { setAllProducts } = actionDispatch(useDispatch());
@@ -155,10 +153,9 @@ const Products = () => {
         ? ["food", "beauty", "clothes", "toy", "etc"]
         : [e.target.value];
     searchProductsObj.page = 1;
+    setCategory(e.target.value);
     setSearchProductsObj({ ...searchProductsObj });
   };
-  console.log("price:::", price);
-
   const handlePriceChange = (e: any, value: any) => {
     setPrice(value);
 
@@ -190,7 +187,7 @@ const Products = () => {
               <FormControl>
                 <RadioGroup
                   onChange={handleCollectionChange}
-                  defaultValue={"all"}
+                  defaultValue={category}
                   aria-labelledby="demo-radio-buttons-group-label"
                   name="radio-buttons-group"
                 >
@@ -290,7 +287,6 @@ const Products = () => {
                 getAriaLabel={(index) =>
                   index === 0 ? "Minimum price" : "Maximum price"
                 }
-                defaultValue={[0, 100]}
               />
             </Box>
           </Box>

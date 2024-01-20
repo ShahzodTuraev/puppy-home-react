@@ -1,5 +1,5 @@
 import { Badge, Box, Container, IconButton, Menu } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Search,
@@ -10,7 +10,7 @@ import {
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
 import Footer from "../footer";
-// import { FullContext } from "../../context";
+import { FullContext } from "../../context";
 
 const Navbar = () => {
   /*INITIALIZATIONS*/
@@ -18,7 +18,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
-  // const [loginPage, setLoginPage] = useContext(FullContext);
+  const [category, setCategory] = useContext(FullContext);
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;

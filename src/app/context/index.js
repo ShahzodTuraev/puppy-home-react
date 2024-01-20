@@ -2,9 +2,9 @@ import React, { createContext, useState } from "react";
 export const FullContext = createContext();
 
 const RootContext = ({ children }) => {
-  const [loginPage, setLoginPage] = useState("signup");
+  const [category, setCategory] = useState("all");
   return (
-    <FullContext.Provider value={[loginPage, setLoginPage]}>
+    <FullContext.Provider value={[category, setCategory]}>
       {children}
     </FullContext.Provider>
   );
