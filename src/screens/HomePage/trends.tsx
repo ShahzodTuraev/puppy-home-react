@@ -34,8 +34,7 @@ const Trends = () => {
         page: 1,
         limit: 8,
         product_collection: ["food", "beauty", "clothes", "toy", "etc"],
-        min_price: 0,
-        max_price: 2000000,
+        price: [0, 1000],
       })
       .then((data) => setTrendingProducts(data))
       .catch((err) => console.log(err));

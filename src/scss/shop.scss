@@ -64,9 +64,10 @@
       .product_wrap {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        padding-left: 20px;
         gap: 40px;
         flex-wrap: wrap;
+        margin-bottom: 20px;
       }
       .shopping_cart {
         margin: 0;

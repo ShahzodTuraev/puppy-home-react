@@ -11,6 +11,5 @@ export interface ProductSearchObj {
   limit: number;
   order: string;
   product_collection?: string[];
-  min_price: number;
-  max_price: number;
+  price: number[];
 }
