@@ -78,20 +78,12 @@
       .badge {
         margin-right: 30px;
         .icon_box {
-          width: 29px;
-          height: 29px;
-          // border-radius: 20px;
-          // background: #ffffff;
-          // margin-right: 20px;
           cursor: pointer;
           position: relative;
+          padding: 0;
           transition: all 0.3s;
 
           .icon {
-            transform: translate(-50%, -50%);
-            position: absolute;
-            top: 50%;
-            left: 50%;
             fill: #1d1d1d;
             &:hover {
               fill: #fc9823;
@@ -102,7 +94,21 @@
           }
         }
       }
+      .auth_box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
+        .user_avatar_wrap {
+          .user_avatar {
+            width: 45px;
+            height: 45px;
+          }
+        }
+        .account_dropdown {
+          cursor: pointer;
+        }
+      }
       .nav_btn {
         text-decoration: none;
         text-transform: uppercase;
@@ -169,6 +175,17 @@
   transition: all 0.3s;
   &:hover {
     background: #172b4d;
+  }
+}
+
+.drop_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+    margin-left: 6px;
+    font-size: 18px;
+    font-weight: 500;
   }
 }
 

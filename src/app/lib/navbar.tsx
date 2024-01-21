@@ -9,6 +9,7 @@ import ChosenService from "../../screens/ServicePage/chosenService";
 import OrdersPage from "../../screens/OrdersPage";
 import SignUp from "../../screens/SigninPage";
 import LogIn from "../../screens/LoginPage";
+import AccountPage from "../../screens/AccountPage";
 
 export const navbar: NavbarObj[] = [
   {
@@ -78,6 +79,13 @@ export const navbar: NavbarObj[] = [
     element: <LogIn />,
     title: "log-in",
     path: "/log-in",
+    private: false,
+    hidden: true,
+  },
+  {
+    element: <AccountPage />,
+    title: "my-account",
+    path: "/my-account",
     private: false,
     hidden: true,
   },

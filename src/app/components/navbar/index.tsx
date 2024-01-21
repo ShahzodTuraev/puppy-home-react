@@ -1,4 +1,12 @@
-import { Badge, Box, Container, IconButton, Menu } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+} from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -6,19 +14,31 @@ import {
   ShoppingCart,
   Notifications,
   ArrowUpward,
+  Person,
+  Favorite,
+  Logout,
+  FavoriteBorder,
 } from "@mui/icons-material";
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
 import Footer from "../footer";
+import { verifyMemberData } from "../../apiServices/verify";
+import { Dropdown, MenuProps } from "antd";
+import MemberApiService from "../../apiServices/memberApiService";
+import {
+  sweetFailureProvider,
+  sweetTopSmallSuccessAlert,
+} from "../../lib/sweetAlert";
+import { Definer } from "../../lib/Definer";
 import { FullContext } from "../../context";
 
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [side, setSide] = useContext(FullContext);
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [category, setCategory] = useContext(FullContext);
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
@@ -54,6 +74,51 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogOutRequest = async () => {
+    try {
+      const memberApiService = new MemberApiService();
+      await memberApiService.logOutRequest();
+      await sweetTopSmallSuccessAlert("success", 700, true);
+    } catch (err) {
+      console.log(err);
+      sweetFailureProvider(Definer.general_err1);
+    }
+  };
+  const handleWishlist = () => {
+    setSide(3);
+    navigate("/orders");
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <Box onClick={() => navigate("/my-account")} className="drop_item">
+          <Person sx={{ fill: "#444444" }} />
+          <p>My Account</p>
+        </Box>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Box onClick={handleWishlist} className="drop_item">
+          <FavoriteBorder sx={{ fill: "#444444" }} />
+          <p>Wishlist</p>
+        </Box>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Box onClick={handleLogOutRequest} className="drop_item">
+          <Logout sx={{ fill: "#444444" }} />
+          <p>Log Out</p>
+        </Box>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -147,23 +212,46 @@ const Navbar = () => {
                 <Box className="search_button">Search</Box>
               </Box>
             </Menu>
-            <Badge badgeContent="0" color="primary" className="badge">
+            <Badge badgeContent={4} color="primary" className="badge">
               <IconButton className="icon_box cart_icon">
                 <ShoppingCart className="icon" />
               </IconButton>
             </Badge>
-
-            <Badge badgeContent="0" color="primary" className="badge">
-              <IconButton className="icon_box cart_icon">
-                <Notifications className="icon" />
-              </IconButton>
-            </Badge>
-            <NavLink to={"/sign-up"} className="nav_btn">
-              Sign up
-            </NavLink>
-            <NavLink to={"/log-in"} className="nav_btn">
-              Log in
-            </NavLink>
+            {verifyMemberData ? (
+              <Box className="auth_box">
+                <Badge
+                  badgeContent={4}
+                  color="primary"
+                  className="badge notif_badge"
+                >
+                  <IconButton className="icon_box">
+                    <Notifications className="icon" />
+                  </IconButton>
+                </Badge>
+                <Dropdown
+                  className="account_dropdown"
+                  menu={{ items }}
+                  placement="bottomRight"
+                >
+                  <Box className="user_avatar_wrap">
+                    <Avatar
+                      className="user_avatar"
+                      alt="User"
+                      src={verifyMemberData.mb_image}
+                    />
+                  </Box>
+                </Dropdown>
+              </Box>
+            ) : (
+              <div>
+                <NavLink to={"/sign-up"} className="nav_btn">
+                  Sign up
+                </NavLink>
+                <NavLink to={"/log-in"} className="nav_btn">
+                  Log in
+                </NavLink>
+              </div>
+            )}
           </Box>
         </Container>
         {isTopScroll && (

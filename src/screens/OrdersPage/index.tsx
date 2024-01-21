@@ -11,7 +11,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../scss/orders.scss";
 import {
   ArrowBack,
@@ -25,6 +25,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { product_list, service_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import ServiceCard from "../ServicePage/serciveCard";
+import { FullContext } from "../../app/context";
 const OrdersPage = () => {
   /*INSTALIZATIONS*/
   const pathname = useLocation();
@@ -34,7 +35,7 @@ const OrdersPage = () => {
       behavior: "smooth",
     });
   }, [pathname]);
-  const [side, setSide] = useState<number>(0);
+  const [side, setSide] = useContext(FullContext);
   const [orderBtn, setOrderBtn] = useState<number>(0);
   const [wishType, setWishType] = useState<string>("product");
   const sideList = [

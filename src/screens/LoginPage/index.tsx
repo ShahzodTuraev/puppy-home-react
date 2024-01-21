@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../../scss/signup.scss";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { sweetErrorHandling } from "../../app/lib/sweetAlert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../app/lib/sweetAlert";
 import MemberApiService from "../../app/apiServices/memberApiService";
 import { Definer } from "../../app/lib/Definer";
 import assert from "assert";
@@ -42,10 +45,7 @@ const LogIn = () => {
   };
   const loginHandler = async () => {
     try {
-      if (nickName !== "" && password !== "") {
-        setNickName("");
-        setPassword("");
-      } else {
+      if (nickName === "" || password === "") {
         if (nickName === "") setNickError("Fill out this field");
 
         if (password === "") setPasswordError("Fill out this field");
@@ -58,6 +58,9 @@ const LogIn = () => {
       };
       const mbApiService = new MemberApiService();
       await mbApiService.loginRequest(login_data);
+      navigate("/");
+
+      sweetTopSmallSuccessAlert("Login Success", 1000, true);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
@@ -82,7 +85,9 @@ const LogIn = () => {
       }
     }
   };
-
+  const paasswordKeyPressHandler = (e: any) => {
+    if (e.key === "Enter") loginHandler().then();
+  };
   return (
     <div className="signinPage">
       <Stack className="form_box">
@@ -114,6 +119,7 @@ const LogIn = () => {
             value={password}
             error={!!passwordError}
             helperText={passwordError}
+            onKeyPress={paasswordKeyPressHandler}
           />
         </Box>
 

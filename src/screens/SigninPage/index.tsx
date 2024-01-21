@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../scss/signup.scss";
 import { Box, Button, Stack, TextField } from "@mui/material";
-import { FullContext } from "../../app/context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Definer } from "../../app/lib/Definer";
 import assert from "assert";
 import MemberApiService from "../../app/apiServices/memberApiService";
-import { sweetErrorHandling } from "../../app/lib/sweetAlert";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../../app/lib/sweetAlert";
 const SignUp = () => {
   /*INSTALIZATIONS*/
   const [nickName, setNickName] = useState<string>("");
@@ -40,16 +42,12 @@ const SignUp = () => {
   const signupHandler = async () => {
     try {
       if (
-        nickName !== "" &&
-        password !== "" &&
-        email.length > 3 &&
-        email.includes("@") &&
-        email.includes(".")
+        nickName === "" &&
+        password === "" &&
+        email.length < 4 &&
+        !email.includes("@") &&
+        !email.includes(".")
       ) {
-        setNickName("");
-        setEmail("");
-        setPassword("");
-      } else {
         if (nickName === "") setNickError("Fill out this field");
         if (email === "") {
           setEmailError("Fill out this field");
@@ -68,10 +66,15 @@ const SignUp = () => {
       };
       const mbApiService = new MemberApiService();
       await mbApiService.signupRequest(signup_data);
+      navigate("/");
+      sweetTopSmallSuccessAlert("Success", 1000, true);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
     }
+  };
+  const paasswordKeyPressHandler = (e: any) => {
+    if (e.key === "Enter") signupHandler().then();
   };
 
   return (
@@ -82,7 +85,6 @@ const SignUp = () => {
         <Box className="input_wrap">
           <TextField
             error={!!nickError}
-            color="secondary"
             className="input_area"
             id="outlined-basic"
             label="Nick name"
@@ -96,7 +98,6 @@ const SignUp = () => {
 
         <Box className="input_wrap">
           <TextField
-            color="secondary"
             className="input_area"
             onChange={emailChangeHandler}
             id="outlined-basic"
@@ -112,7 +113,6 @@ const SignUp = () => {
 
         <Box className="input_wrap">
           <TextField
-            color="secondary"
             className="input_area"
             onChange={passwordChangeHandler}
             id="outlined-basic"
@@ -123,6 +123,7 @@ const SignUp = () => {
             error={!!passwordError}
             helperText={passwordError}
             value={password}
+            onKeyPress={paasswordKeyPressHandler}
           />
         </Box>
 
