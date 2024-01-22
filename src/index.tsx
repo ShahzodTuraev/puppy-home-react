@@ -9,7 +9,7 @@ import "./scss/index.scss";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
-import RootContext from "./app/context";
+import Context from "./app/context";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -19,9 +19,9 @@ root.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <RootContext>
+        <Context>
           <App />
-        </RootContext>
+        </Context>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

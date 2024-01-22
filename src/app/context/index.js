@@ -1,16 +1,19 @@
-import React, { createContext, useState } from "react";
-export const FullContext = createContext();
+import React from "react";
+import CategoryContext from "./Category";
+import ShoppingCartContext from "./ShoppingCart";
+import WishlistContext from "./Wishlist";
+import MakeOrderContext from "./MakeOrder";
 
-const RootContext = ({ children }) => {
-  // for Category Page
-  const [category, setCategory] = useState("all");
-  // for wishlists
-  const [side, setSide] = useState(0);
-
+export const Context = ({ children }) => {
   return (
-    <FullContext.Provider value={([category, setCategory], [side, setSide])}>
-      {children}
-    </FullContext.Provider>
+    <CategoryContext>
+      <ShoppingCartContext>
+        <MakeOrderContext>
+          <WishlistContext>{children}</WishlistContext>
+        </MakeOrderContext>
+      </ShoppingCartContext>
+    </CategoryContext>
   );
 };
-export default RootContext;
+
+export default Context;

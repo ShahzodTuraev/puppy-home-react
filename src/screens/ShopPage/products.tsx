@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import PetsIcon from "@mui/icons-material/Pets";
 import {
   Box,
   Container,
-  Checkbox,
   Stack,
   FormControlLabel,
   Pagination,
   PaginationItem,
   FormControl,
-  FormLabel,
   RadioGroup,
   Radio,
 } from "@mui/material";
@@ -18,7 +16,6 @@ import Slider, { SliderThumb } from "@mui/material/Slider";
 import { product_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward, Home, Close } from "@mui/icons-material";
-import { FullContext } from "../../app/context";
 import { useLocation, useNavigate } from "react-router-dom";
 // REDUX
 import { createSelector } from "reselect";
@@ -29,6 +26,7 @@ import { Product } from "../../types/product";
 import { retrieveAllProducts } from "./selector";
 import ProductApiService from "../../app/apiServices/productApiService";
 import { ProductSearchObj } from "../../types/others";
+import { CategoryCont } from "../../app/context/Category";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setAllProducts: (data: Product[]) => dispatch(setAllProducts(data)),
@@ -104,7 +102,8 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
 
 const Products = () => {
   /*INITIALIZATIONS*/
-  const [category, setCategory] = useContext(FullContext);
+  const [category, setCategory] = CategoryCont();
+  console.log("category", category);
 
   const navigate = useNavigate();
   const pathname = useLocation();

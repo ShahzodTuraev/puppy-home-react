@@ -7,8 +7,8 @@ import Rating from "@mui/material/Rating";
 import "../../scss/shoppingCart.scss";
 import { useNavigate } from "react-router-dom";
 import { serverApi } from "../lib/config";
-import Moment from "react-moment";
-import { useTimer } from "react-timer-hook";
+import { ShoppingCartCont } from "../context/ShoppingCart";
+
 const ShoppingCart = ({ cartData }: any) => {
   /*INITIALIZATIONS*/
   const {
@@ -27,8 +27,11 @@ const ShoppingCart = ({ cartData }: any) => {
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
-
+  const [addToCart, setAddToCart] = ShoppingCartCont();
   /*HANDLERS*/
+  const addToCartHandler = () => {
+    product_left_cnt !== 0 && setAddToCart([cartData, new Date()]);
+  };
   return (
     <Box
       className="shop_cart"
@@ -102,6 +105,7 @@ const ShoppingCart = ({ cartData }: any) => {
             }}
           >
             <Box
+              onClick={addToCartHandler}
               className={
                 cartChange === _id && product_left_cnt !== 0
                   ? "add_cart_wrap add_cart_wrap_active"

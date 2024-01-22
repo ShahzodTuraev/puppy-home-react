@@ -1,21 +1,11 @@
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-} from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { Avatar, Badge, Box, Container, IconButton, Menu } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Search,
-  ShoppingCart,
   Notifications,
   ArrowUpward,
   Person,
-  Favorite,
   Logout,
   FavoriteBorder,
 } from "@mui/icons-material";
@@ -30,13 +20,13 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../lib/sweetAlert";
 import { Definer } from "../../lib/Definer";
-import { FullContext } from "../../context";
-
+import Basket from "./basket";
+import { WishCont } from "../../context/Wishlist";
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [side, setSide] = useContext(FullContext);
+  const [side, setSide] = WishCont();
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
   useEffect(() => {
@@ -56,10 +46,10 @@ const Navbar = () => {
   // Check if scrollPosition is greater than or equal to 100
   const isScrolled = scrollPosition >= 100;
   const isTopScroll = scrollPosition >= 300;
-  const [menu, setMenu] = useState(false);
-  const onMenu = () => {
-    setMenu(!menu);
-  };
+  // const [menu, setMenu] = useState(false);
+  // const onMenu = () => {
+  //   setMenu(!menu);
+  // };
 
   /*HANDLERS*/
   const topHandler = () => {
@@ -212,11 +202,8 @@ const Navbar = () => {
                 <Box className="search_button">Search</Box>
               </Box>
             </Menu>
-            <Badge badgeContent={4} color="primary" className="badge">
-              <IconButton className="icon_box cart_icon">
-                <ShoppingCart className="icon" />
-              </IconButton>
-            </Badge>
+            <Basket />
+
             {verifyMemberData ? (
               <Box className="auth_box">
                 <Badge

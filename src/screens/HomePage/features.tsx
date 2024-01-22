@@ -21,9 +21,9 @@ const Features = () => {
           <Box className="feature_icon">
             <LocalShippingIcon className="phone_icon" />
           </Box>
-          <p className="feature_head">Free Worldwide Shipping</p>
+          <p className="feature_head">Fast Worldwide Shipping</p>
           <p className="feature_info">
-            In the case of total order amount over <br /> &#8361; 100,000
+            Swift global delivery: Your order, anywhere, rapidly.
           </p>
         </Box>
         <Box className="divider" />

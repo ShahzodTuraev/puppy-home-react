@@ -1,15 +1,15 @@
 import { Box, Container } from "@mui/material";
-import React, { useContext } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FullContext } from "../../app/context";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useNavigate } from "react-router-dom";
+import { CategoryCont } from "../../app/context/Category";
 const Categories = () => {
   /*INITIALIZATIONS*/
-  const [category, setCategory] = useContext(FullContext);
+  const [category, setCategory] = CategoryCont();
 
   const navigate = useNavigate();
   const category_list = [

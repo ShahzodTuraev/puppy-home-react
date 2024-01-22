@@ -16,3 +16,13 @@ export interface HomePageState {
 export interface ShopPageState {
   allProducts: Product[];
 }
+
+export interface CartItem {
+  _id: string;
+  quantity: number;
+  name: string;
+  price: number;
+  discount: number;
+  delivery_fee: number;
+  image: string;
+}
