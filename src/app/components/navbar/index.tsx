@@ -8,6 +8,7 @@ import {
   Person,
   Logout,
   FavoriteBorder,
+  ListAlt,
 } from "@mui/icons-material";
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
@@ -93,6 +94,15 @@ const Navbar = () => {
     {
       key: "2",
       label: (
+        <Box onClick={() => navigate("/orders")} className="drop_item">
+          <ListAlt sx={{ fill: "#444444" }} />
+          <p>My Orders</p>
+        </Box>
+      ),
+    },
+    {
+      key: "3",
+      label: (
         <Box onClick={handleWishlist} className="drop_item">
           <FavoriteBorder sx={{ fill: "#444444" }} />
           <p>Wishlist</p>
@@ -100,7 +110,7 @@ const Navbar = () => {
       ),
     },
     {
-      key: "3",
+      key: "4",
       label: (
         <Box onClick={handleLogOutRequest} className="drop_item">
           <Logout sx={{ fill: "#444444" }} />

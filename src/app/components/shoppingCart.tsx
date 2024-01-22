@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -8,6 +8,14 @@ import "../../scss/shoppingCart.scss";
 import { useNavigate } from "react-router-dom";
 import { serverApi } from "../lib/config";
 import { ShoppingCartCont } from "../context/ShoppingCart";
+import assert from "assert";
+import { verifyMemberData } from "../apiServices/verify";
+import { Definer } from "../lib/Definer";
+import MemberApiService from "../apiServices/memberApiService";
+import {
+  sweetErrorHandling,
+  sweetTopSmallSuccessAlert,
+} from "../lib/sweetAlert";
 
 const ShoppingCart = ({ cartData }: any) => {
   /*INITIALIZATIONS*/
@@ -27,10 +35,33 @@ const ShoppingCart = ({ cartData }: any) => {
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
+  const refs: any = useRef([]);
   const [addToCart, setAddToCart] = ShoppingCartCont();
+
   /*HANDLERS*/
   const addToCartHandler = () => {
     product_left_cnt !== 0 && setAddToCart([cartData, new Date()]);
+  };
+  const targetLikeHandler = async (e: any, id: string) => {
+    try {
+      assert.ok(verifyMemberData, Definer.auth_err1);
+      const memberService = new MemberApiService();
+      const data = { like_ref_id: id, group_type: "product" };
+      const like_result: any = await memberService.memberLikeTarget(data);
+      assert.ok(like_result, Definer.general_err1);
+
+      if (like_result.like_status > 0) {
+        e.target.style.fill = "red";
+        refs.current[like_result.like_ref_id].innerHTML++;
+      } else {
+        e.target.style.fill = "white";
+        refs.current[like_result.like_ref_id].innerHTML--;
+      }
+      await sweetTopSmallSuccessAlert("success", 700, false);
+    } catch (err: any) {
+      console.log("targetLikeBest, ERROR:::", err);
+      sweetErrorHandling(err).then();
+    }
   };
   return (
     <Box
@@ -68,7 +99,10 @@ const ShoppingCart = ({ cartData }: any) => {
         >
           <FavoriteIcon
             className="like_btn"
-            sx={me_liked?.my_favorite ? { fill: "red" } : { fill: "white" }}
+            onClick={(e) => targetLikeHandler(e, _id)}
+            sx={{
+              fill: me_liked && me_liked[0]?.my_favorite ? "#FF3040" : "white",
+            }}
           />
         </Box>
       </Box>
@@ -139,13 +173,18 @@ const ShoppingCart = ({ cartData }: any) => {
               size="small"
               readOnly
             />
-            <p className="review_text">({product_review_cnt || 0})</p>
+            <p className="review_text">({product_review_cnt || "0"})</p>
           </Box>
           <Box className="like_view_box">
             <FavoriteIcon className="like_view_btn" />
-            <p className="like_view_cnt">{product_likes || 0}</p>
+            <p
+              ref={(element) => (refs.current[_id] = element)}
+              className="like_view_cnt"
+            >
+              {product_likes}
+            </p>
             <RemoveRedEyeIcon className="like_view_btn" />
-            <p className="like_view_cnt">{product_views || 0}</p>
+            <p className="like_view_cnt">{product_views}</p>
           </Box>
         </Box>
       </Box>
