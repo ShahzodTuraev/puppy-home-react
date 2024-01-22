@@ -40,7 +40,7 @@ const ShoppingCart = ({ cartData }: any) => {
 
   /*HANDLERS*/
   const addToCartHandler = () => {
-    product_left_cnt !== 0 && setAddToCart([cartData, new Date()]);
+    product_left_cnt !== 0 && setAddToCart([cartData, 1, new Date()]);
   };
   const targetLikeHandler = async (e: any, id: string) => {
     try {
@@ -51,7 +51,7 @@ const ShoppingCart = ({ cartData }: any) => {
       assert.ok(like_result, Definer.general_err1);
 
       if (like_result.like_status > 0) {
-        e.target.style.fill = "red";
+        e.target.style.fill = "#FF3040";
         refs.current[like_result.like_ref_id].innerHTML++;
       } else {
         e.target.style.fill = "white";

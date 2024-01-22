@@ -29,7 +29,7 @@ export const navbar: NavbarObj[] = [
   {
     element: <ChosenProduct />,
     title: "Single Product",
-    path: "/shop/:id",
+    path: "/shop/:product_id",
     private: false,
     hidden: true,
   },

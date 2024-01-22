@@ -6,3 +6,13 @@ export const retrieveAllProducts = createSelector(
   selectShopPage,
   (ShopPage) => ShopPage.allProducts
 );
+
+export const retrieveRelatedProducts = createSelector(
+  selectShopPage,
+  (ShopPage) => ShopPage.relatedProducts
+);
+
+export const retrieveChosenProduct = createSelector(
+  selectShopPage,
+  (ShopPage) => ShopPage.chosenProduct
+);

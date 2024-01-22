@@ -19,7 +19,7 @@ const Basket = () => {
   const [addToCart] = ShoppingCartCont();
   const orders = MakeOrderCont();
   const setSide = WishCont();
-  const onAdd = (product: any) => {
+  const onAdd = (product: any, quantity: number) => {
     const exist: any = cartItems.find(
       (item: CartItem) => item._id === product._id
     );
@@ -37,7 +37,7 @@ const Basket = () => {
     } else {
       const new_item: CartItem = {
         _id: product._id,
-        quantity: 1,
+        quantity: quantity,
         name: product.product_name,
         price: product.product_price,
         delivery_fee: product.product_delivery_cost,
@@ -81,7 +81,7 @@ const Basket = () => {
     localStorage.removeItem("cart_data");
   };
   useEffect(() => {
-    addToCart && onAdd(addToCart[0]);
+    addToCart && onAdd(addToCart[0], addToCart[1]);
   }, [addToCart]);
   const itemsPrice = cartItems.reduce(
     (a: any, c: CartItem) =>
@@ -147,7 +147,7 @@ const Basket = () => {
                     <Box className="count_number">{item.quantity}</Box>
                     <Box
                       onClick={() => {
-                        onAdd(item);
+                        onAdd(item, 1);
                       }}
                       className="count_btn"
                     >

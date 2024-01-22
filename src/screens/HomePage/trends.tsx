@@ -11,6 +11,7 @@ import { Product } from "../../types/product";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setTrendingProducts } from "./slice";
 import ProductApiService from "../../app/apiServices/productApiService";
+import { useNavigate } from "react-router-dom";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setTrendingProducts: (data: Product[]) => dispatch(setTrendingProducts(data)),
@@ -24,6 +25,7 @@ const trendingProductsRetriever = createSelector(
 );
 const Trends = () => {
   /*INITIALIZATIONS*/
+  const navigate = useNavigate();
   const [sorting, setSorting] = useState("product_views");
   const { setTrendingProducts } = actionDispatch(useDispatch());
   useEffect(() => {
@@ -108,7 +110,7 @@ const Trends = () => {
         })}
       </Stack>
       <Box className="bottom_box">
-        <Box className="link_wrap">
+        <Box onClick={() => navigate("/shop")} className="link_wrap">
           <h4 className="link_all">See all products</h4>
           <EastIcon />
         </Box>

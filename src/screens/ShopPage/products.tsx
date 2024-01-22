@@ -13,7 +13,6 @@ import {
   Radio,
 } from "@mui/material";
 import Slider, { SliderThumb } from "@mui/material/Slider";
-import { product_list } from "../../mock/cart_data";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward, Home, Close } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -15,6 +15,8 @@ export interface HomePageState {
 
 export interface ShopPageState {
   allProducts: Product[];
+  relatedProducts: Product[];
+  chosenProduct: Product | null;
 }
 
 export interface CartItem {
