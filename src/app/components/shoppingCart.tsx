@@ -27,20 +27,21 @@ const ShoppingCart = ({ cartData }: any) => {
     product_discount,
     product_likes,
     product_views,
-    product_review,
-    product_review_cnt,
+    product_reviews,
+    product_rating,
     product_left_cnt,
-    product_liken,
     me_liked,
   } = cartData;
   const [cartChange, setCartChange] = useState<number>(-1);
   const navigate = useNavigate();
   const refs: any = useRef([]);
-  const [addToCart, setAddToCart] = ShoppingCartCont();
-
+  const setAddToCart = ShoppingCartCont();
+  const ratingValue =
+    (product_rating ? product_rating : 0) /
+    (product_reviews > 0 ? product_reviews : 1);
   /*HANDLERS*/
   const addToCartHandler = () => {
-    product_left_cnt !== 0 && setAddToCart([cartData, 1, new Date()]);
+    product_left_cnt !== 0 && setAddToCart[1]([cartData, 1, new Date()]);
   };
   const targetLikeHandler = async (e: any, id: string) => {
     try {
@@ -168,12 +169,12 @@ const ShoppingCart = ({ cartData }: any) => {
             <Rating
               className="review_icon"
               name="half-rating"
-              defaultValue={product_review}
+              value={ratingValue}
               precision={0.5}
               size="small"
               readOnly
             />
-            <p className="review_text">({product_review_cnt || "0"})</p>
+            <p className="review_text">({product_reviews || "0"})</p>
           </Box>
           <Box className="like_view_box">
             <FavoriteIcon className="like_view_btn" />
