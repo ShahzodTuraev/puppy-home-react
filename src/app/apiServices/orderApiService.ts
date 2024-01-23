@@ -44,5 +44,22 @@ class OrderApiService {
       throw err;
     }
   }
+
+  async updateOrderStatus(data: any) {
+    try {
+      const url = "/orders/edit",
+        result = await axios.post(this.path + url, data, {
+          withCredentials: true,
+        });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
+      console.log("state:::", result.data.state);
+      const order: any = result.data.data;
+      return order;
+    } catch (err: any) {
+      console.log(`ERROR ::: updateOrderStatus ${err.message}`);
+      throw err;
+    }
+  }
 }
 export default OrderApiService;

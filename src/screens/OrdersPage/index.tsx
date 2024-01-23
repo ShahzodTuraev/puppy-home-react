@@ -6,7 +6,7 @@ import {
   Radio,
   Stack,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../scss/orders.scss";
 import {
   CreditCard,
@@ -23,30 +23,73 @@ import MyAccount from "./myAccount";
 // REDUX
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setFinishedOrders, setpendingOrders, setProcessOrders } from "./slice";
+import {
+  setFinishedOrders,
+  setPendingOrders,
+  setProcessOrders,
+  setCancelledOrders,
+  setAllOrders,
+} from "./slice";
 import { Order } from "../../types/order";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import { Member } from "../../types/user";
+import AllOrders from "./allOrders";
+import PendingOrders from "./pendingOrders";
+import ProcessOrders from "./processOrders";
+import DeliveredOrders from "./deliveredOrders";
+import CancelledOrders from "./CancelledOrders";
+import OrderApiService from "../../app/apiServices/orderApiService";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
-  setpendingOrders: (data: Order[]) => dispatch(setpendingOrders(data)),
+  setPendingOrders: (data: Order[]) => dispatch(setPendingOrders(data)),
   setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+  setCancelledOrders: (data: Order[]) => dispatch(setCancelledOrders(data)),
+  setAllOrders: (data: Order[]) => dispatch(setAllOrders(data)),
 });
 
 const OrdersPage = () => {
   /*INSTALIZATIONS*/
   const verifiedMemberData: Member | null = verifyMemberData;
-  const { setpendingOrders, setProcessOrders, setFinishedOrders } =
-    actionDispatch(useDispatch());
+  const {
+    setPendingOrders,
+    setProcessOrders,
+    setFinishedOrders,
+    setCancelledOrders,
+    setAllOrders,
+  } = actionDispatch(useDispatch());
   const pathname = useLocation();
+  const [orderRebuild, setOrderRebuild] = useState<Date>(new Date());
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   }, [pathname]);
+  useEffect(() => {
+    const orderService = new OrderApiService();
+    orderService
+      .getMyOrders("pending")
+      .then((data) => setPendingOrders(data))
+      .catch((err) => console.log(err));
+    orderService
+      .getMyOrders("process")
+      .then((data) => setProcessOrders(data))
+      .catch((err) => console.log(err));
+    orderService
+      .getMyOrders("finished")
+      .then((data) => setFinishedOrders(data))
+      .catch((err) => console.log(err));
+    orderService
+      .getMyOrders("cancelled")
+      .then((data) => setCancelledOrders(data))
+      .catch((err) => console.log(err));
+    orderService
+      .getMyOrders("all")
+      .then((data) => setAllOrders(data))
+      .catch((err) => console.log(err));
+  }, [orderRebuild]);
   const [side, setSide] = WishCont();
   const [orderBtn, setOrderBtn] = MakeOrderCont();
   const sideList = [
@@ -99,219 +142,11 @@ const OrdersPage = () => {
               );
             })}
           </Box>
-          {side === 0 && (
-            <Stack className="orders_wrap">
-              <Box className="order_box">
-                <Box className="order_header">
-                  <Box className="header_left_box">
-                    <Box className="title_wrap">
-                      <h3 className="bold_head">Order ID: #23534561 </h3>
-                      <p className="status">Processing</p>
-                    </Box>
-
-                    <p>
-                      Proceed on <span>9 Jan 2022</span>
-                    </p>
-                  </Box>
-                  <Box className="header_right_box">
-                    <h3 className="bold_head">&#8361; 76000 </h3>
-                    <p>Total amount</p>
-                  </Box>
-                </Box>
-                <Box className="margin">
-                  <Box className="marginer" />
-                </Box>
-                <Box className="table_head">
-                  <Box className="head_product">Product</Box>
-                  <Box className="head_item">Price</Box>
-                  <Box className="head_item">Delivery Cost</Box>
-                  <Box className="head_item">Quantity</Box>
-                </Box>
-                <Box className="tbody_wrap">
-                  {[1, 2, 3, 4].map((ele, id) => {
-                    return (
-                      <Box
-                        key={id}
-                        className={
-                          id % 2 === 0
-                            ? "table_body"
-                            : "table_body table_body_active"
-                        }
-                      >
-                        <Box className="product_wrap">
-                          <img
-                            src="/images/mock-img/mock-2.jpg"
-                            alt="product"
-                          />
-                          <p>New Collection Dog Wear</p>
-                        </Box>
-                        <Box className="product_price">&#8361;12000</Box>
-                        <Box className="product_delivery">&#8361;1000</Box>
-                        <Box className="product_quantity">1 item</Box>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Box>
-              <Box className="order_box">
-                <Box className="order_header">
-                  <Box className="header_left_box">
-                    <Box className="title_wrap">
-                      <h3 className="bold_head">Order ID: #23534561 </h3>
-                      <p className="status status_pending">Pending</p>
-                    </Box>
-
-                    <p>
-                      Proceed on <span>9 Jan 2022</span>
-                    </p>
-                  </Box>
-                  <Box className="header_right_box">
-                    <h3 className="bold_head">&#8361; 76000 </h3>
-                    <p>Total amount</p>
-                  </Box>
-                </Box>
-                <Box className="margin">
-                  <Box className="marginer" />
-                </Box>
-                <Box className="table_head">
-                  <Box className="head_product">Product</Box>
-                  <Box className="head_item">Price</Box>
-                  <Box className="head_item">Delivery Cost</Box>
-                  <Box className="head_item">Quantity</Box>
-                </Box>
-                <Box className="tbody_wrap">
-                  {[1, 2, 3].map((ele, id) => {
-                    return (
-                      <Box
-                        key={id}
-                        className={
-                          id % 2 === 0
-                            ? "table_body"
-                            : "table_body table_body_active"
-                        }
-                      >
-                        <Box className="product_wrap">
-                          <img
-                            src="/images/mock-img/mock-2.jpg"
-                            alt="product"
-                          />
-                          <p>New Collection Dog Wear</p>
-                        </Box>
-                        <Box className="product_price">&#8361;12000</Box>
-                        <Box className="product_delivery">&#8361;1000</Box>
-                        <Box className="product_quantity">1 item</Box>
-                      </Box>
-                    );
-                  })}
-                </Box>
-                <Button className="pay_btn">Pay</Button>
-              </Box>
-              <Box className="order_box">
-                <Box className="order_header">
-                  <Box className="header_left_box">
-                    <Box className="title_wrap">
-                      <h3 className="bold_head">Order ID: #23534561 </h3>
-                      <p className="status status_delivered">Delivered</p>
-                    </Box>
-
-                    <p>
-                      Proceed on <span>9 Jan 2022</span>
-                    </p>
-                  </Box>
-                  <Box className="header_right_box">
-                    <h3 className="bold_head">&#8361; 76000 </h3>
-                    <p>Total amount</p>
-                  </Box>
-                </Box>
-                <Box className="margin">
-                  <Box className="marginer" />
-                </Box>
-                <Box className="table_head">
-                  <Box className="head_product">Product</Box>
-                  <Box className="head_item">Price</Box>
-                  <Box className="head_item">Delivery Cost</Box>
-                  <Box className="head_item">Quantity</Box>
-                </Box>
-                <Box className="tbody_wrap">
-                  {[1, 2, 3].map((ele, id) => {
-                    return (
-                      <Box
-                        key={id}
-                        className={
-                          id % 2 === 0
-                            ? "table_body"
-                            : "table_body table_body_active"
-                        }
-                      >
-                        <Box className="product_wrap">
-                          <img
-                            src="/images/mock-img/mock-2.jpg"
-                            alt="product"
-                          />
-                          <p>New Collection Dog Wear</p>
-                        </Box>
-                        <Box className="product_price">&#8361;12000</Box>
-                        <Box className="product_delivery">&#8361;1000</Box>
-                        <Box className="product_quantity">1 item</Box>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Box>
-              <Box className="order_box">
-                <Box className="order_header">
-                  <Box className="header_left_box">
-                    <Box className="title_wrap">
-                      <h3 className="bold_head">Order ID: #23534561 </h3>
-                      <p className="status status_cancelled">Cancelled</p>
-                    </Box>
-
-                    <p>
-                      Proceed on <span>9 Jan 2022</span>
-                    </p>
-                  </Box>
-                  <Box className="header_right_box">
-                    <h3 className="bold_head">&#8361; 76000 </h3>
-                    <p>Total amount</p>
-                  </Box>
-                </Box>
-                <Box className="margin">
-                  <Box className="marginer" />
-                </Box>
-                <Box className="table_head">
-                  <Box className="head_product">Product</Box>
-                  <Box className="head_item">Price</Box>
-                  <Box className="head_item">Delivery Cost</Box>
-                  <Box className="head_item">Quantity</Box>
-                </Box>
-                <Box className="tbody_wrap">
-                  {[1, 2, 3].map((ele, id) => {
-                    return (
-                      <Box
-                        key={id}
-                        className={
-                          id % 2 === 0
-                            ? "table_body"
-                            : "table_body table_body_active"
-                        }
-                      >
-                        <Box className="product_wrap">
-                          <img
-                            src="/images/mock-img/mock-2.jpg"
-                            alt="product"
-                          />
-                          <p>New Collection Dog Wear</p>
-                        </Box>
-                        <Box className="product_price">&#8361;12000</Box>
-                        <Box className="product_delivery">&#8361;1000</Box>
-                        <Box className="product_quantity">1 item</Box>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Box>
-            </Stack>
-          )}
+          {side === 0 && orderBtn === 0 && <AllOrders />}
+          {side === 0 && orderBtn === 1 && <PendingOrders />}
+          {side === 0 && orderBtn === 2 && <ProcessOrders />}
+          {side === 0 && orderBtn === 3 && <DeliveredOrders />}
+          {side === 0 && orderBtn === 4 && <CancelledOrders />}
           {side === 1 && (
             <Stack className="address_wrap">
               <Box className="address_box">

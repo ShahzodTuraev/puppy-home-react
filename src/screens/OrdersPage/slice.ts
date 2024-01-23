@@ -4,6 +4,8 @@ const initialState: OrdersPageState = {
   pendingOrders: [],
   processOrders: [],
   finishedOrders: [],
+  cancelledOrders: [],
+  allOrders: [],
   wishList: [],
   bankAccounts: [],
 };
@@ -12,7 +14,7 @@ const ordersPageSlice = createSlice({
   name: "ordersPage",
   initialState,
   reducers: {
-    setpendingOrders: (state, action) => {
+    setPendingOrders: (state, action) => {
       state.pendingOrders = action.payload;
     },
     setProcessOrders: (state, action) => {
@@ -20,6 +22,12 @@ const ordersPageSlice = createSlice({
     },
     setFinishedOrders: (state, action) => {
       state.finishedOrders = action.payload;
+    },
+    setCancelledOrders: (state, action) => {
+      state.cancelledOrders = action.payload;
+    },
+    setAllOrders: (state, action) => {
+      state.allOrders = action.payload;
     },
     setWishList: (state, action) => {
       state.wishList = action.payload;
@@ -31,9 +39,11 @@ const ordersPageSlice = createSlice({
 });
 
 export const {
-  setpendingOrders,
+  setPendingOrders,
   setProcessOrders,
   setFinishedOrders,
+  setCancelledOrders,
+  setAllOrders,
   setWishList,
   setBankAccounts,
 } = ordersPageSlice.actions;

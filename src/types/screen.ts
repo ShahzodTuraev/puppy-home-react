@@ -29,6 +29,8 @@ export interface OrdersPageState {
   pendingOrders: Order[];
   processOrders: Order[];
   finishedOrders: Order[];
+  cancelledOrders: Order[];
+  allOrders: Order[];
   wishList: Product[];
   bankAccounts: Account[];
 }
