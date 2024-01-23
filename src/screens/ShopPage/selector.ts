@@ -12,6 +12,11 @@ export const retrieveRelatedProducts = createSelector(
   (ShopPage) => ShopPage.relatedProducts
 );
 
+export const retrieveProductReviews = createSelector(
+  selectShopPage,
+  (ShopPage) => ShopPage.productReviews
+);
+
 export const retrieveChosenProduct = createSelector(
   selectShopPage,
   (ShopPage) => ShopPage.chosenProduct

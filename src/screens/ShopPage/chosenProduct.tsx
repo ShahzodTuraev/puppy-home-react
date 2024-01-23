@@ -1,7 +1,5 @@
 import {
   Add,
-  ArrowBack,
-  ArrowForward,
   Close,
   Favorite,
   FavoriteBorder,
@@ -9,14 +7,11 @@ import {
   Remove,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Button,
   Container,
   FormControl,
   FormControlLabel,
-  Pagination,
-  PaginationItem,
   Radio,
   RadioGroup,
   Rating,
@@ -39,7 +34,6 @@ import { setChosenProduct, setRelatedProducts } from "./slice";
 import { Product } from "../../types/product";
 import { retrieveChosenProduct, retrieveRelatedProducts } from "./selector";
 import ProductApiService from "../../app/apiServices/productApiService";
-import { ProductSearchObj } from "../../types/others";
 import { serverApi } from "../../app/lib/config";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import { Definer } from "../../app/lib/Definer";
@@ -50,6 +44,7 @@ import {
   sweetTopSmallSuccessAlert,
 } from "../../app/lib/sweetAlert";
 import { ShoppingCartCont } from "../../app/context/ShoppingCart";
+import ProductReview from "./productReview";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
@@ -68,6 +63,7 @@ const relatedProductRetriever = createSelector(
     relatedProduct,
   })
 );
+
 const ChosenProduct = () => {
   /*INITIALIATIONS*/
   const { setChosenProduct, setRelatedProducts } = actionDispatch(
@@ -76,6 +72,7 @@ const ChosenProduct = () => {
   const { chosenProduct } = useSelector(chosenProductRetriever);
   let { product_id } = useParams<{ product_id: any }>();
   const pathname = useLocation();
+  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -85,20 +82,22 @@ const ChosenProduct = () => {
   const product_type = chosenProduct?.product_collection
     ? chosenProduct?.product_collection
     : "clothes";
+  // related products retrieve:
   useEffect(() => {
     const productService = new ProductApiService();
     productService
       .getTargetProducts({
         order: "createdAt",
         page: 1,
-        limit: 10,
+        limit: 20,
         product_collection: [product_type],
         price: [0, 1000],
       })
       .then((data) => setRelatedProducts(data))
       .catch((err) => console.log(err));
-  }, [product_type]);
+  }, [product_type, productRebuild]);
   const { relatedProduct } = useSelector(relatedProductRetriever);
+
   const [count, setCount] = useState<number>(1);
   const navigate = useNavigate();
   const productRelatedProcess = async () => {
@@ -112,7 +111,7 @@ const ChosenProduct = () => {
       console.log("ProductRelatedProcess:", err);
     }
   };
-  const [productRebuild, setProductRebuild] = useState<Date>(new Date());
+
   const [imgChange, setImgChange] = useState(0);
   const wide_img = `${serverApi}/${chosenProduct?.product_images.filter(
     (ele) => chosenProduct?.product_images.indexOf(ele) === imgChange
@@ -126,6 +125,11 @@ const ChosenProduct = () => {
     : 0;
   const salePrice = Math.round((price * (100 - discount)) / 1000) * 10;
   const setAddToCart = ShoppingCartCont();
+  const product_review = chosenProduct?.product_reviews;
+  const divider = product_review && product_review > 0 ? product_review : 1;
+  const ratingValue =
+    (chosenProduct?.product_rating ? chosenProduct?.product_rating : 0) /
+    divider;
   /*HANDLERS*/
   const addToCartHandler = () => {
     chosenProduct?.product_left_cnt !== 0 &&
@@ -151,6 +155,7 @@ const ChosenProduct = () => {
       sweetErrorHandling(err).then();
     }
   };
+
   return (
     <div className="chosen_product">
       <Container className="chosen_container">
@@ -232,7 +237,7 @@ const ChosenProduct = () => {
               <Rating
                 className="review_icon"
                 name="half-rating"
-                defaultValue={chosenProduct?.product_rating || 0} //to do review avarage
+                value={ratingValue} //to do review avarage
                 precision={0.5}
                 size="small"
                 readOnly
@@ -269,7 +274,8 @@ const ChosenProduct = () => {
               your furry friend's every need. From cozy sweaters to interactive
               playthings and premium nutrition, indulge your puppy in a world of
               comfort, play, and scrumptious delights—because every tail wag
-              deserves the very best!
+              deserves the very best! {chosenProduct?.product_rating},
+              {ratingValue}
             </p>
 
             <div
@@ -337,88 +343,7 @@ const ChosenProduct = () => {
             })}
           </Swiper>
         </Stack>
-        <Stack className="review_wrap">
-          <h3 className="box_title">Product Reviews</h3>
-          <Box className="reviews_panel">
-            <Box className="one_review">
-              <Box className="head_wrap">
-                <Avatar src="/images/mock-img/images.jpeg" alt="reviewer" />
-                <p className="reviewer_name">John Den</p>
-                <Rating
-                  className="review_icon"
-                  name="half-rating"
-                  defaultValue={4}
-                  precision={0.5}
-                  size="small"
-                  readOnly
-                />
-              </Box>
-              <Box className="main_review">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Placeat non vero labore expedita? Fugiat aperiam quos ratione
-                  consectetur officiis, temporibus, animi non assumenda
-                  voluptatum placeat, est dolorum error aut eos facilis. Numquam
-                  ipsum tenetur culpa laboriosam vitae soluta ipsa, libero, rem
-                  mollitia sequi ducimus doloribus quaerat in laborum. Rem,
-                  magni iure culpa vel similique alias vitae. Similique cum
-                  doloribus dignissimos.
-                </p>
-              </Box>
-            </Box>
-            <Box className="one_review">
-              <Box className="head_wrap">
-                <Avatar src="/images/mock-img/images.jpeg" alt="reviewer" />
-                <p className="reviewer_name">John Den</p>
-                <Rating
-                  className="review_icon"
-                  name="half-rating"
-                  defaultValue={4}
-                  precision={0.5}
-                  size="small"
-                  readOnly
-                />
-              </Box>
-              <p className="main_review">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Placeat non vero labore expedita? Fugiat aperiam quos ratione
-                consectetur officiis, temporibus, animi non assumenda voluptatum
-                placeat, est dolorum error aut eos facilis. Numquam ipsum
-                tenetur culpa laboriosam vitae soluta ipsa, libero, rem mollitia
-                sequi ducimus doloribus quaerat in laborum. Rem, magni iure
-                culpa vel similique alias vitae. Similique cum doloribus
-                dignissimos.
-              </p>
-            </Box>
-          </Box>
-          <Pagination
-            sx={{ mt: "20px" }}
-            count={3}
-            page={1}
-            renderItem={(item) => (
-              <PaginationItem
-                components={{
-                  previous: ArrowBack,
-                  next: ArrowForward,
-                }}
-                {...item}
-              />
-            )}
-          />
-          <Box className="title_line">
-            <p>Seller info</p>
-          </Box>
-          <Box className="seller_info_wrap">
-            <p className="thead">Shop name</p>
-            <p className="tbody">{chosenProduct?.shop_data?.mb_nick}</p>
-            <p className="thead">Email</p>
-            <p className="tbody">{chosenProduct?.shop_data?.mb_email}</p>
-            <p className="thead">Address</p>
-            <p className="tbody">{chosenProduct?.shop_data?.mb_address}</p>
-            <p className="thead">Phone Number</p>
-            <p className="tbody">{chosenProduct?.shop_data?.mb_phone}</p>
-          </Box>
-        </Stack>
+        <ProductReview chosenProduct={chosenProduct} />
       </Container>
     </div>
   );

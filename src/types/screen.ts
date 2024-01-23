@@ -1,5 +1,6 @@
 import { Event } from "./event";
 import { Product } from "./product";
+import { Review } from "./reivew";
 
 export interface AppRootState {
   homePage: HomePageState;
@@ -17,6 +18,7 @@ export interface ShopPageState {
   allProducts: Product[];
   relatedProducts: Product[];
   chosenProduct: Product | null;
+  productReviews: Review[];
 }
 
 export interface CartItem {

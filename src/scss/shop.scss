@@ -312,67 +312,116 @@
         margin: 20px 0;
       }
     }
-    .review_wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .box_title {
-        font-size: 24px;
-        color: #333333;
-        font-weight: 500;
-      }
-      .reviews_panel {
-        width: 90%;
-        .one_review {
-          border-bottom: 1px solid #f1f0f5;
-          margin: 15px 0;
-          .head_wrap {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            .reviewer_name {
-              margin: 0 5px;
-              font-weight: 600;
-            }
-            .review_icon {
-              color: #fc9823;
-            }
-          }
-          .main_review {
-            margin: 15px 0;
-          }
-        }
-      }
-      .title_line {
+  }
+}
+.review_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .box_title {
+    font-size: 24px;
+    color: #333333;
+    font-weight: 500;
+  }
+  .reviews_panel {
+    width: 90%;
+    max-height: 1000px;
+    overflow-y: auto;
+    .one_review {
+      border-bottom: 1px solid #f1f0f5;
+      margin: 15px 0;
+      .head_wrap {
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
-        font-weight: 600;
-        color: #000000af;
-        width: 80%;
-        margin-top: 20px;
+        align-items: center;
+
+        .reviewer_name {
+          margin: 0 5px;
+          font-weight: 600;
+        }
+        .review_icon {
+          color: #fc9823;
+        }
       }
-      .seller_info_wrap {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr 1fr;
-        grid-template-rows: 40px 40px;
-        width: 80%;
-        margin: 15px 0 50px 0;
-        .thead {
-          background: #f1f0f5;
-          border: 1px solid #d6d5da;
-          padding: 10px;
-        }
-        .tbody {
-          padding: 10px;
-          border: 1px solid #d6d5da;
-          color: #505050;
-        }
+      .main_review {
+        margin: 15px 0;
       }
     }
   }
+  .review_input_box {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 40px 0;
+    .rating_wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 20px;
+      .review_title {
+        font-size: 20px;
+        font-weight: 500;
+        color: #464646;
+        margin-right: 20px;
+      }
+    }
+    .review_textarea {
+      resize: none;
+      border-color: #b3b3b3;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      font-family: "Roboto", Helvetica, Arial, sans-serif;
+      &:focus {
+        border-color: #fc9823;
+        outline: 1px solid #fc9823;
+      }
+    }
+    .sub_btn_wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      .submit_btn {
+        background: #fc9823;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 16px;
+        text-transform: capitalize;
+        width: 150px;
+        margin-top: 20px;
+      }
+    }
+  }
+  .title_line {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-weight: 500;
+    font-size: 18px;
+    color: #464646;
+    width: 80%;
+    margin-top: 20px;
+  }
+  .seller_info_wrap {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-rows: 40px 40px;
+    width: 80%;
+    margin: 15px 0 50px 0;
+    .thead {
+      background: #f1f0f5;
+      border: 1px solid #d6d5da;
+      padding: 10px;
+    }
+    .tbody {
+      padding: 10px;
+      border: 1px solid #d6d5da;
+      color: #505050;
+    }
+  }
 }
+
 // SERVICE PAGE STYLES
 .service_cart {
   width: 300px;
