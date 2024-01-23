@@ -3,12 +3,17 @@ import "../../../scss/navbar.scss";
 import { Badge, Box, Button, IconButton } from "@mui/material";
 import { Add, DeleteOutline, Remove, ShoppingCart } from "@mui/icons-material";
 import { Dropdown } from "antd";
-import { CartItem } from "../../../types/screen";
+import { CartItem } from "../../../types/others";
 import { serverApi } from "../../lib/config";
 import { ShoppingCartCont } from "../../context/ShoppingCart";
 import { MakeOrderCont } from "../../context/MakeOrder";
 import { useNavigate } from "react-router-dom";
 import { WishCont } from "../../context/Wishlist";
+import { verifyMemberData } from "../../apiServices/verify";
+import { Definer } from "../../lib/Definer";
+import OrderApiService from "../../apiServices/orderApiService";
+import assert from "assert";
+import { sweetErrorHandling } from "../../lib/sweetAlert";
 
 const Basket = () => {
   /*INITIALIZATIONS*/
@@ -95,11 +100,20 @@ const Basket = () => {
   );
 
   /*HANDLERS*/
-  const orderHandler = () => {
-    orders[1](1);
-    setSide[1](0);
-    navigate("/orders");
-    onDeleteAll();
+  const orderHandler = async () => {
+    try {
+      assert.ok(verifyMemberData, Definer.auth_err1);
+      const order = new OrderApiService();
+      await order.createOrder(cartItems);
+      onDeleteAll();
+      orders[1](1);
+      setSide[1](0);
+      navigate("/orders");
+      onDeleteAll();
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
   };
 
   return (

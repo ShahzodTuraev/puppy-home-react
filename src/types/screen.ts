@@ -1,10 +1,12 @@
 import { Event } from "./event";
+import { Account, Order } from "./order";
 import { Product } from "./product";
 import { Review } from "./reivew";
 
 export interface AppRootState {
   homePage: HomePageState;
   shopPage: ShopPageState;
+  ordersPage: OrdersPageState;
 }
 
 /*HOMEPAGE*/
@@ -13,7 +15,7 @@ export interface HomePageState {
   bigSales: Product[];
   news: Event[];
 }
-
+/*SHOPPAGE*/
 export interface ShopPageState {
   allProducts: Product[];
   relatedProducts: Product[];
@@ -21,12 +23,12 @@ export interface ShopPageState {
   productReviews: Review[];
 }
 
-export interface CartItem {
-  _id: string;
-  quantity: number;
-  name: string;
-  price: number;
-  discount: number;
-  delivery_fee: number;
-  image: string;
+/*ORDERS PAGE*/
+
+export interface OrdersPageState {
+  pendingOrders: Order[];
+  processOrders: Order[];
+  finishedOrders: Order[];
+  wishList: Product[];
+  bankAccounts: Account[];
 }

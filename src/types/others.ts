@@ -32,3 +32,13 @@ export interface CreateReviewObj {
   content: string;
   product_rating?: number;
 }
+
+export interface CartItem {
+  _id: string;
+  quantity: number;
+  name: string;
+  price: number;
+  discount: number;
+  delivery_fee: number;
+  image: string;
+}

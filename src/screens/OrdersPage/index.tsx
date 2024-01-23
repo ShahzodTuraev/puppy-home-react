@@ -2,33 +2,44 @@ import {
   Box,
   Button,
   Container,
-  FormControl,
   FormControlLabel,
-  Pagination,
-  PaginationItem,
   Radio,
-  RadioGroup,
   Stack,
-  TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../../scss/orders.scss";
 import {
-  ArrowBack,
-  ArrowForward,
   CreditCard,
   FavoriteBorder,
   ListAltOutlined,
   PinDropOutlined,
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { product_list, service_list } from "../../mock/cart_data";
-import ShoppingCart from "../../app/components/shoppingCart";
-import ServiceCard from "../ServicePage/serciveCard";
 import { WishCont } from "../../app/context/Wishlist";
 import { MakeOrderCont } from "../../app/context/MakeOrder";
+import WishList from "./wishList";
+import MyAccount from "./myAccount";
+
+// REDUX
+import { useDispatch } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setFinishedOrders, setpendingOrders, setProcessOrders } from "./slice";
+import { Order } from "../../types/order";
+import { verifyMemberData } from "../../app/apiServices/verify";
+import { Member } from "../../types/user";
+
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setpendingOrders: (data: Order[]) => dispatch(setpendingOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
+
 const OrdersPage = () => {
   /*INSTALIZATIONS*/
+  const verifiedMemberData: Member | null = verifyMemberData;
+  const { setpendingOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
   const pathname = useLocation();
   useEffect(() => {
     window.scrollTo({
@@ -38,7 +49,6 @@ const OrdersPage = () => {
   }, [pathname]);
   const [side, setSide] = WishCont();
   const [orderBtn, setOrderBtn] = MakeOrderCont();
-  const [wishType, setWishType] = useState<string>("product");
   const sideList = [
     { id: 0, icon: <ListAltOutlined />, title: "My Orders" },
     { id: 1, icon: <PinDropOutlined />, title: "My Address" },
@@ -308,7 +318,7 @@ const OrdersPage = () => {
                 <h3>Address</h3>
                 <FormControlLabel
                   value="address"
-                  control={<Radio checked color="secondary" />}
+                  control={<Radio checked />}
                   label="South Korea Busan Saha-gu Nakdong-daero 1357, 45"
                 />
                 <Button
@@ -320,166 +330,8 @@ const OrdersPage = () => {
               </Box>
             </Stack>
           )}
-          {side === 2 && (
-            <Stack className="account_wrap">
-              <h3>Account</h3>
-              <Box className="account_box">
-                <Box className="card_box">
-                  <FormControlLabel
-                    value="address"
-                    control={<Radio checked color="secondary" />}
-                    label="Account"
-                  />
-                  <Box className="line_box">
-                    <h4>Cardholder:</h4>
-                    <p>John Dellogy</p>
-                  </Box>
-                  <Box className="line_box">
-                    <h4>Account:</h4>
-                    <p>...5498</p>
-                  </Box>
-                  <Box className="line_box">
-                    <h4>Expire Date:</h4>
-                    <p>07/26</p>
-                  </Box>
-                </Box>
-                <Box className="add_box">
-                  <p className="add_title">Add Account</p>
-
-                  <Box className="input_cart">
-                    <TextField
-                      className="input"
-                      id="outlined-basic"
-                      label="Cardholder Name"
-                      variant="outlined"
-                      color="secondary"
-                    />
-                    <TextField
-                      type="number"
-                      className="input"
-                      id="outlined-basic"
-                      color="secondary"
-                      label="Account Number"
-                      variant="outlined"
-                    />
-                    <Box className="hor_input">
-                      <TextField
-                        className="input"
-                        id="outlined-basic"
-                        color="secondary"
-                        label="Expire Date"
-                        variant="outlined"
-                      />
-                      <TextField
-                        type="number"
-                        className="input"
-                        id="outlined-basic"
-                        color="secondary"
-                        label="CVV"
-                        variant="outlined"
-                      />
-                    </Box>
-                    <Button className="add_account_btn">Add New Account</Button>
-                  </Box>
-                </Box>
-              </Box>
-            </Stack>
-          )}
-          {side === 3 && (
-            <Stack className="wish_wrap">
-              <Box className="head_wrap">
-                <h3>Wishlist</h3>
-                <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="product"
-                      control={
-                        <Radio
-                          onChange={(e) => {
-                            setWishType(e.target.value);
-                          }}
-                          color="secondary"
-                        />
-                      }
-                      label="Product"
-                    />
-                    <FormControlLabel
-                      value="service"
-                      control={
-                        <Radio
-                          onChange={(e) => {
-                            setWishType(e.target.value);
-                          }}
-                          color="secondary"
-                        />
-                      }
-                      label="Service"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Box>
-              <Box
-                className={
-                  wishType === "product"
-                    ? "wish_box_wrap wish_box_active"
-                    : "wish_box_wrap"
-                }
-              >
-                {product_list.map((ele) => {
-                  return (
-                    <ShoppingCart
-                      className="shopping_cart"
-                      key={ele.product_id}
-                      cartData={ele}
-                    />
-                  );
-                })}
-                {/*  */}
-                <Pagination
-                  count={3}
-                  page={1}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      components={{
-                        previous: ArrowBack,
-                        next: ArrowForward,
-                      }}
-                      {...item}
-                    />
-                  )}
-                />
-              </Box>
-              <Box
-                className={
-                  wishType === "service"
-                    ? "wish_box_wrap wish_box_active"
-                    : "wish_box_wrap"
-                }
-              >
-                {service_list?.map((service) => {
-                  return <ServiceCard key={service} cartData={service} />;
-                })}
-
-                <Pagination
-                  count={3}
-                  page={1}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      components={{
-                        previous: ArrowBack,
-                        next: ArrowForward,
-                      }}
-                      {...item}
-                    />
-                  )}
-                />
-              </Box>
-            </Stack>
-          )}
+          {side === 2 && <MyAccount />}
+          {side === 3 && <WishList />}
         </Box>
       </Stack>
     </Container>
