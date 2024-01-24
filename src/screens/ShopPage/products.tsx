@@ -279,7 +279,7 @@ const Products = () => {
                 valueLabelDisplay="auto"
                 value={price}
                 onChange={handlePriceChange}
-                max={100}
+                max={60}
                 min={0}
                 slots={{ thumb: AirbnbThumbComponent }}
                 getAriaLabel={(index) =>

@@ -84,9 +84,11 @@
                   margin-right: 20px;
                 }
                 .status {
-                  color: #17a2b8;
                   font-weight: 600;
                   font-size: 16px;
+                }
+                .status_process {
+                  color: #17a2b8;
                 }
                 .status_pending {
                   color: #fc9823;
@@ -190,12 +192,20 @@
               background: #ffffff;
             }
           }
-          .pay_btn {
-            text-transform: capitalize;
-            font-weight: 600;
-            color: #ffffff;
-            background: #fc9823;
-            margin-top: 10px;
+          .order_btn_wrap {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            .pay_btn {
+              text-transform: capitalize;
+              font-weight: 600;
+              color: #ffffff;
+              background: #fc9823;
+              margin-top: 10px;
+            }
+            .cancel_btn {
+              background: #dc3545;
+            }
           }
         }
       }
@@ -297,10 +307,17 @@
           flex-wrap: wrap;
           gap: 20px;
           align-items: center;
-          justify-content: center;
+          // justify-content: center;
         }
         .wish_box_active {
           display: flex;
+        }
+        .pagination_wrap {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          margin-top: 15px;
         }
       }
     }

@@ -44,5 +44,22 @@ class ProductApiService {
       throw err;
     }
   }
+
+  async getLikedProduct(data: any): Promise<any> {
+    try {
+      const url = `/liked-products`,
+        result = await axios.post(this.path + url, data, {
+          withCredentials: true,
+        });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
+      console.log("state:::", result.data.state);
+      const product: Product = result.data.data;
+      return product;
+    } catch (err: any) {
+      console.log(`ERROR ::: getLikedProduct ${err.message}`);
+      throw err;
+    }
+  }
 }
 export default ProductApiService;

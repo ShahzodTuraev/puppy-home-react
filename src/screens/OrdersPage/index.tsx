@@ -31,8 +31,6 @@ import {
   setAllOrders,
 } from "./slice";
 import { Order } from "../../types/order";
-import { verifyMemberData } from "../../app/apiServices/verify";
-import { Member } from "../../types/user";
 import AllOrders from "./allOrders";
 import PendingOrders from "./pendingOrders";
 import ProcessOrders from "./processOrders";
@@ -51,7 +49,6 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 const OrdersPage = () => {
   /*INSTALIZATIONS*/
-  const verifiedMemberData: Member | null = verifyMemberData;
   const {
     setPendingOrders,
     setProcessOrders,
@@ -142,9 +139,15 @@ const OrdersPage = () => {
               );
             })}
           </Box>
-          {side === 0 && orderBtn === 0 && <AllOrders />}
-          {side === 0 && orderBtn === 1 && <PendingOrders />}
-          {side === 0 && orderBtn === 2 && <ProcessOrders />}
+          {side === 0 && orderBtn === 0 && (
+            <AllOrders setOrderRebuild={setOrderRebuild} />
+          )}
+          {side === 0 && orderBtn === 1 && (
+            <PendingOrders setOrderRebuild={setOrderRebuild} />
+          )}
+          {side === 0 && orderBtn === 2 && (
+            <ProcessOrders setOrderRebuild={setOrderRebuild} />
+          )}
           {side === 0 && orderBtn === 3 && <DeliveredOrders />}
           {side === 0 && orderBtn === 4 && <CancelledOrders />}
           {side === 1 && (

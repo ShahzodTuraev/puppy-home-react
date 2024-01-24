@@ -1,5 +1,5 @@
 import { Event } from "./event";
-import { Account, Order } from "./order";
+import { Account, Like, Order } from "./order";
 import { Product } from "./product";
 import { Review } from "./reivew";
 
@@ -7,6 +7,7 @@ export interface AppRootState {
   homePage: HomePageState;
   shopPage: ShopPageState;
   ordersPage: OrdersPageState;
+  servicePage: ServicePageState;
 }
 
 /*HOMEPAGE*/
@@ -23,6 +24,14 @@ export interface ShopPageState {
   productReviews: Review[];
 }
 
+/*SHOPPAGE*/
+export interface ServicePageState {
+  allServices: Product[];
+  relatedServices: Product[];
+  chosenService: Product | null;
+  serviceReviews: Review[];
+}
+
 /*ORDERS PAGE*/
 
 export interface OrdersPageState {
@@ -31,6 +40,6 @@ export interface OrdersPageState {
   finishedOrders: Order[];
   cancelledOrders: Order[];
   allOrders: Order[];
-  wishList: Product[];
+  wishList: Like[];
   bankAccounts: Account[];
 }

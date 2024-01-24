@@ -24,6 +24,16 @@ export interface Order {
   product_data: Product[];
 }
 
+export interface Like {
+  _id: string;
+  like_ref_id: string;
+  like_group: string;
+  mb_id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  product_data: Product[];
+}
+
 export interface Account {
   _id: string;
   account_number?: number;
