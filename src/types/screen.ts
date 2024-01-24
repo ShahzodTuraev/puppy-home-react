@@ -24,7 +24,7 @@ export interface ShopPageState {
   productReviews: Review[];
 }
 
-/*SHOPPAGE*/
+/*SERVICEPAGE*/
 export interface ServicePageState {
   allServices: Product[];
   relatedServices: Product[];

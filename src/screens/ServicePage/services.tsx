@@ -1,24 +1,104 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
-  Checkbox,
   Stack,
   FormControlLabel,
   Pagination,
   PaginationItem,
+  FormControl,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 
-import { service_list } from "../../mock/cart_data";
 import { ArrowBack, ArrowForward, Close, Home } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ServiceCard from "./serciveCard";
+
+// REDUX
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setAllServices } from "./slice";
+import { Product } from "../../types/product";
+import { retrieveAllServices } from "./selector";
+import ServiceApiService from "../../app/apiServices/serviceApiService";
+import { ServiceSearchObj } from "../../types/others";
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setAllServices: (data: Product[]) => dispatch(setAllServices(data)),
+});
+// REDUX SELECTOR
+const allServicesRetriever = createSelector(
+  retrieveAllServices,
+  (allServices) => ({
+    allServices,
+  })
+);
 const Services = () => {
   /*INITIALIZATIONS*/
-
+  const { setAllServices } = actionDispatch(useDispatch());
+  const { allServices } = useSelector(allServicesRetriever);
+  const [category, setCategory] = useState<string>("all");
+  const [area, setArea] = useState<string>("all");
+  const [searchServicesObj, setSearchServicesObj] = useState<ServiceSearchObj>({
+    order: "product_views",
+    page: 1,
+    limit: 9,
+    service_collection: [
+      "daycare",
+      "dog_cafe",
+      "grooming_salon",
+      "veterinary_clinic",
+      "kindergarten",
+    ],
+    service_area: [
+      "Seoul",
+      "Daejeon",
+      "Busan",
+      "Incheon",
+      "Ulsan",
+      "Daegu",
+      "Gwangju",
+    ],
+  });
   const navigate = useNavigate();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const serviceService = new ServiceApiService();
+    serviceService
+      .getTargetServices(searchServicesObj)
+      .then((data) => setAllServices(data))
+      .catch((err) => console.log(err));
+  }, [searchServicesObj]);
   /*HANDLERS*/
+  const handleTypeChange = (e: any) => {
+    searchServicesObj.service_collection =
+      e.target.value === "all"
+        ? [
+            "daycare",
+            "dog_cafe",
+            "grooming_salon",
+            "veterinary_clinic",
+            "kindergarten",
+          ]
+        : [e.target.value];
+    searchServicesObj.page = 1;
+    setCategory(e.target.value);
+    setSearchServicesObj({ ...searchServicesObj });
+  };
+  const handleAreaChange = (e: any) => {
+    searchServicesObj.service_area =
+      e.target.value === "all"
+        ? ["Seoul", "Daejeon", "Busan", "Incheon", "Ulsan", "Daegu", "Gwangju"]
+        : [e.target.value];
+    searchServicesObj.page = 1;
+    setArea(e.target.value);
+    setSearchServicesObj({ ...searchServicesObj });
+  };
+  const handlePaginationChange = (event: any, value: number) => {
+    searchServicesObj.page = value;
+    setSearchServicesObj({ ...searchServicesObj });
+  };
   return (
     <Container className="products_container">
       <Box className="dir_box">
@@ -40,37 +120,45 @@ const Services = () => {
           </Box>
           <Box className="filter_body">
             <Box className="filter_line">
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Daycare"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Dog cafe"
-              />
-
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Veterinary Clinic"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Grooming Salon"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Kindergarten"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Daycare"
-              />
+              <FormControl>
+                <RadioGroup
+                  onChange={handleTypeChange}
+                  defaultValue={category}
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="all"
+                    control={<Radio />}
+                    label="All"
+                  />
+                  <FormControlLabel
+                    value="daycare"
+                    control={<Radio />}
+                    label="Daycare"
+                  />
+                  <FormControlLabel
+                    value="dog_cafe"
+                    control={<Radio />}
+                    label="Dog cafe"
+                  />
+                  <FormControlLabel
+                    value="veterinary_clinic"
+                    control={<Radio />}
+                    label="Veterinary Clinic"
+                  />
+                  <FormControlLabel
+                    value="grooming_salon"
+                    control={<Radio />}
+                    label="Grooming Salon"
+                  />
+                  <FormControlLabel
+                    value="kindergarten"
+                    control={<Radio />}
+                    label="Kindergarten"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Box>
           </Box>
           <Box className="filter_head">
@@ -78,55 +166,68 @@ const Services = () => {
           </Box>
           <Box className="filter_body">
             <Box className="filter_line">
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Seoul"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Busan"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Daejeon"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Incheon"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Ulsan"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Daegu"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                className="check_box"
-                label="Gwangju "
-              />
+              <FormControl>
+                <RadioGroup
+                  onChange={handleAreaChange}
+                  defaultValue={area}
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="all"
+                    control={<Radio />}
+                    label="All"
+                  />
+                  <FormControlLabel
+                    value="Seoul"
+                    control={<Radio />}
+                    label="Seoul"
+                  />
+                  <FormControlLabel
+                    value="Busan"
+                    control={<Radio />}
+                    label="Busan"
+                  />
+                  <FormControlLabel
+                    value="Daejeon"
+                    control={<Radio />}
+                    label="Daejeon"
+                  />
+                  <FormControlLabel
+                    value="Incheon"
+                    control={<Radio />}
+                    label="Incheon"
+                  />
+                  <FormControlLabel
+                    value="Ulsan"
+                    control={<Radio />}
+                    label="Ulsan"
+                  />
+                  <FormControlLabel
+                    value="Daegu"
+                    control={<Radio />}
+                    label="Daegu"
+                  />
+                  <FormControlLabel
+                    value="Gwangju"
+                    control={<Radio />}
+                    label="Gwangju"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Box>
           </Box>
         </Box>
         <Box className="product_box">
           <Box className="product_wrap">
-            {service_list?.map((service) => {
-              return <ServiceCard key={service} cartData={service} />;
+            {allServices.map((service) => {
+              return <ServiceCard key={service._id} cartData={service} />;
             })}
           </Box>
 
           <Pagination
-            sx={{ mt: "20px" }}
-            count={3}
-            page={1}
+            count={searchServicesObj.page >= 3 ? searchServicesObj.page + 1 : 3}
+            page={searchServicesObj.page}
             renderItem={(item) => (
               <PaginationItem
                 components={{
@@ -136,6 +237,7 @@ const Services = () => {
                 {...item}
               />
             )}
+            onChange={handlePaginationChange}
           />
         </Box>
       </Stack>

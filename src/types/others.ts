@@ -14,6 +14,14 @@ export interface ProductSearchObj {
   price: number[];
 }
 
+export interface ServiceSearchObj {
+  page: number;
+  limit: number;
+  service_collection: string[];
+  service_area: string[];
+  order: string;
+}
+
 export interface ReviewSearchObj {
   page: number;
   limit: number;

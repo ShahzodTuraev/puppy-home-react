@@ -60,11 +60,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       .product_wrap {
         display: flex;
         flex-direction: row;
         padding-left: 20px;
+        width: 100%;
         gap: 40px;
         flex-wrap: wrap;
         margin-bottom: 20px;
@@ -512,7 +512,9 @@
   }
 }
 .service_cart_active {
-  transform: scale(105%);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .service_img {
   width: 100%;

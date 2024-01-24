@@ -2,22 +2,22 @@ import { createSelector } from "reselect";
 import { AppRootState } from "../../types/screen";
 
 const selectServicePage = (state: AppRootState) => state.servicePage;
-export const retrieveAllProducts = createSelector(
+export const retrieveAllServices = createSelector(
   selectServicePage,
   (ServicePage) => ServicePage.allServices
 );
 
-export const retrieveRelatedProducts = createSelector(
+export const retrieveRelatedServices = createSelector(
   selectServicePage,
   (ServicePage) => ServicePage.relatedServices
 );
 
-export const retrieveProductReviews = createSelector(
+export const retrieveServiceReviews = createSelector(
   selectServicePage,
   (ServicePage) => ServicePage.serviceReviews
 );
 
-export const retrieveChosenProduct = createSelector(
+export const retrieveChosenService = createSelector(
   selectServicePage,
   (ServicePage) => ServicePage.chosenService
 );
