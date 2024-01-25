@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import "../../scss/help.scss";
 import { Close, Home } from "@mui/icons-material";
@@ -7,6 +7,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { sweetTopSmallSuccessAlert } from "../../app/lib/sweetAlert";
 const HelpPage = () => {
   /*INITIALIZATIONS*/
   const pathname = useLocation();
@@ -84,6 +85,18 @@ const HelpPage = () => {
         "A: To place an order, simply browse our products, add items to your cart, and proceed to checkout. Follow the steps to provide shipping information and payment details.",
     },
   ];
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  /*HANDLERS*/
+  const submitHandler = () => {
+    if (name !== "" && email !== "" && message !== "") {
+      setName("");
+      setEmail("");
+      setMessage("");
+      sweetTopSmallSuccessAlert("Sent successfully", 800, false);
+    }
+  };
   return (
     <div className="help_page">
       <Box
@@ -134,6 +147,8 @@ const HelpPage = () => {
               autoComplete="off"
               placeholder="Enter your name"
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -143,6 +158,8 @@ const HelpPage = () => {
               className="email_input"
               type="email"
               autoComplete="off"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="content">Message</label>
 
@@ -152,9 +169,13 @@ const HelpPage = () => {
               cols={30}
               rows={10}
               placeholder="type message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
             ></textarea>
             <Box className="btn_wrap">
-              <Button className="submit_btn">Submit</Button>
+              <Button onClick={submitHandler} className="submit_btn">
+                Submit
+              </Button>
             </Box>
           </Box>
         </Stack>

@@ -1,5 +1,5 @@
 import { Box, Button, Stack } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -10,8 +10,18 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import RoomIcon from "@mui/icons-material/Room";
 import PhoneIcon from "@mui/icons-material/Phone";
 import "../../../scss/navbar.scss";
+import { sweetTopSmallSuccessAlert } from "../../lib/sweetAlert";
 const Footer = () => {
+  /*INITIALIZATIONS*/
+  const [value, setValue] = useState<string>("");
   const navigate = useNavigate();
+  /*HANDLERS*/
+  const submitHandler = () => {
+    if (value !== "") {
+      setValue("");
+      sweetTopSmallSuccessAlert("success", 800, false);
+    }
+  };
   return (
     <div className="footer">
       <Stack className="footer_container">
@@ -19,11 +29,15 @@ const Footer = () => {
           <h3 className="subs_title">sign up for news</h3>
           <Box className="input_wrap">
             <input
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
               type="email"
               placeholder="Your email address"
               className="footer_input"
             />
-            <Button className="footer_btn">subscribe</Button>
+            <Button onClick={submitHandler} className="footer_btn">
+              subscribe
+            </Button>
           </Box>
         </Box>
         <Box className="main_box">
