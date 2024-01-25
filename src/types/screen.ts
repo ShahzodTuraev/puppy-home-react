@@ -1,4 +1,5 @@
 import { Event } from "./event";
+import { Notification } from "./notification";
 import { Account, Like, Order } from "./order";
 import { Product } from "./product";
 import { Review } from "./reivew";
@@ -8,6 +9,7 @@ export interface AppRootState {
   shopPage: ShopPageState;
   ordersPage: OrdersPageState;
   servicePage: ServicePageState;
+  notificationSection: NotificationSectionState;
 }
 
 /*HOMEPAGE*/
@@ -42,4 +44,10 @@ export interface OrdersPageState {
   allOrders: Order[];
   wishList: Like[];
   bankAccounts: Account[];
+}
+
+/*NOKTIFICATION*/
+
+export interface NotificationSectionState {
+  notifications: Notification[];
 }

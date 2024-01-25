@@ -146,7 +146,7 @@ const OrdersPage = () => {
             <PendingOrders setOrderRebuild={setOrderRebuild} />
           )}
           {side === 0 && orderBtn === 2 && (
-            <ProcessOrders setOrderRebuild={setOrderRebuild} />
+            <ProcessOrders ld={setOrderRebuild} />
           )}
           {side === 0 && orderBtn === 3 && <DeliveredOrders />}
           {side === 0 && orderBtn === 4 && <CancelledOrders />}

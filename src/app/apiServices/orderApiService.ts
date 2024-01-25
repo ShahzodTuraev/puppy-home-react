@@ -20,7 +20,6 @@ class OrderApiService {
       assert.ok(result?.data, Definer.general_err1);
       assert.ok(result?.data?.state !== "fail", result?.data?.message);
       console.log("state:::", result.data.state);
-      const order: any = result.data.data;
       return true;
     } catch (err: any) {
       console.log(`ERROR ::: creatOrder ${err.message}`);
@@ -30,7 +29,6 @@ class OrderApiService {
 
   async getMyOrders(order_status: string): Promise<Order[]> {
     try {
-      console.log("status", order_status);
       const url = `/orders?status=${order_status}`,
         result = await axios.get(this.path + url, {
           withCredentials: true,

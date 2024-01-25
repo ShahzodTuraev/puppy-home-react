@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Search,
-  Notifications,
   ArrowUpward,
   Person,
   Logout,
@@ -23,11 +22,12 @@ import {
 import { Definer } from "../../lib/Definer";
 import Basket from "./basket";
 import { WishCont } from "../../context/Wishlist";
+import NotificationPart from "./notification";
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [side, setSide] = WishCont();
+  const setSide = WishCont();
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
   useEffect(() => {
@@ -77,7 +77,7 @@ const Navbar = () => {
     }
   };
   const handleWishlist = () => {
-    setSide(3);
+    setSide[1](3);
     navigate("/orders");
   };
 
@@ -216,15 +216,7 @@ const Navbar = () => {
 
             {verifyMemberData ? (
               <Box className="auth_box">
-                <Badge
-                  badgeContent={4}
-                  color="primary"
-                  className="badge notif_badge"
-                >
-                  <IconButton className="icon_box">
-                    <Notifications className="icon" />
-                  </IconButton>
-                </Badge>
+                <NotificationPart />
                 <Dropdown
                   className="account_dropdown"
                   menu={{ items }}

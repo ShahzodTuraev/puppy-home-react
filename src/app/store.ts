@@ -4,6 +4,7 @@ import reduxLogger from "redux-logger";
 import shopPageReducer from "../screens/ShopPage/slice";
 import OrdersPageReducer from "../screens/OrdersPage/slice";
 import servicePageReducer from "../screens/ServicePage/slice";
+import notificationSectionReducer from "./components/navbar/slice";
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(reduxLogger),
@@ -12,6 +13,7 @@ export const store = configureStore({
     shopPage: shopPageReducer,
     ordersPage: OrdersPageReducer,
     servicePage: servicePageReducer,
+    notificationSection: notificationSectionReducer,
   },
 });
 
