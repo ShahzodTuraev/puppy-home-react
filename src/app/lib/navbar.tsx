@@ -43,7 +43,7 @@ export const navbar: NavbarObj[] = [
   {
     element: <ChosenService />,
     title: "Single Service",
-    path: "/service/:id",
+    path: "/service/:service_id",
     private: false,
     hidden: true,
   },

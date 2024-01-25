@@ -71,6 +71,7 @@ const ChosenProduct = () => {
   );
   const { chosenProduct } = useSelector(chosenProductRetriever);
   let { product_id } = useParams<{ product_id: any }>();
+
   const pathname = useLocation();
   const [productRebuild, setProductRebuild] = useState<Date>(new Date());
   useEffect(() => {
@@ -274,8 +275,7 @@ const ChosenProduct = () => {
               your furry friend's every need. From cozy sweaters to interactive
               playthings and premium nutrition, indulge your puppy in a world of
               comfort, play, and scrumptious delights—because every tail wag
-              deserves the very best! {chosenProduct?.product_rating},
-              {ratingValue}
+              deserves the very best!
             </p>
 
             <div
