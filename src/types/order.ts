@@ -31,7 +31,7 @@ export interface Like {
   mb_id: string;
   createdAt: Date;
   updatedAt: Date;
-  product_data: Product[];
+  product_data: Product;
 }
 
 export interface Account {

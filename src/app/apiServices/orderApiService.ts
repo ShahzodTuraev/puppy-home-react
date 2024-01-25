@@ -30,6 +30,7 @@ class OrderApiService {
 
   async getMyOrders(order_status: string): Promise<Order[]> {
     try {
+      console.log("status", order_status);
       const url = `/orders?status=${order_status}`,
         result = await axios.get(this.path + url, {
           withCredentials: true,

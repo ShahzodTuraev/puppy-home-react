@@ -34,7 +34,6 @@ const WishList = () => {
   /*INITIALIZATIONS*/
   const { wishList } = useSelector(wishListRetriever);
   const { setWishList } = actionDispatch(useDispatch());
-  const [wishType, setWishType] = useState<string>("product");
   const [wishData, setWishData] = useState({
     page: 1,
     limit: 9,
@@ -48,9 +47,7 @@ const WishList = () => {
       .catch((err) => console.log(err));
   }, [wishData]);
   /*HANDLERS*/
-  const categoryChange = (e: any) => {
-    setWishType(e.target.value);
-  };
+
   const handlePaginationChange = (event: any, value: number) => {
     wishData.page = value;
     setWishData({ ...wishData });
@@ -58,44 +55,20 @@ const WishList = () => {
   return (
     <Stack className="wish_wrap">
       <Box className="head_wrap">
-        <h3>Wishlist</h3>
-        <FormControl>
-          <RadioGroup
-            onChange={categoryChange}
-            defaultValue={wishType}
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-          >
-            <FormControlLabel
-              value="product"
-              control={<Radio />}
-              label="Product"
-            />
-            <FormControlLabel
-              value="service"
-              control={<Radio />}
-              label="Service"
-            />
-          </RadioGroup>
-        </FormControl>
+        <h3>My Liked Products</h3>
       </Box>
-      <Box
-        className={
-          wishType === "product"
-            ? "wish_box_wrap wish_box_active"
-            : "wish_box_wrap"
-        }
-      >
-        {wishList.map((ele) => {
-          return (
-            <ShoppingCart
-              className="shopping_cart"
-              key={ele._id}
-              cartData={ele.product_data}
-            />
-          );
-        })}
+      <Box className="wish_box_wrap wish_box_active">
+        {wishList
+          ?.filter((item) => item.product_data.product_collection !== "service")
+          .map((ele) => {
+            return (
+              <ShoppingCart
+                className="shopping_cart"
+                key={ele._id}
+                cartData={ele.product_data}
+              />
+            );
+          })}
         <Box className="pagination_wrap">
           <Pagination
             count={wishData.page >= 3 ? wishData.page + 1 : 3}
@@ -112,32 +85,6 @@ const WishList = () => {
             onChange={handlePaginationChange}
           />
         </Box>
-      </Box>
-
-      <Box
-        className={
-          wishType === "service"
-            ? "wish_box_wrap wish_box_active"
-            : "wish_box_wrap"
-        }
-      >
-        {service_list?.map((service) => {
-          return <ServiceCard key={service} cartData={service} />;
-        })}
-
-        <Pagination
-          count={3}
-          page={1}
-          renderItem={(item) => (
-            <PaginationItem
-              components={{
-                previous: ArrowBack,
-                next: ArrowForward,
-              }}
-              {...item}
-            />
-          )}
-        />
       </Box>
     </Stack>
   );

@@ -60,15 +60,11 @@ class MemberApiService {
   }
   public async memberLikeTarget(data: any) {
     try {
-      console.log(data);
       const result = await axios.post(this.path + "/member-liken", data, {
         withCredentials: true,
       });
-      console.log("likeresult:", result);
-
       assert.ok(result?.data, Definer.general_err1);
       assert.ok(result?.data.state !== "fail", result?.data?.message);
-      console.log("state: ", result.data.data);
       const like_result: MemberLiken = result.data.data;
 
       return like_result;
