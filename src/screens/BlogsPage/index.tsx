@@ -8,23 +8,47 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import {
   Close,
   Home,
-  FavoriteBorder,
-  Favorite,
-  MapsUgcOutlined,
-  RemoveRedEye,
   CloudUpload,
+  Facebook,
+  Instagram,
+  Telegram,
+  YouTube,
+  WhatsApp,
+  Settings,
 } from "@mui/icons-material";
 
 import "../../scss/blogs.scss";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BoArticle, SearchArticlesObj } from "../../types/boArticle";
+import CommunityApiService from "../../app/apiServices/communityApiService";
+// REDUX
+import { createSelector } from "reselect";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setTargetBoArticles } from "./slice";
+import { retrieveTargetBoArticles } from "./selector";
+import Postcard from "./postcard";
+import { verifyMemberData } from "../../app/apiServices/verify";
+// REDUX SLICE
+const actionDispatch = (dispatch: Dispatch) => ({
+  setTargetBoArticles: (data: BoArticle[]) =>
+    dispatch(setTargetBoArticles(data)),
+});
+// REDUX SELECTOR
+const targetBoArticlesRetriever = createSelector(
+  retrieveTargetBoArticles,
+  (targetBoArticles) => ({
+    targetBoArticles,
+  })
+);
 
 const BlogsPage = () => {
   /*INITIALIZATIONS*/
+  const { setTargetBoArticles } = actionDispatch(useDispatch());
+  const { targetBoArticles } = useSelector(targetBoArticlesRetriever);
   const pathname = useLocation();
   useEffect(() => {
     window.scrollTo({
@@ -33,8 +57,8 @@ const BlogsPage = () => {
     });
   }, [pathname]);
   const navigate = useNavigate();
-  const [comment, setComment] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const [artRebuild, setArtRebuild] = useState<Date>(new Date());
   const style_create = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -48,9 +72,28 @@ const BlogsPage = () => {
     display: "flex",
     justifyContent: "center",
   };
-
+  const [searchArticlesObj, setSearchArticlesObj] = useState<SearchArticlesObj>(
+    {
+      page: 1,
+      limit: 10,
+      mb_id: "all",
+    }
+  );
+  useEffect(() => {
+    const communityService = new CommunityApiService();
+    communityService
+      .getTargetArticles(searchArticlesObj)
+      .then((data) => setTargetBoArticles(data))
+      .catch((err) => console.log(err));
+  }, [searchArticlesObj, artRebuild]);
   /*HANDLERS*/
-
+  const myPostsHandler = () => {
+    setSearchArticlesObj({
+      page: 1,
+      limit: 10,
+      mb_id: "none",
+    });
+  };
   return (
     <div className="blogs">
       <Box
@@ -71,25 +114,45 @@ const BlogsPage = () => {
         </Box>
         <Stack className="main_box">
           <Stack className="side_bar">
-            <Avatar
-              alt="user"
-              src="/images/categories/dish.jpg"
-              className="avatar"
-            />
-            <h4 className="user_name">Jon Derry</h4>
+            <Box className="avatar_wrap">
+              <Settings
+                className="setting_icon"
+                onClick={() => navigate("/my-account")}
+              />
+              <Avatar
+                alt="user"
+                src="/images/categories/dish.jpg"
+                className="avatar"
+              />
+            </Box>
+            <h4 className="user_name">{verifyMemberData.mb_nick}</h4>
             <Box className="follow_box">
               <p className="follow_text">
-                <span>23</span>followers
+                <span>{verifyMemberData.mb_subscriber_cnt}</span>followers
               </p>
               <p className="follow_text">
-                <span>63</span>following
+                <span>{verifyMemberData.mb_follow_cnt}</span>following
               </p>
             </Box>
+            <Box className="icon_box">
+              <Facebook className="sns_icon" />
+              <Instagram className="sns_icon" />
+              <WhatsApp className="sns_icon" />
+              <Telegram className="sns_icon" />
+              <YouTube className="sns_icon" />
+            </Box>
+
+            <p className="user_desc">
+              As a new member of the group, I aim to contribute by sharing posts
+              that offer value to everyone.{verifyMemberData.mb_description}
+            </p>
             <Box className="btn_box">
               <Button onClick={() => setOpen(true)} className="user_btn">
                 Create Post
               </Button>
-              <Button className="user_btn">My Posts</Button>
+              <Button onClick={myPostsHandler} className="user_btn">
+                My Posts
+              </Button>
               {/* click case myposts>> all posts */}
               <Modal
                 open={open}
@@ -140,6 +203,7 @@ const BlogsPage = () => {
                         <input type="file" hidden />
                       </Button>
                     </Box>
+                    <Button>helo</Button>
                   </Stack>
                 </Box>
               </Modal>
@@ -147,300 +211,15 @@ const BlogsPage = () => {
             <Box className="follow_container"></Box>
           </Stack>
           <Stack className="main_posts">
-            <Box className="post_card">
-              <Box className="auth_box">
-                <Box className="user_info">
-                  <Avatar alt="user" src="/images/categories/dish.jpg" />
-                  <h4 className="user_name">Jon Derry</h4>
-                </Box>
-                <p className="post_time">• 2w •</p>
-                <p className="follow_link">Follow</p>
-              </Box>
-              <Swiper
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[Navigation, Pagination]}
-                className="img_swiper"
-              >
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/bag.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/dish.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/dish.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-              </Swiper>
-              <Box className="like_box">
-                <Box className="left_icons">
-                  <Box className="num_col">
-                    <FavoriteBorder className="post_icon" />
-                    <p>34</p>
-                  </Box>
-                  <Box onClick={() => setComment(true)} className="num_col">
-                    <MapsUgcOutlined className="post_icon" />
-                    <p>20</p>
-                  </Box>
-                </Box>
-                <Box className="num_col col_left ">
-                  <RemoveRedEye className="post_icon" />
-                  <p>50</p>
-                </Box>
-              </Box>
-              <Box className="article_box">
-                <Box
-                  className={
-                    comment
-                      ? "comments_wrap comments_wrap_active"
-                      : "comments_wrap"
-                  }
-                >
-                  <Close
-                    className="close_comment"
-                    onClick={() => setComment(false)}
-                  />
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_bottom">
-                    <input
-                      className="add_comment"
-                      placeholder="add a comment"
-                      type="text"
-                    />
-                    <h4 className="submit_commit">Post</h4>
-                  </Box>
-                </Box>
-                <h4 className="article_title">Lorem, ipsum dolor.</h4>
-                <p className="article_content">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolore ad totam maxime autem. Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Voluptatum, deleniti commodi!
-                  Cum dolor sapiente alias sequi, esse similique optio quod
-                  obcaecati perferendis, animi aspernatur magni. Voluptatibus
-                  pariatur iure officiis dolores!
-                </p>
-              </Box>
-            </Box>
-            <Box className="post_card">
-              <Box className="auth_box">
-                <Box className="user_info">
-                  <Avatar alt="user" src="/images/categories/dish.jpg" />
-                  <h4 className="user_name">Jon Derry</h4>
-                </Box>
-                <p className="post_time">• 2w •</p>
-                <p className="follow_link">Follow</p>
-              </Box>
-              <Swiper
-                pagination={{
-                  clickable: true,
-                }}
-                navigation={true}
-                modules={[Navigation, Pagination]}
-                className="img_swiper"
-              >
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/bag.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/dish.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    className="post_img"
-                    src="/images/categories/dish.jpg"
-                    alt="content"
-                  />
-                </SwiperSlide>
-              </Swiper>
-              <Box className="like_box">
-                <Box className="left_icons">
-                  <Box className="num_col">
-                    <Favorite className="post_icon" sx={{ fill: "#FF3040" }} />
-                    <p>34</p>
-                  </Box>
-                  <Box onClick={() => setComment(true)} className="num_col">
-                    <MapsUgcOutlined className="post_icon" />
-                    <p>20</p>
-                  </Box>
-                </Box>
-                <Box className="num_col col_left ">
-                  <RemoveRedEye className="post_icon" />
-                  <p>50</p>
-                </Box>
-              </Box>
-              <Box className="article_box">
-                <Box
-                  className={
-                    comment
-                      ? "comments_wrap comments_wrap_active"
-                      : "comments_wrap"
-                  }
-                >
-                  <Close
-                    className="close_comment"
-                    onClick={() => setComment(false)}
-                  />
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_box">
-                    <Box className="comment_top">
-                      <Avatar
-                        className="user_avatar"
-                        alt="user"
-                        src="/images/categories/dish.jpg"
-                      />
-                      <h4 className="user_name">Jon Derry </h4>
-                      <p className="comment_time">• 2w</p>
-                    </Box>
-                    <p className="comment_text">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ut dolorum eaque cum veniam quae placeat optio earum?
-                    </p>
-                  </Box>
-                  <Box className="comment_bottom">
-                    <input
-                      className="add_comment"
-                      placeholder="add a comment"
-                      type="text"
-                    />
-                    <h4 className="submit_commit">Post</h4>
-                  </Box>
-                </Box>
-                <h4 className="article_title">Lorem, ipsum dolor.</h4>
-                <p className="article_content">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Dolore ad totam maxime autem. Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Voluptatum, deleniti commodi!
-                  Cum dolor sapiente alias sequi, esse similique optio quod
-                  obcaecati perferendis, animi aspernatur magni. Voluptatibus
-                  pariatur iure officiis dolores!
-                </p>
-              </Box>
-            </Box>
+            {targetBoArticles.map((post) => {
+              return (
+                <Postcard
+                  key={post._id}
+                  cartData={post}
+                  setArtRebuild={setArtRebuild}
+                />
+              );
+            })}
           </Stack>
         </Stack>
       </Container>

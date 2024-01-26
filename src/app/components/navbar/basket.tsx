@@ -120,6 +120,7 @@ const Basket = () => {
     <Dropdown
       className="account_dropdown"
       placement="bottomRight"
+      arrow={{ pointAtCenter: true }}
       overlayClassName="shopcart_root"
       dropdownRender={(menu) => (
         <Box className="shopcart_container">

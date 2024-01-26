@@ -26,6 +26,7 @@ import {
 import { Definer } from "../../app/lib/Definer";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import assert from "assert";
+import Moment from "react-moment";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setProductReviews: (data: Review[]) => dispatch(setProductReviews(data)),
@@ -101,6 +102,9 @@ const ProductReview = ({ chosenProduct }: any) => {
                   size="small"
                   readOnly
                 />
+                <p className="review_time">
+                  <Moment fromNow>{review.createdAt}</Moment>
+                </p>
               </Box>
               <Box className="main_review">
                 <p>{review.content}</p>

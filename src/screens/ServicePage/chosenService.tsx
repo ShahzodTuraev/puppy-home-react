@@ -1,6 +1,4 @@
 import {
-  ArrowBack,
-  ArrowForward,
   Close,
   Email,
   Favorite,
@@ -9,15 +7,7 @@ import {
   Phone,
   Room,
 } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  Container,
-  Pagination,
-  PaginationItem,
-  Rating,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Rating, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../../scss/shop.scss";
@@ -25,7 +15,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { service_list } from "../../mock/cart_data";
 import ServiceCard from "./serciveCard";
 // REDUX
 import { createSelector } from "reselect";
@@ -34,7 +23,6 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { setChosenService, setRelatedServices } from "./slice";
 import { Product } from "../../types/product";
 import { retrieveChosenService, retrieveRelatedServices } from "./selector";
-import ProductApiService from "../../app/apiServices/productApiService";
 import { serverApi } from "../../app/lib/config";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import { Definer } from "../../app/lib/Definer";

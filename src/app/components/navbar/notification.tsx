@@ -56,6 +56,7 @@ const NotificationPart = () => {
     <Dropdown
       className="account_dropdown"
       placement="bottomRight"
+      arrow={{ pointAtCenter: true }}
       overlayClassName="notifcart_root"
       dropdownRender={(menu) => (
         <Box className="notifcart_container">
@@ -64,7 +65,7 @@ const NotificationPart = () => {
             {notifications.map((message) => {
               const image_path = `${serverApi}/${message.sender_data?.mb_image}`;
               return (
-                <Box className="message_box">
+                <Box key={message._id} className="message_box">
                   <Avatar src={image_path} alt="sender" />
                   <Box className="content_wrap">
                     <p className="user_name">

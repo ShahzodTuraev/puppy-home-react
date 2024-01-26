@@ -13,7 +13,6 @@ class ServiceApiService {
 
   async getTargetServices(data: ServiceSearchObj): Promise<Product[]> {
     try {
-      console.log("dataaaaa", data);
       const url = "/services",
         result = await axios.post(this.path + url, data, {
           withCredentials: true,

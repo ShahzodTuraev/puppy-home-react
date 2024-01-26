@@ -102,8 +102,6 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
 const Products = () => {
   /*INITIALIZATIONS*/
   const [category, setCategory] = CategoryCont();
-  console.log("category", category);
-
   const navigate = useNavigate();
   const pathname = useLocation();
   const [searchProductsObj, setSearchProductsObj] = useState<ProductSearchObj>({
@@ -185,9 +183,9 @@ const Products = () => {
               <FormControl>
                 <RadioGroup
                   onChange={handleCollectionChange}
-                  defaultValue={category}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
+                  value={category}
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
                 >
                   <FormControlLabel
                     value="all"
@@ -231,8 +229,8 @@ const Products = () => {
               <FormControl>
                 <RadioGroup
                   onChange={handleSortingChange}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
                 >
                   <FormControlLabel
                     value="createdAt"

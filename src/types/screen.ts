@@ -1,8 +1,11 @@
+import { BoArticle } from "./boArticle";
 import { Event } from "./event";
+import { Follower, Following } from "./follow";
 import { Notification } from "./notification";
 import { Account, Like, Order } from "./order";
 import { Product } from "./product";
 import { Review } from "./reivew";
+import { Member } from "./user";
 
 export interface AppRootState {
   homePage: HomePageState;
@@ -10,6 +13,7 @@ export interface AppRootState {
   ordersPage: OrdersPageState;
   servicePage: ServicePageState;
   notificationSection: NotificationSectionState;
+  communityPage: CommunityPageState;
 }
 
 /*HOMEPAGE*/
@@ -50,4 +54,14 @@ export interface OrdersPageState {
 
 export interface NotificationSectionState {
   notifications: Notification[];
+}
+
+/*COMMUNITY PAGE*/
+export interface CommunityPageState {
+  targetBoArticles: BoArticle[];
+  chosenMember: Member | null;
+  chosenMemberBoArticles: BoArticle[];
+  chosenSingleBoArticle: BoArticle | null;
+  memberFollowers: Follower[];
+  memberFollowings: Following[];
 }

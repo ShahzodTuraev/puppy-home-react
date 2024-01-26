@@ -123,9 +123,9 @@ const Services = () => {
               <FormControl>
                 <RadioGroup
                   onChange={handleTypeChange}
-                  defaultValue={category}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
+                  value={category}
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
                 >
                   <FormControlLabel
                     value="all"
@@ -169,9 +169,9 @@ const Services = () => {
               <FormControl>
                 <RadioGroup
                   onChange={handleAreaChange}
-                  defaultValue={area}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  name="radio-buttons-group"
+                  value={area}
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
                 >
                   <FormControlLabel
                     value="all"

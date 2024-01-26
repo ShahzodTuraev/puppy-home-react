@@ -19,7 +19,13 @@ const ProcessOrders = ({ setOrderRebuild }: any) => {
   return (
     <Stack className="orders_wrap">
       {processOrders?.map((order: Order) => {
-        return <OrderCart order={order} setOrderRebuild={setOrderRebuild} />;
+        return (
+          <OrderCart
+            key={order._id}
+            order={order}
+            setOrderRebuild={setOrderRebuild}
+          />
+        );
       })}
     </Stack>
   );
