@@ -45,10 +45,10 @@ class MemberApiService {
     }
   }
 
-  public async logOutRequest() {
+  public async logOutRequest(): Promise<any> {
     try {
       const result = await axios.get(this.path + "/logout", {
-        withCredentials: true, // bu bo'lmasa server cookies bilan oldi berdisini uzadi.
+        withCredentials: true,
       });
       assert.ok(result?.data, Definer.general_err1);
       assert.ok(result?.data.state !== "fail", result?.data?.message);
@@ -58,7 +58,7 @@ class MemberApiService {
       console.log(`ERROR::: logOutRequest ${err.message}`);
     }
   }
-  public async memberLikeTarget(data: any) {
+  public async memberLikeTarget(data: any): Promise<any> {
     try {
       const result = await axios.post(this.path + "/member-liken", data, {
         withCredentials: true,
@@ -70,6 +70,21 @@ class MemberApiService {
       return like_result;
     } catch (err: any) {
       console.log(`ERROR::: memberLikeTarget ${err.message}`);
+    }
+  }
+
+  public async getChosenMember(id: any): Promise<any> {
+    try {
+      const result = await axios.get(this.path + `/member/${id}`, {
+        withCredentials: true,
+      });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data.state !== "fail", result?.data?.message);
+      const member: Member = result.data.data;
+
+      return member;
+    } catch (err: any) {
+      console.log(`ERROR:::  getChosenMember ${err.message}`);
     }
   }
 }

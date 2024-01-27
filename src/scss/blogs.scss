@@ -94,11 +94,11 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          width: 60%;
+          width: 66%;
           p {
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 20px;
+            font-size: 18px;
             padding: 2px 5px;
             border-radius: 10px;
             &:hover {
@@ -191,8 +191,25 @@
             }
           }
           .img_swiper {
-            width: 80%;
-            height: fit-content;
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            background-size: cover;
+            margin-bottom: 10px;
+            .inner_box {
+              backdrop-filter: blur(20px);
+              border-radius: 10px;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+              img {
+                height: 100%;
+                width: auto;
+              }
+            }
             color: #fc9823;
             .post_img {
               width: 70%;
@@ -294,17 +311,17 @@
     width: 400px;
     margin: 15px 0;
   }
-  .upload_title {
-    width: 100%;
-  }
   .upload_box {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
+
     .image_box {
-      width: 80px;
+      width: 120px;
       height: 100px;
+      margin-left: 100px;
       border: 1px solid #afafaf;
       border-radius: 10px;
       position: relative;
@@ -317,10 +334,23 @@
       }
     }
   }
+  .create_btn {
+    background: #fc9823;
+    color: #ffffff;
+    text-transform: lowercase;
+    font-weight: 500;
+    font-size: 18px;
+    height: 35px;
+    &:hover {
+      background: #fc9823;
+      color: #ffffff;
+    }
+  }
 }
 
 .comment_container {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -360,6 +390,17 @@
   }
   .comment_input {
     width: 100%;
-    border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    .comment_textfield {
+      width: 85%;
+    }
+    .post_btn {
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 16px;
+    }
   }
 }

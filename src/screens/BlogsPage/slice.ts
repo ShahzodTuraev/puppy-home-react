@@ -8,6 +8,7 @@ const initialState: CommunityPageState = {
   chosenSingleBoArticle: null,
   memberFollowers: [],
   memberFollowings: [],
+  boArticleReviews: [],
 };
 
 const communityPageSlice = createSlice({
@@ -32,6 +33,9 @@ const communityPageSlice = createSlice({
     setMemberFollowings: (state, action) => {
       state.memberFollowings = action.payload;
     },
+    setBoArticleReviews: (state, action) => {
+      state.boArticleReviews = action.payload;
+    },
   },
 });
 
@@ -42,6 +46,7 @@ export const {
   setChosenSingleBoArticle,
   setMemberFollowers,
   setMemberFollowings,
+  setBoArticleReviews,
 } = communityPageSlice.actions;
 
 const CommunityPageReducer = communityPageSlice.reducer;

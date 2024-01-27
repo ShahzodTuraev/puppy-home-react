@@ -5,6 +5,8 @@ import {
   Button,
   Container,
   Modal,
+  Pagination,
+  PaginationItem,
   Stack,
   TextField,
 } from "@mui/material";
@@ -18,6 +20,8 @@ import {
   YouTube,
   WhatsApp,
   Settings,
+  ArrowBack,
+  ArrowForward,
 } from "@mui/icons-material";
 
 import "../../scss/blogs.scss";
@@ -32,6 +36,8 @@ import { setTargetBoArticles } from "./slice";
 import { retrieveTargetBoArticles } from "./selector";
 import Postcard from "./postcard";
 import { verifyMemberData } from "../../app/apiServices/verify";
+import CreatePost from "./createPost";
+import { Member } from "../../types/user";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setTargetBoArticles: (data: BoArticle[]) =>
@@ -50,15 +56,20 @@ const BlogsPage = () => {
   const { setTargetBoArticles } = actionDispatch(useDispatch());
   const { targetBoArticles } = useSelector(targetBoArticlesRetriever);
   const pathname = useLocation();
-  useEffect(() => {
+  const scrollTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+  };
+  useEffect(() => {
+    scrollTop();
   }, [pathname]);
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const [artRebuild, setArtRebuild] = useState<Date>(new Date());
+  const [user, setUser] = useState<Member>(verifyMemberData);
+  const userImage = user?.mb_image ? user?.mb_image : "/icons/user_avatar.jpg";
   const style_create = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -79,6 +90,7 @@ const BlogsPage = () => {
       mb_id: "all",
     }
   );
+  const [posts, setPosts] = useState<boolean>(false);
   useEffect(() => {
     const communityService = new CommunityApiService();
     communityService
@@ -86,12 +98,35 @@ const BlogsPage = () => {
       .then((data) => setTargetBoArticles(data))
       .catch((err) => console.log(err));
   }, [searchArticlesObj, artRebuild]);
+
   /*HANDLERS*/
+  const handlePaginationChange = (event: any, value: number) => {
+    searchArticlesObj.page = value;
+    setSearchArticlesObj({ ...searchArticlesObj });
+    scrollTop();
+  };
   const myPostsHandler = () => {
+    setPosts(true);
+    if (user?._id === verifyMemberData?._id) {
+      setSearchArticlesObj({
+        page: 1,
+        limit: 10,
+        mb_id: "none",
+      });
+    } else {
+      setSearchArticlesObj({
+        page: 1,
+        limit: 10,
+        mb_id: user?._id,
+      });
+    }
+  };
+  const allPostsHandler = () => {
+    setPosts(false);
     setSearchArticlesObj({
       page: 1,
       limit: 10,
-      mb_id: "none",
+      mb_id: "all",
     });
   };
   return (
@@ -119,19 +154,18 @@ const BlogsPage = () => {
                 className="setting_icon"
                 onClick={() => navigate("/my-account")}
               />
-              <Avatar
-                alt="user"
-                src="/images/categories/dish.jpg"
-                className="avatar"
-              />
+              <Avatar alt="user" src={userImage} className="avatar" />
             </Box>
-            <h4 className="user_name">{verifyMemberData.mb_nick}</h4>
+            <h4 className="user_name">{user?.mb_nick}</h4>
             <Box className="follow_box">
               <p className="follow_text">
-                <span>{verifyMemberData.mb_subscriber_cnt}</span>followers
+                <span>{user?.mb_subscriber_cnt}</span>followers
               </p>
               <p className="follow_text">
-                <span>{verifyMemberData.mb_follow_cnt}</span>following
+                <span>{user?.mb_follow_cnt}</span>following
+              </p>
+              <p className="follow_text">
+                <span>{user?.mb_point}</span>points
               </p>
             </Box>
             <Box className="icon_box">
@@ -144,16 +178,29 @@ const BlogsPage = () => {
 
             <p className="user_desc">
               As a new member of the group, I aim to contribute by sharing posts
-              that offer value to everyone.{verifyMemberData.mb_description}
+              that offer value to everyone.{user?.mb_description}
             </p>
             <Box className="btn_box">
-              <Button onClick={() => setOpen(true)} className="user_btn">
-                Create Post
-              </Button>
-              <Button onClick={myPostsHandler} className="user_btn">
-                My Posts
-              </Button>
-              {/* click case myposts>> all posts */}
+              {user._id === verifyMemberData._id ? (
+                <Button onClick={() => setOpen(true)} className="user_btn">
+                  Create Post
+                </Button>
+              ) : (
+                <Button onClick={() => setOpen(true)} className="user_btn">
+                  Follow
+                </Button>
+              )}
+              {posts ? (
+                <Button onClick={allPostsHandler} className="user_btn">
+                  All Posts
+                </Button>
+              ) : (
+                <Button onClick={myPostsHandler} className="user_btn">
+                  {user?.mb_nick === verifyMemberData.mb_nick
+                    ? "My Posts"
+                    : `${user?.mb_nick}'s posts`}
+                </Button>
+              )}
               <Modal
                 open={open}
                 onClose={() => setOpen(false)}
@@ -161,50 +208,7 @@ const BlogsPage = () => {
                 aria-describedby="modal-modal-description"
               >
                 <Box sx={style_create}>
-                  <Stack className="modal_content">
-                    <h4>Create Post</h4>
-                    <TextField
-                      id="outlined-basic"
-                      label="Post Subject"
-                      variant="outlined"
-                      className="input_subject"
-                    />
-                    <TextField
-                      id="outlined-multiline-static"
-                      label="Post Content"
-                      multiline
-                      rows={6}
-                      className="input_content"
-                    />
-                    <p className="upload_title">Upload images</p>
-                    <Box className="upload_box">
-                      <Button component="label" style={{ minWidth: "0" }}>
-                        <Box className="image_box">
-                          <CloudUpload className="img_icon" />
-                        </Box>
-                        <input type="file" hidden />
-                      </Button>
-                      <Button component="label" style={{ minWidth: "0" }}>
-                        <Box className="image_box">
-                          <CloudUpload className="img_icon" />
-                        </Box>
-                        <input type="file" hidden />
-                      </Button>
-                      <Button component="label" style={{ minWidth: "0" }}>
-                        <Box className="image_box">
-                          <CloudUpload className="img_icon" />
-                        </Box>
-                        <input type="file" hidden />
-                      </Button>
-                      <Button component="label" style={{ minWidth: "0" }}>
-                        <Box className="image_box">
-                          <CloudUpload className="img_icon" />
-                        </Box>
-                        <input type="file" hidden />
-                      </Button>
-                    </Box>
-                    <Button>helo</Button>
-                  </Stack>
+                  <CreatePost setOpen={setOpen} setArtRebuild={setArtRebuild} />
                 </Box>
               </Modal>
             </Box>
@@ -217,9 +221,27 @@ const BlogsPage = () => {
                   key={post._id}
                   cartData={post}
                   setArtRebuild={setArtRebuild}
+                  artRebuild={artRebuild}
+                  setUser={setUser}
                 />
               );
             })}
+            <Pagination
+              count={
+                searchArticlesObj.page >= 3 ? searchArticlesObj.page + 1 : 3
+              }
+              page={searchArticlesObj.page}
+              renderItem={(item) => (
+                <PaginationItem
+                  components={{
+                    previous: ArrowBack,
+                    next: ArrowForward,
+                  }}
+                  {...item}
+                />
+              )}
+              onChange={handlePaginationChange}
+            />
           </Stack>
         </Stack>
       </Container>

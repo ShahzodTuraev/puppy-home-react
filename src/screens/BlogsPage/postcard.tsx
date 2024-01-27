@@ -1,14 +1,7 @@
 import { Avatar, Box } from "@mui/material";
 import React, { useRef, useState } from "react";
 import Moment from "react-moment";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import {
-  Favorite,
-  FavoriteBorder,
-  MapsUgcOutlined,
-  RemoveRedEye,
-} from "@mui/icons-material";
+import { Favorite, FavoriteBorder, RemoveRedEye } from "@mui/icons-material";
 import assert from "assert";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import { Definer } from "../../app/lib/Definer";
@@ -20,14 +13,14 @@ import {
 import CommunityApiService from "../../app/apiServices/communityApiService";
 import { serverApi } from "../../app/lib/config";
 import Reviews from "./reviews";
-const Postcard = ({ cartData, setArtRebuild }: any) => {
+const Postcard = ({ cartData, setArtRebuild, artRebuild, setUser }: any) => {
   /*INITIALIZATIONS*/
   const refs: any = useRef([]);
   const {
     _id,
     art_subject,
     art_content,
-    art_images,
+    art_image,
     art_likes,
     art_views,
     art_reviews,
@@ -39,6 +32,10 @@ const Postcard = ({ cartData, setArtRebuild }: any) => {
   const user_image = member_data?.mb_image
     ? `${serverApi}/${member_data.mb_image}`
     : "/icons/user_avatar.jpg";
+  const art_picture = `${serverApi}/${art_image}`;
+  const back_image = art_image
+    ? `${serverApi}/${art_image}`
+    : "/images/events/three.jpg";
   /*HANDLERS*/
   const targetLikeHandler = async (e: any, id: string) => {
     try {
@@ -72,50 +69,49 @@ const Postcard = ({ cartData, setArtRebuild }: any) => {
       sweetErrorHandling(err).then();
     }
   };
+  const chooseMemberHandler = async () => {
+    try {
+      if (member_data._id !== verifyMemberData._id) {
+        const memberService = new MemberApiService();
+        const data = await memberService.getChosenMember(member_data._id);
+        setUser(data);
+      } else {
+        setUser(verifyMemberData);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Box key={_id} className="post_card">
       <Box className="auth_box">
-        <Box className="user_info">
+        <Box onClick={chooseMemberHandler} className="user_info">
           <Avatar className="post_avatar" alt="user" src={user_image} />
           <h4 className="user_name">{member_data.mb_nick}</h4>
         </Box>
-        <p className="post_time">
-          • <Moment fromNow>{createdAt}</Moment> •
-        </p>
-        <p className="follow_link">Follow</p>
+        {verifyMemberData?._id !== member_data._id ? (
+          <>
+            {" "}
+            <p className="post_time">
+              • <Moment fromNow>{createdAt}</Moment> •
+            </p>
+            <p className="follow_link">Follow</p>
+          </>
+        ) : (
+          <p className="post_time">
+            • <Moment fromNow>{createdAt}</Moment>
+          </p>
+        )}
       </Box>
-      <Swiper
-        centeredSlides={true}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Navigation, Pagination]}
+      <Box
+        sx={{ backgroundImage: `url(${back_image})` }}
         className="img_swiper"
       >
-        <SwiperSlide>
-          <img
-            className="post_img"
-            src="/images/categories/bag.jpg"
-            alt="content"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="post_img"
-            src="/images/categories/dish.jpg"
-            alt="content"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className="post_img"
-            src="/images/categories/dish.jpg"
-            alt="content"
-          />
-        </SwiperSlide>
-      </Swiper>
+        <Box className="inner_box">
+          {art_image && <img src={art_picture} alt="post" />}
+        </Box>
+      </Box>
       <Box className="main_bottom_wrap">
         <Box className="like_box">
           <Box className="left_icons">
@@ -139,7 +135,11 @@ const Postcard = ({ cartData, setArtRebuild }: any) => {
               </p>
             </Box>
             <Box className="num_col">
-              <Reviews />
+              <Reviews
+                postId={_id}
+                setArtRebuild={setArtRebuild}
+                artRebuild={artRebuild}
+              />
               <p>{art_reviews}</p>
             </Box>
           </Box>

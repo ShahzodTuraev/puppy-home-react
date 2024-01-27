@@ -64,4 +64,5 @@ export interface CommunityPageState {
   chosenSingleBoArticle: BoArticle | null;
   memberFollowers: Follower[];
   memberFollowings: Following[];
+  boArticleReviews: Review[];
 }

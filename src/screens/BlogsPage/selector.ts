@@ -26,3 +26,7 @@ export const retrieveMemberFollowings = createSelector(
   selectCommunityPage,
   (CommunityPage) => CommunityPage.memberFollowings
 );
+export const retrieveBoArticleReviews = createSelector(
+  selectCommunityPage,
+  (CommunityPage) => CommunityPage.boArticleReviews
+);

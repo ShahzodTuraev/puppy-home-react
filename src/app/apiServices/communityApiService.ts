@@ -43,6 +43,31 @@ class CommunityApiService {
       throw err;
     }
   }
+
+  public async createBoArticle(data: any) {
+    try {
+      console.log(data);
+      let formData = new FormData();
+      formData.append("art_subject", data.art_subject);
+      formData.append("art_content", data.art_content);
+      formData.append("art_image", data.art_image);
+      const result = await axios(`${this.path}/community/create`, {
+        method: "POST",
+        data: formData,
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
+      console.log("state: ", result.data.data);
+      const boArticle: BoArticle = result.data.data;
+      return boArticle;
+    } catch (err: any) {
+      console.log(`ERROR::: createBoArticle ${err.message}`);
+    }
+  }
 }
 
 export default CommunityApiService;
