@@ -67,13 +67,23 @@ const LogIn = () => {
     }
   };
 
-  const resetHandler = () => {
+  const resetHandler = async () => {
     if (nickName !== "" && password !== "" && password === repassword) {
-      console.log(nickName, password, repassword);
-
-      setNickName("");
-      setPassword("");
-      setRepassword("");
+      try {
+        const memberService = new MemberApiService();
+        await memberService.updatePassword({
+          mb_email: nickName,
+          mb_password: repassword,
+        });
+        setNickName("");
+        setPassword("");
+        setRepassword("");
+        sweetTopSmallSuccessAlert("Password successfully modified", 700, false);
+        setReset(false);
+      } catch (err) {
+        console.log(err);
+        sweetErrorHandling(err).then();
+      }
     } else {
       if (nickName === "") setNickError("Fill out this field");
 
@@ -91,53 +101,84 @@ const LogIn = () => {
   return (
     <div className="signinPage">
       <Stack className="form_box">
-        {reset ? <h3>Reset password</h3> : <h3>Log in</h3>}
-
-        <Box className="input_wrap">
-          <TextField
-            error={!!nickError}
-            className="input_area"
-            id="outlined-basic"
-            label="Nick name"
-            variant="outlined"
-            onChange={nameChangeHandler}
-            size="small"
-            helperText={nickError}
-            value={nickName}
-          />
-        </Box>
-
-        <Box className="input_wrap">
-          <TextField
-            className="input_area"
-            onChange={passwordChangeHandler}
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            size="small"
-            type="password"
-            value={password}
-            error={!!passwordError}
-            helperText={passwordError}
-            onKeyPress={paasswordKeyPressHandler}
-          />
-        </Box>
-
-        {reset && (
-          <Box className="input_wrap">
-            <TextField
-              className="input_area"
-              onChange={repasswordChangeHandler}
-              id="outlined-basic"
-              label="Comfirm password"
-              variant="outlined"
-              size="small"
-              type="password"
-              value={repassword}
-              error={!!repasswordError}
-              helperText={repasswordError}
-            />
-          </Box>
+        {reset ? (
+          <>
+            <h3>Reset password</h3>
+            <Box className="input_wrap">
+              <TextField
+                error={!!nickError}
+                className="input_area"
+                id="outlined-basic"
+                label="Email address"
+                variant="outlined"
+                onChange={nameChangeHandler}
+                size="small"
+                helperText={nickError}
+                value={nickName}
+              />
+            </Box>
+            <Box className="input_wrap">
+              <TextField
+                className="input_area"
+                onChange={passwordChangeHandler}
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
+                size="small"
+                type="password"
+                value={password}
+                error={!!passwordError}
+                helperText={passwordError}
+                onKeyPress={paasswordKeyPressHandler}
+              />
+            </Box>
+            <Box className="input_wrap">
+              <TextField
+                className="input_area"
+                onChange={repasswordChangeHandler}
+                id="outlined-basic"
+                label="Comfirm password"
+                variant="outlined"
+                size="small"
+                type="password"
+                value={repassword}
+                error={!!repasswordError}
+                helperText={repasswordError}
+              />
+            </Box>
+          </>
+        ) : (
+          <>
+            <h3>Log in</h3>
+            <Box className="input_wrap">
+              <TextField
+                error={!!nickError}
+                className="input_area"
+                id="outlined-basic"
+                label="Nick name"
+                variant="outlined"
+                onChange={nameChangeHandler}
+                size="small"
+                helperText={nickError}
+                value={nickName}
+              />
+            </Box>
+            <Box className="input_wrap">
+              <TextField
+                className="input_area"
+                onChange={passwordChangeHandler}
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
+                size="small"
+                type="password"
+                value={password}
+                error={!!passwordError}
+                helperText={passwordError}
+                onKeyPress={paasswordKeyPressHandler}
+              />
+            </Box>
+          </>
         )}
 
         {!reset ? (

@@ -115,6 +115,19 @@ class MemberApiService {
       console.log(`ERROR::: updateMemberData ${err.message}`);
     }
   }
+
+  public async updatePassword(data: any): Promise<any> {
+    try {
+      const result = await axios.post(this.path + "/update-password", data, {
+        withCredentials: true,
+      });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data.state !== "fail", result?.data?.message);
+      return true;
+    } catch (err: any) {
+      console.log(`ERROR:::  getChosenMember ${err.message}`);
+    }
+  }
 }
 
 export default MemberApiService;

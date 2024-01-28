@@ -119,11 +119,13 @@ const BlogsPage = () => {
   }, [searchArticlesObj, artRebuild]);
 
   useEffect(() => {
-    const memberService = new MemberApiService();
-    memberService
-      .getChosenMember(user?._id)
-      .then((data) => setChosenMember(data))
-      .catch((err) => console.log(err));
+    if (verifyMemberData?._id) {
+      const memberService = new MemberApiService();
+      memberService
+        .getChosenMember(user?._id)
+        .then((data) => setChosenMember(data))
+        .catch((err) => console.log(err));
+    }
   }, [user]);
 
   /*HANDLERS*/
