@@ -37,6 +37,7 @@ import ProcessOrders from "./processOrders";
 import DeliveredOrders from "./deliveredOrders";
 import CancelledOrders from "./CancelledOrders";
 import OrderApiService from "../../app/apiServices/orderApiService";
+import { verifyMemberData } from "../../app/apiServices/verify";
 
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -154,17 +155,34 @@ const OrdersPage = () => {
             <Stack className="address_wrap">
               <Box className="address_box">
                 <h3>Address</h3>
-                <FormControlLabel
-                  value="address"
-                  control={<Radio checked />}
-                  label="South Korea Busan Saha-gu Nakdong-daero 1357, 45"
-                />
-                <Button
-                  onClick={() => navigate("/settings")}
-                  className="address_btn"
-                >
-                  Change address
-                </Button>
+                {verifyMemberData?.mb_address &&
+                verifyMemberData?.mb_address !== "" ? (
+                  <>
+                    <FormControlLabel
+                      value="address"
+                      control={<Radio checked />}
+                      label="South Korea Busan Saha-gu Nakdong-daero 1357, 45"
+                    />
+                    <Button
+                      onClick={() => navigate("/my-account")}
+                      className="address_btn"
+                    >
+                      Change address
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      Pleae add your address to deliver your ordered products
+                    </p>
+                    <Button
+                      onClick={() => navigate("/my-account")}
+                      className="address_btn"
+                    >
+                      Add address
+                    </Button>
+                  </>
+                )}
               </Box>
             </Stack>
           )}

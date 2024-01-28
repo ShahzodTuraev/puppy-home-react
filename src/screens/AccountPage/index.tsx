@@ -128,6 +128,7 @@ const AccountPage = () => {
             onChange={changeMemberPhoneHandler}
             placeholder={verifyMemberData?.mb_phone}
             className="text_field"
+            type="number"
           />
           <p className="input_label">Address</p>
           <Input

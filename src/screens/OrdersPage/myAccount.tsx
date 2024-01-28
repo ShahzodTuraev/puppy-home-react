@@ -7,6 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import React from "react";
+import { verifyMemberData } from "../../app/apiServices/verify";
 
 const MyAccount = () => {
   return (
@@ -21,7 +22,7 @@ const MyAccount = () => {
           />
           <Box className="line_box">
             <h4>Cardholder:</h4>
-            <p>John Dellogy</p>
+            <p>{verifyMemberData?.mb_nick}</p>
           </Box>
           <Box className="line_box">
             <h4>Account:</h4>
@@ -64,6 +65,11 @@ const MyAccount = () => {
                 variant="outlined"
               />
             </Box>
+            <img
+              className="bank_cards"
+              src="/images/mock-img/bankCards.png"
+              alt="cards"
+            />
             <Button className="add_account_btn">Add New Account</Button>
           </Box>
         </Box>

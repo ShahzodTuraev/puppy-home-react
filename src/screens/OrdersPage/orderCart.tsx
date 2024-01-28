@@ -11,6 +11,8 @@ import {
 } from "../../app/lib/sweetAlert";
 import OrderApiService from "../../app/apiServices/orderApiService";
 import { MakeOrderCont } from "../../app/context/MakeOrder";
+import assert from "assert";
+import { Definer } from "../../app/lib/Definer";
 
 const OrderCart = ({ order, setOrderRebuild }: any) => {
   /*INITIALIZATIONS*/
@@ -40,6 +42,7 @@ const OrderCart = ({ order, setOrderRebuild }: any) => {
   /*HANDLERS*/
   const payHandler = async (e: any) => {
     try {
+      assert(verifyMemberData?.mb_address, Definer.input_err4);
       const order_id = e.target.value;
       const data = { order_id: order_id, order_status: "PROCESS" };
       if (!verifyMemberData) {

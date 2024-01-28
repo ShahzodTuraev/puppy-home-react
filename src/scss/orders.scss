@@ -260,6 +260,7 @@
             .add_title {
               font-weight: 600;
               margin-bottom: 20px;
+              font-size: 18px;
             }
             .input_cart {
               display: flex;
@@ -283,6 +284,10 @@
                 color: #ffffff;
                 background: #fc9823;
                 margin-top: 20px;
+              }
+              .bank_cards {
+                margin-top: 20px;
+                width: 300px;
               }
             }
           }
