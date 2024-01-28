@@ -87,6 +87,34 @@ class MemberApiService {
       console.log(`ERROR:::  getChosenMember ${err.message}`);
     }
   }
+
+  public async updateMemberData(data: any) {
+    try {
+      let formData = new FormData();
+      formData.append("mb_nick", data.mb_nick || "");
+      formData.append("mb_email", data.mb_email || "");
+      formData.append("mb_phone", data.mb_phone || "");
+      formData.append("mb_address", data.mb_address || "");
+      formData.append("mb_description", data.mb_description || "");
+      formData.append("mb_image", data.mb_image || "");
+      const result = await axios(`${this.path}/member/update`, {
+        method: "POST",
+        data: formData,
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
+      console.log("state: ", result.data.data);
+      const member: Member = result.data.data;
+      localStorage.setItem("member_data", JSON.stringify(member));
+      return member;
+    } catch (err: any) {
+      console.log(`ERROR::: updateMemberData ${err.message}`);
+    }
+  }
 }
 
 export default MemberApiService;

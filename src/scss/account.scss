@@ -1,0 +1,80 @@
+.account_container {
+  margin-top: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 150px;
+  .main_title {
+    font-weight: 500;
+    color: #172b4d;
+    text-align: center;
+    font-size: 28px;
+  }
+  .main_wrapper {
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    .sidebar {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      margin-right: 50px;
+      .avatar_wrap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 140px;
+        height: 115px;
+        .user_avatar {
+          width: 100px;
+          height: 100px;
+          border: 1px solid #dce4f3;
+        }
+        .add_img_btn {
+          color: #868686;
+          position: absolute;
+          z-index: 1;
+          bottom: 0;
+          right: 0;
+        }
+      }
+      .user_name {
+        margin-top: 15px;
+        font-size: 24px;
+        font-weight: 500;
+      }
+      .user_type {
+        font-size: 18px;
+        font-family: 500;
+        color: #4e4e4e;
+      }
+    }
+    .mainbar {
+      padding-top: 50px;
+      .text_field {
+        width: 700px;
+        margin-bottom: 20px;
+      }
+      .input_label {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+      .btn_wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .form_submit_btn {
+          text-align: center;
+          background: #fc9823;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

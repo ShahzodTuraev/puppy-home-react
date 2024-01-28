@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Container,
@@ -8,6 +9,7 @@ import {
   Pagination,
   PaginationItem,
   Stack,
+  styled,
 } from "@mui/material";
 import {
   Close,
@@ -39,6 +41,7 @@ import { Member } from "../../types/user";
 import { sweetTopSmallSuccessAlert } from "../../app/lib/sweetAlert";
 import MemberApiService from "../../app/apiServices/memberApiService";
 import FollowList from "./followList";
+import { serverApi } from "../../app/lib/config";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setTargetBoArticles: (data: BoArticle[]) =>
@@ -83,7 +86,7 @@ const BlogsPage = () => {
   const [user, setUser] = useState<Member>(verifyMemberData);
   const [followCase, setFollowCase] = useState<string>("");
   const userImage = chosenMember?.mb_image
-    ? chosenMember?.mb_image
+    ? `${serverApi}/${chosenMember?.mb_image}`
     : "/icons/user_avatar.jpg";
   const style_create = {
     position: "absolute" as "absolute",
@@ -193,6 +196,39 @@ const BlogsPage = () => {
     setOpenFollow(true);
     setFollowCase("following");
   };
+
+  /*MUI STYLES*/
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      backgroundColor: "#44b700",
+      width: "20px",
+      height: "20px",
+      borderRadius: "50%",
+      color: "#44b700",
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      "&::after": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        animation: "ripple 1.2s infinite ease-in-out",
+        border: "1px solid currentColor",
+        content: '""',
+      },
+    },
+    "@keyframes ripple": {
+      "0%": {
+        transform: "scale(.8)",
+        opacity: 1,
+      },
+      "100%": {
+        transform: "scale(2.4)",
+        opacity: 0,
+      },
+    },
+  }));
   return (
     <div className="blogs">
       <Box
@@ -221,7 +257,17 @@ const BlogsPage = () => {
                     onClick={() => navigate("/my-account")}
                   />
                 )}
-                <Avatar alt="user" src={userImage} className="avatar" />
+                {user._id === verifyMemberData._id ? (
+                  <StyledBadge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    variant="dot"
+                  >
+                    <Avatar alt="user" src={userImage} className="avatar" />
+                  </StyledBadge>
+                ) : (
+                  <Avatar alt="user" src={userImage} className="avatar" />
+                )}
               </Box>
               <h4 className="user_name">{chosenMember?.mb_nick}</h4>
               <Box className="follow_box">
