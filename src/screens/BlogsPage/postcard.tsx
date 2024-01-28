@@ -64,6 +64,7 @@ const Postcard = ({ cartData, setArtRebuild, artRebuild, setUser }: any) => {
       const communityService = new CommunityApiService();
       await communityService.getChosenArticles(e.target.id);
       setOpen(true);
+      setArtRebuild(new Date());
     } catch (err: any) {
       console.log("getChosenArticle, ERROR:::", err);
       sweetErrorHandling(err).then();
@@ -71,13 +72,9 @@ const Postcard = ({ cartData, setArtRebuild, artRebuild, setUser }: any) => {
   };
   const chooseMemberHandler = async () => {
     try {
-      if (member_data._id !== verifyMemberData._id) {
-        const memberService = new MemberApiService();
-        const data = await memberService.getChosenMember(member_data._id);
-        setUser(data);
-      } else {
-        setUser(verifyMemberData);
-      }
+      const memberService = new MemberApiService();
+      const data = await memberService.getChosenMember(member_data._id);
+      setUser(data);
     } catch (err) {
       console.log(err);
     }
@@ -90,19 +87,9 @@ const Postcard = ({ cartData, setArtRebuild, artRebuild, setUser }: any) => {
           <Avatar className="post_avatar" alt="user" src={user_image} />
           <h4 className="user_name">{member_data.mb_nick}</h4>
         </Box>
-        {verifyMemberData?._id !== member_data._id ? (
-          <>
-            {" "}
-            <p className="post_time">
-              • <Moment fromNow>{createdAt}</Moment> •
-            </p>
-            <p className="follow_link">Follow</p>
-          </>
-        ) : (
-          <p className="post_time">
-            • <Moment fromNow>{createdAt}</Moment>
-          </p>
-        )}
+        <p className="post_time">
+          • <Moment fromNow>{createdAt}</Moment>
+        </p>
       </Box>
       <Box
         sx={{ backgroundImage: `url(${back_image})` }}

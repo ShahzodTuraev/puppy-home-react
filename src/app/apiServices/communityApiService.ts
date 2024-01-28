@@ -68,6 +68,38 @@ class CommunityApiService {
       console.log(`ERROR::: createBoArticle ${err.message}`);
     }
   }
+
+  public async subscribeMember(data: any): Promise<any> {
+    try {
+      let url = "/follow/subscribe";
+      const result = await axios.post(this.path + url, data, {
+        withCredentials: true,
+      });
+      console.log("state:", result.data.state);
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data.state !== "fail", result?.data?.message);
+      return true;
+    } catch (err: any) {
+      console.log(`ERROR::: subscribeMember ${err.message}`);
+      throw err;
+    }
+  }
+
+  public async unsubscribeMember(data: any): Promise<any> {
+    try {
+      let url = "/follow/unsubscribe";
+      const result = await axios.post(this.path + url, data, {
+        withCredentials: true,
+      });
+      console.log("state:", result.data.state);
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data.state !== "fail", result?.data?.message);
+      return true;
+    } catch (err: any) {
+      console.log(`ERROR::: unsubscribeMember ${err.message}`);
+      throw err;
+    }
+  }
 }
 
 export default CommunityApiService;
