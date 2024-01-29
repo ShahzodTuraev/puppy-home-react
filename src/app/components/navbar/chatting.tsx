@@ -47,7 +47,7 @@ const Chatting = () => {
   useEffect(() => {
     socketitem.connect();
     socketitem?.on("connect", function () {
-      console.log("CLIENT: connected");
+      // console.log("CLIENT: connected");
     });
 
     socketitem?.on("newMsg", (new_message: ChatMessage) => {
@@ -69,7 +69,7 @@ const Chatting = () => {
     });
 
     socketitem?.on("infoMsg", (msg: ChatInfoMsg) => {
-      console.log("CLIENT: infoMsg");
+      // console.log("CLIENT: infoMsg");
 
       setOnlineUsers(msg.total);
     });
@@ -96,8 +96,6 @@ const Chatting = () => {
       }
       assert.ok(textInput.current.value, Definer.input_err3);
       textInput.current.value = "";
-      const mb_image_url =
-        verifyMemberData?.mb_image ?? "/auth/default_uer.svg";
       socketitem.emit("createMsg", {
         msg: message,
         mb_id: verifyMemberData?._id,
@@ -112,7 +110,7 @@ const Chatting = () => {
   };
   const getKeyHandler = (e: any) => {
     try {
-      if (e.key == "Enter") {
+      if (e.key === "Enter") {
         assert.ok(message, Definer.input_err3);
         sendMsgHandler();
       }
