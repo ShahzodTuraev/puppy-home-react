@@ -4,7 +4,7 @@ import Badge from "@mui/material/Badge";
 export const RippleBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
-    color: "#44b700",
+    color: "#ffffff",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     "&::after": {
       position: "absolute",
@@ -15,6 +15,7 @@ export const RippleBadge = styled(Badge)(({ theme }) => ({
       borderRadius: "50%",
       animation: "ripple 1.2s infinite ease-in-out",
       border: "1px solid currentColor",
+      color: "#44b700",
       content: '""',
     },
   },

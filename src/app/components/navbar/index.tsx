@@ -23,6 +23,7 @@ import { Definer } from "../../lib/Definer";
 import Basket from "./basket";
 import { WishCont } from "../../context/Wishlist";
 import NotificationPart from "./notification";
+import Chatting from "./chatting";
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
@@ -38,19 +39,13 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up the event listener on component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Check if scrollPosition is greater than or equal to 100
   const isScrolled = scrollPosition >= 100;
   const isTopScroll = scrollPosition >= 300;
-  // const [menu, setMenu] = useState(false);
-  // const onMenu = () => {
-  //   setMenu(!menu);
-  // };
 
   /*HANDLERS*/
   const topHandler = () => {
@@ -243,6 +238,9 @@ const Navbar = () => {
             )}
           </Box>
         </Container>
+        <Box className="chat_icon_wrap">
+          <Chatting />
+        </Box>
         {isTopScroll && (
           <ArrowUpward
             sx={{ fill: "#ffffff ", width: "40px", height: "40px" }}

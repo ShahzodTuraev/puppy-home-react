@@ -10,7 +10,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
 import Context from "./app/context";
-
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 

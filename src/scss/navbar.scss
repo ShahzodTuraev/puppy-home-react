@@ -365,7 +365,23 @@
     }
   }
 }
-
+.chat_icon_wrap {
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .chat_icon {
+    color: #fc9823;
+    font-size: 45px;
+    transition: all 0.3s;
+    &:hover {
+      color: #172b4d;
+    }
+  }
+}
 .up_icon {
   width: 48px;
   height: 48px;
@@ -539,3 +555,100 @@
 }
 
 /* FOOTER STYLES END*/
+/* CHATTING STYLES START*/
+.chatting_root {
+  background: #ffffff;
+  width: 350px;
+  height: 480px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  .chatting_container {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    .chatting_title {
+      width: 100%;
+      height: 40px;
+      background: #deecf8;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      border-bottom: 1px solid #d1d1d1;
+      box-sizing: border-box;
+      p {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 500;
+        color: #464646;
+      }
+    }
+    .chatting_main {
+      width: 100%;
+      height: 390px;
+      .msg_left {
+        margin-left: 10px;
+        padding: 9px;
+        font-size: 16px;
+        width: auto;
+        height: auto;
+        display: flex;
+        background: #ffffff;
+        border-radius: 20px 20px 20px 0;
+      }
+      .msg_right {
+        padding: 9px;
+        width: auto;
+        height: auto;
+        display: flex;
+        font-size: 16px;
+        background: #d0ece8;
+        border-radius: 20px 20px 0 20px;
+        margin-right: 10px;
+      }
+    }
+    .chatting_input {
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 5px;
+      // background: #deecf8;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      input {
+        width: 85%;
+        height: 45px;
+        // border: none;
+        border-radius: 30px;
+        padding: 0 15px;
+        font-size: 16px;
+        margin-bottom: 4px;
+        border: 1px solid #b2cbe0;
+        &:focus {
+          outline: 1px solid #b2cbe0;
+        }
+      }
+      .send_icon {
+        fill: #ffffff;
+        margin-left: 5px;
+        border-radius: 50%;
+        background: #b2cbe0;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.ROOT_CSS {
+  height: 390px;
+  width: 100%;
+  border: 1px solid red;
+}
+/* CHATTING STYLES END*/
