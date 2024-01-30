@@ -9,6 +9,7 @@ export interface NavbarObj {
 export interface ProductSearchObj {
   page: number;
   limit: number;
+  search: string;
   order: string;
   product_collection?: string[];
   price: number[];

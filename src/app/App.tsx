@@ -3,6 +3,7 @@ import "../scss/home.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { navbar } from "./lib/navbar";
 import Navbar from "./components/navbar";
+import NotFound from "../screens/NotFount";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
               return <Route key={id} path={path} element={element} />;
             })}
           </Route>
-          <Route path="*" element={<h1>404 Not Founded</h1>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

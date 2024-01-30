@@ -45,6 +45,7 @@ const HomePage: any = () => {
         limit: 4,
         product_collection: ["food", "beauty", "clothes", "toy", "etc"],
         price: [0, 1000],
+        search: "",
       })
       .then((data) => setBigSales(data))
       .catch((err) => console.log(err));

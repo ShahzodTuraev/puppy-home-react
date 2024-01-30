@@ -279,9 +279,7 @@ const BlogsPage = () => {
                 <p onClick={showFollowingHandler} className="follow_text">
                   <span>{chosenMember?.mb_follow_cnt}</span>following
                 </p>
-                <p className="follow_text">
-                  <span>{chosenMember?.mb_point}</span>points
-                </p>
+
                 <Modal
                   open={openFollow}
                   onClose={() => setOpenFollow(false)}
@@ -298,11 +296,21 @@ const BlogsPage = () => {
                 </Modal>
               </Box>
               <Box className="icon_box">
-                <Facebook className="sns_icon" />
-                <Instagram className="sns_icon" />
-                <WhatsApp className="sns_icon" />
-                <Telegram className="sns_icon" />
-                <YouTube className="sns_icon" />
+                <a href="https://github.com/ShahzodTuraev">
+                  <Facebook className="sns_icon" />
+                </a>
+                <a href="https://www.instagram.com/shahzodbek0909/">
+                  <Instagram className="sns_icon" />
+                </a>
+                <a href="https://www.linkedin.com/in/shahzod-turaev-a71b0718b/">
+                  <WhatsApp className="sns_icon" />
+                </a>
+                <a href="https://t.me/shahzodbek_turaev">
+                  <Telegram className="sns_icon" />
+                </a>
+                <a href="https://www.linkedin.com/in/shahzod-turaev-a71b0718b/">
+                  <YouTube className="sns_icon" />
+                </a>
               </Box>
 
               <p className="user_desc">

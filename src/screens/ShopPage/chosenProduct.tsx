@@ -93,6 +93,7 @@ const ChosenProduct = () => {
         limit: 20,
         product_collection: [product_type],
         price: [0, 1000],
+        search: "",
       })
       .then((data) => setRelatedProducts(data))
       .catch((err) => console.log(err));

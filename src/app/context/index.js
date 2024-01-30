@@ -3,16 +3,19 @@ import CategoryContext from "./Category";
 import ShoppingCartContext from "./ShoppingCart";
 import WishlistContext from "./Wishlist";
 import MakeOrderContext from "./MakeOrder";
+import SearchContext from "./Search";
 
 export const Context = ({ children }) => {
   return (
-    <CategoryContext>
-      <ShoppingCartContext>
-        <MakeOrderContext>
-          <WishlistContext>{children}</WishlistContext>
-        </MakeOrderContext>
-      </ShoppingCartContext>
-    </CategoryContext>
+    <SearchContext>
+      <CategoryContext>
+        <ShoppingCartContext>
+          <MakeOrderContext>
+            <WishlistContext>{children}</WishlistContext>
+          </MakeOrderContext>
+        </ShoppingCartContext>
+      </CategoryContext>
+    </SearchContext>
   );
 };
 

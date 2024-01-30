@@ -1,0 +1,16 @@
+.nf_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 35%;
+    height: auto;
+    margin: 50px 0;
+  }
+  .nf_btn {
+    background: #fc9823;
+    color: #ffffff;
+    font-weight: 600;
+    width: 100px;
+  }
+}

@@ -74,9 +74,7 @@ const NotificationPart = () => {
                     <p className="message_subject">{message?.notif_subject}</p>
                     <p className="message_content">{message?.notif_content}</p>
                     <p className="message_time">
-                      <Moment format="YYYY-MM-DD hh:mm">
-                        {message?.createdAt}
-                      </Moment>
+                      <Moment fromNow>{message?.createdAt}</Moment>
                     </p>
                     <Close
                       id={message._id}

@@ -95,7 +95,7 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          width: 75%;
+          width: 52%;
           p {
             cursor: pointer;
             transition: all 0.3s;
@@ -117,13 +117,17 @@
           flex-direction: row;
           justify-content: space-between;
           margin-top: 20px;
-          .sns_icon {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            &:hover {
-              fill: #fc9823;
+          a {
+            text-decoration: none;
+            .sns_icon {
+              fill: #172b4d;
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+              transition: all 0.3s;
+              &:hover {
+                fill: #fc9823;
+              }
             }
           }
         }

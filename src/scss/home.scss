@@ -1,28 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap");
+/*RESPONSIVE DESIGN START*/
+$screen-sm-min: 420px;
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+/*RESPONSIVE DESIGN END*/
+
 /*HEADER STYLES START*/
 .home_header {
+  @include sm {
+    height: 500px;
+  }
   width: 100%;
   height: 700px;
-  //   border: 1px solid red;
   .mySwiper {
     height: 100%;
     .swiper_slide {
       background-image: linear-gradient(to right, #f0f0f2, #ebe9ec);
       width: 100%;
       height: 700px;
+      @include sm {
+        height: 500px;
+      }
       display: flex;
       align-items: center;
       justify-content: center;
       .text_box {
+        @include sm {
+          flex: auto;
+        }
         flex: 1.3;
-        // background-color: yellow;
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         .text_wrap {
+          @include sm {
+            margin-left: 10px;
+          }
           margin-left: 200px;
           width: 90%;
           .sup_title {
@@ -30,11 +50,17 @@
             color: #6c6c6c;
             font-family: "Rubik", sans-serif;
             font-weight: 400;
+            @include sm {
+              font-size: 12px;
+            }
           }
           .head_title {
             font-size: 50px;
             font-family: "Rubik", sans-serif;
             color: #fc9823;
+            @include sm {
+              font-size: 24px;
+            }
             font-weight: 500;
             margin: 10px 0;
           }
@@ -42,6 +68,9 @@
             font-size: 15px;
             color: #777777;
             font-weight: 400;
+            @include sm {
+              font-size: 10px;
+            }
           }
           .start_btn {
             background: #fc9823;
@@ -53,6 +82,11 @@
             margin-top: 20px;
             display: flex;
             align-items: center;
+            @include sm {
+              font-size: 14px;
+              width: 160px;
+              height: 30px;
+            }
             &:hover {
               background: #1f1f1f;
             }
@@ -63,6 +97,9 @@
         }
       }
       .image_box {
+        @include sm {
+          flex: auto;
+        }
         flex: 1;
         width: 100%;
         height: 100%;

@@ -24,6 +24,7 @@ import Basket from "./basket";
 import { WishCont } from "../../context/Wishlist";
 import NotificationPart from "./notification";
 import Chatting from "./chatting";
+import { SearchCont } from "../../context/Search";
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Navbar = () => {
   const setSide = WishCont();
   const open = Boolean(anchorEl);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [search, setSearch] = SearchCont();
   useEffect(() => {
     const handleScroll = () => {
       const position = window.pageYOffset;
@@ -53,12 +55,6 @@ const Navbar = () => {
       top: 0,
       behavior: "smooth",
     });
-  };
-  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const handleLogOutRequest = async () => {
@@ -150,63 +146,32 @@ const Navbar = () => {
             })}
           </Box>
           <Box className="navbar_section section_3">
-            <Badge
-              className="badge"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleSearch}
+            <Dropdown
+              trigger={["click"]}
+              className="account_dropdown"
+              placement="bottomRight"
+              arrow={{ pointAtCenter: true }}
+              overlayClassName="search_root"
+              dropdownRender={(menu) => (
+                <div>
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    type="text"
+                    placeholder="search"
+                  />
+                </div>
+              )}
             >
-              <IconButton className="icon_box search_icon">
-                <Search
-                  className={anchorEl == null ? "icon" : "icon set_color"}
-                />
-              </IconButton>
-            </Badge>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-              PaperProps={{
-                sx: {
-                  overflow: "visible",
-                  boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-                  mt: 1.5,
-                  "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  "&:before": {
-                    content: '""',
-                    display: "block",
-                    position: "absolute",
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: "background.paper",
-                    transform: "translateY(-50%) rotate(45deg)",
-                    zIndex: 0,
-                  },
-                },
-              }}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <Box className="search_menu">
-                <input
-                  className="search_input"
-                  placeholder="Search"
-                  type="text"
-                />
-                <Box className="search_button">Search</Box>
-              </Box>
-            </Menu>
+              <Badge color="primary" className="badge">
+                <IconButton
+                  onClick={() => navigate("/shop")}
+                  className="icon_box cart_icon"
+                >
+                  <Search className="icon" />
+                </IconButton>
+              </Badge>
+            </Dropdown>
             <Basket />
 
             {verifyMemberData ? (

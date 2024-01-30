@@ -26,6 +26,7 @@ import { retrieveAllProducts } from "./selector";
 import ProductApiService from "../../app/apiServices/productApiService";
 import { ProductSearchObj } from "../../types/others";
 import { CategoryCont } from "../../app/context/Category";
+import { SearchCont } from "../../app/context/Search";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setAllProducts: (data: Product[]) => dispatch(setAllProducts(data)),
@@ -102,12 +103,15 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
 const Products = () => {
   /*INITIALIZATIONS*/
   const [category, setCategory] = CategoryCont();
+  const [search] = SearchCont();
+
   const navigate = useNavigate();
   const pathname = useLocation();
   const [searchProductsObj, setSearchProductsObj] = useState<ProductSearchObj>({
     order: "product_views",
     page: 1,
     limit: 9,
+    search: "",
     product_collection:
       category === "all"
         ? ["food", "beauty", "clothes", "toy", "etc"]
@@ -115,6 +119,10 @@ const Products = () => {
     price: [0, 1000],
   });
   const { setAllProducts } = actionDispatch(useDispatch());
+  useEffect(() => {
+    searchProductsObj.search = search;
+    setSearchProductsObj({ ...searchProductsObj });
+  }, [search]);
   useEffect(() => {
     const productService = new ProductApiService();
     productService

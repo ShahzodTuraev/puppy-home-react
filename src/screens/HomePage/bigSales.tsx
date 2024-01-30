@@ -14,7 +14,7 @@ const bigSalesRetriever = createSelector(retrieveBigSales, (bigSales) => ({
 const BigSales = () => {
   /*INITIALIZATION*/
   const { bigSales } = useSelector(bigSalesRetriever);
-  const expiryTimestamp = new Date("2024-01-19T15:25");
+  const expiryTimestamp = new Date("2024-01-29T15:25");
 
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 86400 * 30);
   const { seconds, minutes, hours, days } = useTimer({
