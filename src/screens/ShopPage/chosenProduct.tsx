@@ -160,6 +160,9 @@ const ChosenProduct = () => {
 
   return (
     <div className="chosen_product">
+      <div className="mobile_note">
+        Mobile version is on developing process. Please use laptop version
+      </div>
       <Container className="chosen_container">
         <Box className="dir_box">
           <Box onClick={() => navigate("/")} className="dir_link">

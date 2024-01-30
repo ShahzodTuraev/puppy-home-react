@@ -133,7 +133,7 @@ const Basket = () => {
             {cartItems.map((item) => {
               const image_path = `${serverApi}/${item.image}`;
               return (
-                <Box className="cart_item_box">
+                <Box key={item._id} className="cart_item_box">
                   <img src={image_path} alt="product" />
                   <Box className="title_price_wrap">
                     <p className="item_title">{item.name}</p>

@@ -101,6 +101,9 @@ const Services = () => {
   };
   return (
     <Container className="products_container">
+      <div className="mobile_note">
+        Mobile version is on developing process. Please use laptop version
+      </div>
       <Box className="dir_box">
         <Box onClick={() => navigate("/")} className="dir_link">
           <Home />

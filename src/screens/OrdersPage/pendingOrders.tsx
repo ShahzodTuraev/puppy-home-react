@@ -19,7 +19,13 @@ const PendingOrders = ({ setOrderRebuild }: any) => {
   return (
     <Stack className="orders_wrap">
       {pendingOrders?.map((order: Order) => {
-        return <OrderCart order={order} setOrderRebuild={setOrderRebuild} />;
+        return (
+          <OrderCart
+            order={order}
+            setOrderRebuild={setOrderRebuild}
+            key={order._id}
+          />
+        );
       })}
     </Stack>
   );

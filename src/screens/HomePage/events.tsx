@@ -100,6 +100,56 @@ const Events = () => {
             );
           })}
         </Swiper>
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={1}
+          loop={true}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay]}
+          className="carts_wrap_mobile"
+        >
+          {news.map((event, index) => {
+            return (
+              <SwiperSlide
+                key={event._id}
+                onMouseEnter={() => setCartChange(index)}
+                onMouseLeave={() => setCartChange(-1)}
+                className="event_slide"
+              >
+                <Stack
+                  className={
+                    cartChange === index
+                      ? "event_cart event_cart_active"
+                      : "event_cart"
+                  }
+                >
+                  <img
+                    src={
+                      index > 14
+                        ? "/images/events/defoult.png"
+                        : cart_images[index]
+                    }
+                    className="event_img"
+                    alt="event"
+                  />
+
+                  <Box className="date_wrap">
+                    <p className="event_date">
+                      <Moment format="YYYY.MM.DD">{event.event_time}</Moment>
+                    </p>
+                    <p className="event_type">events</p>
+                  </Box>
+                  <p className="event_topic">{event.event_subject}</p>
+                  <p className="event_content">{event.event_content}</p>
+                </Stack>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </Container>
     </div>
   );

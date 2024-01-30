@@ -1,4 +1,22 @@
+$screen-sm-min: 420px;
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
 .blogs {
+  .mobile_note {
+    display: none;
+    height: 400px;
+    padding: 10px;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 50px;
+    @include sm {
+      display: flex;
+    }
+  }
   .header_box {
     width: 100%;
     height: 400px;
@@ -6,10 +24,22 @@
     background-position: center;
   }
   .blogs_page {
+    @include sm {
+      display: none;
+    }
     display: flex;
     flex-direction: column;
+    $screen-sm-min: 420px;
+    @mixin sm {
+      @media (max-width: #{$screen-sm-min}) {
+        @content;
+      }
+    }
     align-items: center;
     .dir_box {
+      @include sm {
+        display: none;
+      }
       display: flex;
       flex-direction: row;
       align-items: center;

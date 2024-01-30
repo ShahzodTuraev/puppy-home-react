@@ -83,8 +83,9 @@ $screen-sm-min: 420px;
             display: flex;
             align-items: center;
             @include sm {
-              font-size: 14px;
-              width: 160px;
+              font-size: 12px;
+              width: 170px;
+              text-transform: capitalize;
               height: 30px;
             }
             &:hover {
@@ -99,6 +100,8 @@ $screen-sm-min: 420px;
       .image_box {
         @include sm {
           flex: auto;
+          height: 300px;
+          background-size: cover;
         }
         flex: 1;
         width: 100%;
@@ -106,7 +109,6 @@ $screen-sm-min: 420px;
         background-repeat: no-repeat;
         background-position: center;
         background-position-y: 40px;
-        // background-size: 60%;
       }
     }
     .swiper-pagination-bullet-active {
@@ -125,11 +127,17 @@ $screen-sm-min: 420px;
   text-align: center;
   font-family: "Nunito", sans-serif;
   margin-bottom: 30px;
+  @include sm {
+    font-size: 22px;
+  }
 }
 .category_container {
   background: linear-gradient(#efeff1, #ffffff);
   padding: 40px 0;
   .mySwiper_category {
+    @include sm {
+      display: none;
+    }
     width: 100%;
     cursor: pointer;
     .swiper_slide {
@@ -155,6 +163,37 @@ $screen-sm-min: 420px;
       }
     }
   }
+  .mySwiper_category_mobile {
+    display: none;
+    @include sm {
+      display: block;
+    }
+    width: 100%;
+    cursor: pointer;
+    .swiper_slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // border: 1px solid red;
+      .category_img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 1px solid rgb(122, 115, 115);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: all 0.3s;
+        &:hover {
+          transform: scale(90%);
+        }
+      }
+      .category_name {
+        font-weight: 500;
+        margin-top: 15px;
+      }
+    }
+  }
 }
 
 /*CATEGORIES END*/
@@ -162,11 +201,17 @@ $screen-sm-min: 420px;
 /*TRENDS START*/
 .trending_container {
   margin: 80px 0;
+  @include sm {
+    margin: 10px 0;
+  }
   .sort_btn_wrap {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 30px;
+    @include sm {
+      gap: 15px;
+    }
     .sort_btn {
       text-transform: capitalize;
       color: #000000;
@@ -191,6 +236,9 @@ $screen-sm-min: 420px;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 50px;
+    @include sm {
+      margin-top: 20px;
+    }
   }
   .bottom_box {
     display: flex;
@@ -224,8 +272,17 @@ $screen-sm-min: 420px;
     width: 150px;
     height: 60px;
     z-index: -1;
+    @include sm {
+      width: 100px;
+      height: 40px;
+      left: 0;
+    }
   }
   .sale_period {
+    @include sm {
+      font-size: 14px;
+      right: 1px;
+    }
     position: absolute;
     right: 19%;
     top: 8px;
@@ -236,6 +293,12 @@ $screen-sm-min: 420px;
     font-weight: 600;
     color: #f7293a;
     .digit_box {
+      @include sm {
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+      }
       background: #f7293a;
       height: 35px;
       width: 35px;
@@ -256,6 +319,9 @@ $screen-sm-min: 420px;
 .service_section {
   background: linear-gradient(#f9f9f9, #ffffff);
   padding: 30px 0;
+  @include sm {
+    padding: 10px 0;
+  }
   .service_container {
     display: flex;
     flex-direction: column;
@@ -268,6 +334,11 @@ $screen-sm-min: 420px;
       flex-direction: row;
       justify-content: space-between;
       width: 80%;
+      @include sm {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
       .service_box {
         position: relative;
         display: flex;
@@ -275,6 +346,10 @@ $screen-sm-min: 420px;
         align-items: center;
         width: 31%;
         height: 480px;
+        @include sm {
+          width: 90%;
+          height: 340px;
+        }
         transition: all 0.3s;
         .image_box {
           position: relative;
@@ -368,6 +443,10 @@ $screen-sm-min: 420px;
       .events_title {
         font-size: 36px;
         font-weight: 500;
+        @include sm {
+          font-size: 15px;
+          font-weight: 600;
+        }
       }
       .events_link {
         display: flex;
@@ -384,6 +463,9 @@ $screen-sm-min: 420px;
         .link_text {
           font-size: 18px;
           font-weight: 600;
+          @include sm {
+            font-size: 15px;
+          }
         }
       }
     }
@@ -391,6 +473,9 @@ $screen-sm-min: 420px;
     .carts_wrap {
       width: 95%;
       padding: 25px 35px;
+      @include sm {
+        display: none;
+      }
       .event_slide {
         .event_cart {
           display: flex;
@@ -445,6 +530,74 @@ $screen-sm-min: 420px;
         }
       }
     }
+    .carts_wrap_mobile {
+      display: none;
+      width: 95%;
+      padding: 25px 35px;
+      @include sm {
+        display: flex;
+      }
+      .event_slide {
+        .event_cart {
+          @include sm {
+            height: 430px;
+            margin: 10px;
+          }
+          display: flex;
+          height: 450px;
+          flex-direction: column;
+          margin: 20px;
+          padding: 10px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          border-radius: 30px;
+          position: relative;
+          cursor: pointer;
+          transform: all 0.3s;
+          .event_img {
+            @include sm {
+              height: 220px;
+            }
+            width: 100%;
+            height: 270px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 30px;
+          }
+          .date_wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            .event_date {
+              color: rgb(109, 101, 118);
+            }
+            .event_type {
+              text-transform: uppercase;
+              border: 1px solid rgb(159, 230, 109);
+              color: rgb(136, 212, 81);
+              font-weight: 600;
+              font-size: 13px;
+              padding: 5px 10px;
+              border-radius: 20px;
+              background: color(srgb 0.623529 0.901961 0.427451 / 0.1);
+            }
+          }
+          .event_topic {
+            font-size: 18px;
+            font-weight: 600;
+          }
+          .event_content {
+            font-size: 14px;
+          }
+        }
+        .event_cart_active {
+          border: 1px solid rgb(154, 143, 167);
+        }
+      }
+    }
   }
 }
 /*EVENTS STYLES END*/
@@ -454,6 +607,9 @@ $screen-sm-min: 420px;
   font-family: "nunito", sans-serif;
   margin: 50px 0;
   .boxes_wrap {
+    @include sm {
+      flex-direction: column;
+    }
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -462,8 +618,15 @@ $screen-sm-min: 420px;
       width: 2px;
       height: 100px;
       background-color: #e4e4e4;
+      @include sm {
+        display: none;
+      }
     }
     .feature_box {
+      @include sm {
+        width: 95%;
+        margin-top: 9px;
+      }
       width: 30%;
       padding: 0 60px;
       display: flex;

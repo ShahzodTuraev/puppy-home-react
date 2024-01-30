@@ -1,4 +1,11 @@
-import { Avatar, Badge, Box, Container, IconButton, Menu } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Container,
+  IconButton,
+  Stack,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -8,6 +15,8 @@ import {
   Logout,
   FavoriteBorder,
   ListAlt,
+  MenuOutlined,
+  KeyboardArrowRight,
 } from "@mui/icons-material";
 import "../../../scss/navbar.scss";
 import { navbar } from "../../lib/navbar";
@@ -28,9 +37,8 @@ import { SearchCont } from "../../context/Search";
 const Navbar = () => {
   /*INITIALIZATIONS*/
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const setSide = WishCont();
-  const open = Boolean(anchorEl);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [search, setSearch] = SearchCont();
   useEffect(() => {
@@ -128,6 +136,7 @@ const Navbar = () => {
               Puppy<span>Home</span>
             </h3>
           </Box>
+
           <Box className="navbar_section section_2">
             {navbar.map(({ title, path, hidden }, id) => {
               return (
@@ -166,7 +175,7 @@ const Navbar = () => {
               <Badge color="primary" className="badge">
                 <IconButton
                   onClick={() => navigate("/shop")}
-                  className="icon_box cart_icon"
+                  className=" icon_box cart_icon "
                 >
                   <Search className="icon" />
                 </IconButton>
@@ -202,6 +211,30 @@ const Navbar = () => {
               </div>
             )}
           </Box>
+          <MenuOutlined
+            className="mobile_menu_btn"
+            onClick={() => setOpenMenu(true)}
+          />
+          <Stack
+            sx={{ display: "flex", flexDirection: "row" }}
+            className={openMenu ? "mobile_menu menu_opened" : "mobile_menu"}
+          >
+            <Box className="menu_left_section">
+              <KeyboardArrowRight
+                onClick={() => setOpenMenu(false)}
+                className="close_menu_btn"
+              />
+            </Box>
+            <Box className="menu_right_section">
+              <p>HOME</p>
+              <p>SHOP</p>
+              <p>SERVICE</p>
+              <p>DAENGGRAM</p>
+              <p>HELP</p>
+              <p>SIGN UP</p>
+              <p>LOG IN</p>
+            </Box>
+          </Stack>
         </Container>
         <Box className="chat_icon_wrap">
           <Chatting />

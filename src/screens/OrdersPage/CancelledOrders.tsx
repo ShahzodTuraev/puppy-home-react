@@ -18,7 +18,7 @@ const CancelledOrders = () => {
   return (
     <Stack className="orders_wrap">
       {cancelledOrders?.map((order: Order) => {
-        return <OrderCart order={order} />;
+        return <OrderCart order={order} key={order._id} />;
       })}
     </Stack>
   );

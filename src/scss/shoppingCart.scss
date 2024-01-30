@@ -1,4 +1,16 @@
+/*RESPONSIVE DESIGN START*/
+$screen-sm-min: 420px;
+@mixin sm {
+  @media (max-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+/*RESPONSIVE DESIGN END*/
 .shop_cart {
+  @include sm {
+    width: 165px;
+  }
   width: 300px;
   height: auto;
   margin-bottom: 0px;
@@ -8,6 +20,9 @@
   cursor: pointer;
   transition: all 0.3s;
   .cart_img {
+    @include sm {
+      height: 170px;
+    }
     width: 100%;
     height: 320px;
     border-bottom: 1px solid rgb(224, 224, 224);
@@ -23,9 +38,12 @@
       width: 100%;
       height: 30px;
       background: #feefe1;
-      display: flex;
     }
     .like_btn_wrap {
+      @include sm {
+        width: 30px;
+        height: 30px;
+      }
       position: absolute;
       right: 5px;
       top: 10px;
@@ -39,6 +57,10 @@
       .like_btn {
         width: 30px;
         height: 30px;
+        @include sm {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
     .like_btn_wrap_active {
@@ -46,6 +68,11 @@
     }
     .discount_percent {
       position: absolute;
+      @include sm {
+        width: 30px;
+        height: 20px;
+        top: 10px;
+      }
       left: 0;
       top: 20px;
       background: #e52c0a;
@@ -58,6 +85,11 @@
       border-bottom-right-radius: 5px;
       border-top-right-radius: 5px;
       .percent_text {
+        @include sm {
+          font-size: 12px;
+          font-weight: 600;
+          padding-top: 2px;
+        }
         color: #ffffff;
         font-size: 18px;
         font-weight: 700;
@@ -67,30 +99,44 @@
     }
   }
   .cart_desc {
+    @include sm {
+      padding: 0;
+    }
     font-family: "Rubik", sans-serif;
     padding: 10px;
     .cart_name {
+      @include sm {
+        font-size: 14px;
+      }
       font-weight: 410;
       font-size: 18px;
       color: #172b4d;
     }
     .price_box {
+      @include sm {
+        justify-content: center;
+      }
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      // border: 1px solid blue;
       .price_wrap {
         display: flex;
         flex-direction: row;
         align-items: baseline;
         .cart_sale_price {
+          @include sm {
+            font-size: 14px;
+          }
           font-size: 22px;
           font-weight: 500;
           color: rgb(150, 0, 0);
           margin-right: 5px;
         }
         .cart_price {
+          @include sm {
+            font-size: 10px;
+          }
           font-size: 16px;
           text-decoration: line-through;
           color: #777777;
@@ -107,6 +153,10 @@
         border: 1px solid #172b4d;
         border-radius: 15px;
         .add_cart_icon {
+          @include sm {
+            width: 15px;
+            margin: 1px 5px;
+          }
           height: auto;
           margin: 4px 10px;
         }
@@ -121,6 +171,9 @@
     }
 
     .sold_text {
+      @include sm {
+        font-size: 14px;
+      }
       line-height: 20px;
       font-size: 20px;
       font-weight: 600;
@@ -141,11 +194,17 @@
         margin-top: 3px;
         flex-direction: row;
         .review_icon {
+          @include sm {
+            font-size: 13px;
+          }
           color: #fc9823;
           margin-right: 5px;
         }
         .review_text {
           font-size: 14px;
+          @include sm {
+            font-size: 10px;
+          }
           color: #777777;
         }
       }
@@ -156,12 +215,19 @@
       flex-direction: row;
       align-items: flex-end;
       .like_view_btn {
+        @include sm {
+          width: 14px;
+          height: auto;
+        }
         width: 18px;
         margin-right: 5px;
         margin-left: 8px;
       }
       .like_view_cnt {
         color: #172b4d;
+        @include sm {
+          font-size: 13px;
+        }
       }
     }
   }

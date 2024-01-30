@@ -74,6 +74,32 @@ const Categories = () => {
             );
           })}
         </Swiper>
+        <Swiper
+          spaceBetween={0}
+          slidesPerView={3}
+          loop={true}
+          centeredSlides={true}
+          className="mySwiper_category_mobile"
+        >
+          {category_list.map(({ imagePath, name, collection }, id) => {
+            return (
+              <SwiperSlide
+                className="swiper_slide"
+                onClick={() => {
+                  setCategory(collection);
+                  navigate("/shop");
+                }}
+                key={id}
+              >
+                <Box
+                  className="category_img"
+                  sx={{ backgroundImage: `url(${imagePath})` }}
+                />
+                <p className="category_name">{name}</p>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
       </Container>
     </div>
   );

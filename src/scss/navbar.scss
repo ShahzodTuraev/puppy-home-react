@@ -21,6 +21,9 @@ $screen-sm-min: 420px;
   z-index: 10;
   width: 100vw;
   height: 80px;
+  @include sm {
+    height: 60px;
+  }
   .navbar_container {
     display: flex;
     flex-direction: row;
@@ -31,25 +34,36 @@ $screen-sm-min: 420px;
       align-items: center;
     }
     .section_1 {
-      @include sm {
-        display: none;
-      }
       cursor: pointer;
       .logo_image {
         height: 45px;
         width: 45px;
+        @include sm {
+          height: 27px;
+          width: 27px;
+        }
       }
       .logo_text {
         margin-left: 8px;
         font-weight: 700;
         font-size: 26px;
+        @include sm {
+          font-size: 18px;
+        }
         font-family: "Nunito", sans-serif;
         span {
           color: #fc9823;
         }
       }
     }
-
+    .mobile_menu_btn {
+      width: 35px;
+      height: 35px;
+      display: none;
+      @include sm {
+        display: block;
+      }
+    }
     .section_2 {
       @include sm {
         display: none;
@@ -90,6 +104,9 @@ $screen-sm-min: 420px;
       }
     }
     .section_3 {
+      @include sm {
+        display: none;
+      }
       position: relative;
       .auth_box {
         display: flex;
@@ -116,6 +133,11 @@ $screen-sm-min: 420px;
         padding: 0 12px;
         color: #000000;
         transition: all 0.3s;
+        @include sm {
+          font-size: 12px;
+          padding: 0 5px;
+          display: none;
+        }
         &:hover {
           color: #fc9823;
         }
@@ -142,8 +164,56 @@ $screen-sm-min: 420px;
     }
   }
 }
+
+.mobile_menu {
+  display: none;
+  width: 250px;
+  height: 340px;
+  background: #ffffff;
+  position: absolute;
+  top: 80px;
+  right: -100%;
+  z-index: 10;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 15px 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: all 0.5s;
+  @include sm {
+    display: flex;
+    flex-direction: row;
+  }
+  .menu_left_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .close_menu_btn {
+      width: 40px;
+      padding: 0;
+      height: auto;
+    }
+  }
+  .menu_right_section {
+    padding: 20px 10px;
+    p {
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+  }
+}
+.menu_opened {
+  right: 0;
+  display: flex;
+  flex-direction: row;
+}
+
 .badge {
   margin-right: 30px;
+
+  @include sm {
+    margin-right: 10px;
+    margin-left: 100px;
+  }
   .icon_box {
     cursor: pointer;
     position: relative;
@@ -161,6 +231,7 @@ $screen-sm-min: 420px;
     }
   }
 }
+
 .shopcart_root {
   background: #ffffff;
   width: 420px;
@@ -453,6 +524,9 @@ $screen-sm-min: 420px;
     max-width: 1100px;
     width: 100%;
     .subscribe_box {
+      @include sm {
+        display: none;
+      }
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -506,6 +580,7 @@ $screen-sm-min: 420px;
             margin-left: 8px;
             font-weight: 700;
             font-size: 26px;
+
             font-family: "Nunito", sans-serif;
             span {
               color: #fc9823;
@@ -517,6 +592,9 @@ $screen-sm-min: 420px;
           margin: 30px 0;
           line-height: 30px;
           color: #575757;
+          @include sm {
+            width: 300px;
+          }
         }
         .sns_box {
           width: 300px;
@@ -538,6 +616,9 @@ $screen-sm-min: 420px;
         }
       }
       .main_section_2 {
+        @include sm {
+          display: none;
+        }
         display: flex;
         flex-direction: column;
         padding-top: 5px;
@@ -574,6 +655,9 @@ $screen-sm-min: 420px;
       }
       .section_3 {
         width: 330px;
+        @include sm {
+          display: none;
+        }
       }
     }
     .sec_divider {
@@ -684,4 +768,5 @@ $screen-sm-min: 420px;
   height: 390px;
   width: 100%;
 }
+
 /* CHATTING STYLES END*/

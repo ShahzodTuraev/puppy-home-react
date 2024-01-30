@@ -237,6 +237,9 @@ const BlogsPage = () => {
         sx={{ backgroundImage: "url(/images/header_img/blogs-page.jpg)" }}
         className="header_box"
       />
+      <div className="mobile_note">
+        Mobile version is on developing process. Please use laptop version
+      </div>
       <Container className="blogs_page">
         <Box className="dir_box">
           <Box onClick={() => navigate("/")} className="dir_link">
@@ -279,7 +282,6 @@ const BlogsPage = () => {
                 <p onClick={showFollowingHandler} className="follow_text">
                   <span>{chosenMember?.mb_follow_cnt}</span>following
                 </p>
-
                 <Modal
                   open={openFollow}
                   onClose={() => setOpenFollow(false)}
