@@ -1,23 +1,11 @@
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Pagination,
-  PaginationItem,
-  Radio,
-  RadioGroup,
-  Stack,
-} from "@mui/material";
+import { Box, Pagination, PaginationItem, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ShoppingCart from "../../app/components/shoppingCart";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { product_list, service_list } from "../../mock/cart_data";
-import ServiceCard from "../ServicePage/serciveCard";
 // REDUX
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setWishList } from "./slice";
-import { Product } from "../../types/product";
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 import { retrieveWishlist } from "./selector";
