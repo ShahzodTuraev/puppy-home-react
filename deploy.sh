@@ -9,7 +9,7 @@ npm i yarn -g
 yarn global add serve
 yarn
 yarn run build
-yarn start "yarn run start:prod" --name=PUPPYHOME-REACT
+pm2 start "yarn run start:prod" --name=PUPPYHOME-REACT
 
 #DEVELOPMENT
 
