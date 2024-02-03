@@ -148,7 +148,7 @@ const Chatting = () => {
               <Box flexDirection={"row"} sx={{ display: "flex", m: "10px 0" }}>
                 <div className="msg_left">Wellcome to Live Chat</div>
               </Box>
-              {messageList.filter((ele, index) => index % 2)}
+              {messageList}
             </ScrollToBottom>
           </Box>
           <Box className="chatting_input">

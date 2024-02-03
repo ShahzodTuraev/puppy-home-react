@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../../scss/navbar.scss";
 import { Avatar, Badge, Box, Button, IconButton } from "@mui/material";
-import { Close, Notifications } from "@mui/icons-material";
+import { Notifications } from "@mui/icons-material";
 import { Dropdown } from "antd";
 // REDUX
 import { createSelector } from "reselect";
@@ -76,11 +76,6 @@ const NotificationPart = () => {
                     <p className="message_time">
                       <Moment fromNow>{message?.createdAt}</Moment>
                     </p>
-                    <Close
-                      id={message._id}
-                      onClick={deleteOneHandler}
-                      className="message_close"
-                    />
                   </Box>
                 </Box>
               );

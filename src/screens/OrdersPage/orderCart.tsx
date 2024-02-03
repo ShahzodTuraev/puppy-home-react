@@ -65,14 +65,12 @@ const OrderCart = ({ order, setOrderRebuild }: any) => {
       if (!verifyMemberData) {
         sweetFailureProvider("Please login first", true);
       }
-      let confirmation = window.confirm("Do you cancel the order?");
-      if (confirmation === true) {
-        const orderService = new OrderApiService();
-        await orderService.updateOrderStatus(data);
-        await sweetTopSmallSuccessAlert("Order cancelled", 700, false);
-        setOrders[1](4);
-        setOrderRebuild(new Date());
-      }
+
+      const orderService = new OrderApiService();
+      await orderService.updateOrderStatus(data);
+      await sweetTopSmallSuccessAlert("Order cancelled", 700, false);
+      setOrders[1](4);
+      setOrderRebuild(new Date());
     } catch (err) {
       console.log("payHandler, ERROR:", err);
       sweetErrorHandling(err).then();
