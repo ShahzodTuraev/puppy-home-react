@@ -252,15 +252,19 @@ const ChosenProduct = () => {
               </p>
             </Box>
             <Box className="vertical_line" />
-            <Box className="price_box">
-              <Box className="discount_percent">
-                <p>{chosenProduct?.product_discount}%</p>
+            {chosenProduct && chosenProduct?.product_discount * 1 > 0 ? (
+              <Box className="price_box">
+                <Box className="discount_percent">
+                  <p>{chosenProduct?.product_discount}%</p>
+                </Box>
+                <p className="real_price">
+                  {" "}
+                  &#8361; {chosenProduct?.product_price}
+                </p>
               </Box>
-              <p className="real_price">
-                {" "}
-                &#8361; {chosenProduct?.product_price}
-              </p>
-            </Box>
+            ) : (
+              <></>
+            )}
             <Box className="feat_box">
               <p className="sale_price">&#8361; {salePrice}</p>
               <Box className="point_box">
