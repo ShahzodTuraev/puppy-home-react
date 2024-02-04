@@ -125,7 +125,10 @@ const OrdersPage = () => {
           })}
         </Box>
         <Box className="mainbar">
-          <Box className="top_btn_wrap">
+          <Box
+            sx={side === 0 ? { opacity: "1" } : { opacity: "0" }}
+            className="top_btn_wrap"
+          >
             {topBtn.map(({ id, title }) => {
               return (
                 <Button

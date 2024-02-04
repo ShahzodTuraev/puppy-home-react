@@ -73,7 +73,6 @@ const OrderCart = ({ order, setOrderRebuild }: any) => {
       setOrderRebuild(new Date());
     } catch (err) {
       console.log("payHandler, ERROR:", err);
-      sweetErrorHandling(err).then();
     }
   };
   return (

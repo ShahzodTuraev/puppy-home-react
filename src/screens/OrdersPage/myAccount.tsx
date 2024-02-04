@@ -48,11 +48,11 @@ const MyAccount = () => {
           </Box>
           <Box className="line_box">
             <h4>Account:</h4>
-            <p>...5498</p>
+            <p>...****</p>
           </Box>
           <Box className="line_box">
             <h4>Expire Date:</h4>
-            <p>07/26</p>
+            <p>**/**</p>
           </Box>
         </Box>
         <Box className="add_box">
