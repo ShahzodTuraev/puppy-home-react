@@ -42,10 +42,10 @@ const SignUp = () => {
   const signupHandler = async () => {
     try {
       if (
-        nickName === "" &&
-        password === "" &&
-        email.length < 4 &&
-        !email.includes("@") &&
+        nickName === "" ||
+        password === "" ||
+        email.length < 4 ||
+        !email.includes("@") ||
         !email.includes(".")
       ) {
         if (nickName === "") setNickError("Fill out this field");
@@ -56,18 +56,19 @@ const SignUp = () => {
             setEmailError("This is invalid email address");
         }
         if (password === "") setPasswordError("Fill out this field");
+      } else {
+        const is_fulfilled = nickName !== "" && password !== "" && email !== "";
+        assert.ok(is_fulfilled, Definer.input_err1);
+        const signup_data = {
+          mb_nick: nickName,
+          mb_email: email,
+          mb_password: password,
+        };
+        const mbApiService = new MemberApiService();
+        await mbApiService.signupRequest(signup_data);
+        navigate("/");
+        sweetTopSmallSuccessAlert("Success", 1000, true);
       }
-      const is_fulfilled = nickName !== "" && password !== "" && email !== "";
-      assert.ok(is_fulfilled, Definer.input_err1);
-      const signup_data = {
-        mb_nick: nickName,
-        mb_email: email,
-        mb_password: password,
-      };
-      const mbApiService = new MemberApiService();
-      await mbApiService.signupRequest(signup_data);
-      navigate("/");
-      sweetTopSmallSuccessAlert("Success", 1000, true);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
