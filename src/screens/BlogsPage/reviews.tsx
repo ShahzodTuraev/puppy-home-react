@@ -20,6 +20,7 @@ import { Definer } from "../../app/lib/Definer";
 import { verifyMemberData } from "../../app/apiServices/verify";
 import assert from "assert";
 import Moment from "react-moment";
+import { serverApi } from "../../app/lib/config";
 // REDUX SLICE
 const actionDispatch = (dispatch: Dispatch) => ({
   setBoArticleReviews: (data: Review[]) => dispatch(setBoArticleReviews(data)),
@@ -86,7 +87,7 @@ const Reviews = ({ postId, setArtRebuild }: any) => {
           <Box className="comment_wrap">
             {boArticleReviews.map((review) => {
               const avatar_img = review.member_data?.mb_image
-                ? review.member_data?.mb_image
+                ? `${serverApi}/${review.member_data?.mb_image}`
                 : "/icons/user_avatar.jpg";
               return (
                 <Box key={review._id} className="comment_item">
