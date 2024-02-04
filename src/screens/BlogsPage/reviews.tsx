@@ -1,7 +1,7 @@
 import { MapsUgcOutlined } from "@mui/icons-material";
 import { Avatar, Box, Button, TextField } from "@mui/material";
 import { Dropdown } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // REDUX
 import { createSelector } from "reselect";
@@ -12,7 +12,6 @@ import { retrieveBoArticleReviews } from "./selector";
 
 import ReviewApiService from "../../app/apiServices/reviewApiService";
 import { Review } from "../../types/reivew";
-import { serverApi } from "../../app/lib/config";
 import {
   sweetFailureProvider,
   sweetTopSmallSuccessAlert,
@@ -33,7 +32,7 @@ const boArticleReviewsRetriever = createSelector(
   })
 );
 
-const Reviews = ({ postId, setArtRebuild, artRebuild }: any) => {
+const Reviews = ({ postId, setArtRebuild }: any) => {
   /*INITIALIZATIONS*/
   const { setBoArticleReviews } = actionDispatch(useDispatch());
   const { boArticleReviews } = useSelector(boArticleReviewsRetriever);
@@ -86,10 +85,13 @@ const Reviews = ({ postId, setArtRebuild, artRebuild }: any) => {
         <Box className="comment_container">
           <Box className="comment_wrap">
             {boArticleReviews.map((review) => {
+              const avatar_img = review.member_data?.mb_image
+                ? review.member_data?.mb_image
+                : "/icons/user_avatar.jpg";
               return (
                 <Box key={review._id} className="comment_item">
                   <Box className="commentor_wrap">
-                    <Avatar src="/images/categories/dish.jpg" alt="comment" />
+                    <Avatar src={avatar_img} alt="comment" />
                     <Box className="text_wrap">
                       <Box className="user_name_wrap">
                         <p className="commentor_name">
