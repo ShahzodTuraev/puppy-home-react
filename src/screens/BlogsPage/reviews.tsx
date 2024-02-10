@@ -81,6 +81,7 @@ const Reviews = ({ postId, setArtRebuild }: any) => {
       trigger={["click"]}
       className="account_dropdown"
       placement="bottomLeft"
+      overlayStyle={{ padding: "10px" }}
       overlayClassName="shopcart_root"
       dropdownRender={(menu) => (
         <Box className="comment_container">
