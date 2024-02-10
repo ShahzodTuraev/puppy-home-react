@@ -42,7 +42,6 @@ const OrderCart = ({ order, setOrderRebuild }: any) => {
   /*HANDLERS*/
   const payHandler = async (e: any) => {
     try {
-      assert(verifyMemberData?.mb_address, Definer.input_err4);
       const order_id = e.target.value;
       const data = { order_id: order_id, order_status: "PROCESS" };
       if (!verifyMemberData) {

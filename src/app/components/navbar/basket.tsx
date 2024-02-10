@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../../scss/navbar.scss";
-import { Badge, Box, Button, IconButton } from "@mui/material";
+import { Badge, Box, Button, IconButton, Stack } from "@mui/material";
 import { Add, DeleteOutline, Remove, ShoppingCart } from "@mui/icons-material";
 import { Dropdown } from "antd";
 import { CartItem } from "../../../types/others";
@@ -21,6 +21,7 @@ const Basket = () => {
   const cartJson: any = localStorage.getItem("cart_data");
   const current_cart = JSON.parse(cartJson) ?? [];
   const [cartItems, setCartItems] = useState<CartItem[]>(current_cart);
+  const [basketOpen, setBasketOpen] = useState<boolean>(false);
   const [addToCart] = ShoppingCartCont();
   const orders = MakeOrderCont();
   const setSide = WishCont();
@@ -110,6 +111,7 @@ const Basket = () => {
       setSide[1](0);
       navigate("/orders");
       onDeleteAll();
+      setBasketOpen(false);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
@@ -118,82 +120,94 @@ const Basket = () => {
 
   return (
     <Dropdown
+      open={basketOpen}
       className="account_dropdown"
       placement="bottomRight"
       arrow={{ pointAtCenter: true }}
       overlayClassName="shopcart_root"
       dropdownRender={(menu) => (
-        <Box className="shopcart_container">
-          <Box className="carts_wrap">
-            <p
-              className={cartItems.length === 0 ? "no_product" : "display_none"}
-            >
-              No product in Shopping cart
-            </p>
-            {cartItems.map((item) => {
-              const image_path = `${serverApi}/${item.image}`;
-              return (
-                <Box key={item._id} className="cart_item_box">
-                  <img src={image_path} alt="product" />
-                  <Box className="title_price_wrap">
-                    <p className="item_title">{item.name}</p>
-                    <p className="item_price">
-                      Price: &#8361;{" "}
-                      {item.discount > 0
-                        ? Math.round(
-                            (item.price - (item.price * item.discount) / 100) /
-                              10
-                          ) * 10
-                        : item.price}
-                    </p>
-                    <p className="item_delivery">
-                      Delivery: &#8361; {item.delivery_fee}
-                    </p>
-                  </Box>
-                  <Box className="item_counter">
-                    <Box
-                      onClick={() => {
-                        onRemove(item);
-                      }}
-                      className="count_btn"
-                    >
-                      <Remove className="count_icon" />
-                    </Box>
-                    <Box className="count_number">{item.quantity}</Box>
-                    <Box
-                      onClick={() => {
-                        onAdd(item, 1);
-                      }}
-                      className="count_btn"
-                    >
-                      <Add className="count_icon" />
-                    </Box>
-                  </Box>
-                  <DeleteOutline
-                    onClick={() => {
-                      onDelete(item);
-                    }}
-                    className="delete_icon"
-                  />
-                </Box>
-              );
-            })}
-          </Box>
-          {cartItems.length > 0 && (
-            <Box className="cart_bottom">
-              <p className="total_price">
-                Total: &#8361;{itemsPrice + itemsDelivery}{" "}
+        <Stack
+          onMouseLeave={() => setBasketOpen(false)}
+          className="shopcart_container_wrap"
+        >
+          <Box className="shopcart_container">
+            <Box className="carts_wrap">
+              <p
+                className={
+                  cartItems.length === 0 ? "no_product" : "display_none"
+                }
+              >
+                No product in Shopping cart
               </p>
-              <Button onClick={orderHandler} className="order_btn">
-                Make an order
-              </Button>
+              {cartItems.map((item) => {
+                const image_path = `${serverApi}/${item.image}`;
+                return (
+                  <Box key={item._id} className="cart_item_box">
+                    <img src={image_path} alt="product" />
+                    <Box className="title_price_wrap">
+                      <p className="item_title">{item.name}</p>
+                      <p className="item_price">
+                        Price: &#8361;{" "}
+                        {item.discount > 0
+                          ? Math.round(
+                              (item.price -
+                                (item.price * item.discount) / 100) /
+                                10
+                            ) * 10
+                          : item.price}
+                      </p>
+                      <p className="item_delivery">
+                        Delivery: &#8361; {item.delivery_fee}
+                      </p>
+                    </Box>
+                    <Box className="item_counter">
+                      <Box
+                        onClick={() => {
+                          onRemove(item);
+                        }}
+                        className="count_btn"
+                      >
+                        <Remove className="count_icon" />
+                      </Box>
+                      <Box className="count_number">{item.quantity}</Box>
+                      <Box
+                        onClick={() => {
+                          onAdd(item, 1);
+                        }}
+                        className="count_btn"
+                      >
+                        <Add className="count_icon" />
+                      </Box>
+                    </Box>
+                    <DeleteOutline
+                      onClick={() => {
+                        onDelete(item);
+                      }}
+                      className="delete_icon"
+                    />
+                  </Box>
+                );
+              })}
             </Box>
-          )}
-        </Box>
+            {cartItems.length > 0 && (
+              <Box className="cart_bottom">
+                <p className="total_price">
+                  Total: &#8361;{itemsPrice + itemsDelivery}{" "}
+                </p>
+                <Button onClick={orderHandler} className="order_btn">
+                  Make an order
+                </Button>
+              </Box>
+            )}
+          </Box>
+        </Stack>
       )}
     >
       <Badge badgeContent={cartItems.length} color="primary" className="badge">
-        <IconButton className="icon_box cart_icon">
+        <IconButton
+          onMouseEnter={() => setBasketOpen(!basketOpen)}
+          className="icon_box cart_icon"
+        >
           <ShoppingCart className="icon" />
         </IconButton>
       </Badge>

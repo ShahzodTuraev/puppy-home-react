@@ -158,34 +158,23 @@ const OrdersPage = () => {
             <Stack className="address_wrap">
               <Box className="address_box">
                 <h3>Address</h3>
-                {verifyMemberData?.mb_address &&
-                verifyMemberData?.mb_address !== "" ? (
-                  <>
-                    <FormControlLabel
-                      value="address"
-                      control={<Radio checked />}
-                      label="South Korea Busan Saha-gu Nakdong-daero 1357, 45"
-                    />
-                    <Button
-                      onClick={() => navigate("/my-account")}
-                      className="address_btn"
-                    >
-                      Change address
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <p>
-                      Pleae add your address to deliver your ordered products
-                    </p>
-                    <Button
-                      onClick={() => navigate("/my-account")}
-                      className="address_btn"
-                    >
-                      Add address
-                    </Button>
-                  </>
-                )}
+                <>
+                  <FormControlLabel
+                    value="address"
+                    control={<Radio checked />}
+                    label={
+                      verifyMemberData?.mb_address !== ""
+                        ? verifyMemberData?.mb_address
+                        : `South Korea`
+                    }
+                  />
+                  <Button
+                    onClick={() => navigate("/my-account")}
+                    className="address_btn"
+                  >
+                    Change address
+                  </Button>
+                </>
               </Box>
             </Stack>
           )}

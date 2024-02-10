@@ -91,18 +91,18 @@ const Chatting = () => {
     try {
       if (!verifyMemberData) {
         textInput.current.value = "";
-        sweetFailureProvider("Please login first!", true);
-        return false;
+        assert.ok(verifyMemberData, Definer.auth_err1);
+      } else {
+        assert.ok(textInput.current.value, Definer.input_err3);
+        textInput.current.value = "";
+        socketitem.emit("createMsg", {
+          msg: message,
+          mb_id: verifyMemberData?._id,
+          mb_nick: verifyMemberData?.mb_nick,
+          mb_image: verifyMemberData?.mb_image,
+        });
+        setMessage("");
       }
-      assert.ok(textInput.current.value, Definer.input_err3);
-      textInput.current.value = "";
-      socketitem.emit("createMsg", {
-        msg: message,
-        mb_id: verifyMemberData?._id,
-        mb_nick: verifyMemberData?.mb_nick,
-        mb_image: verifyMemberData?.mb_image,
-      });
-      setMessage("");
     } catch (err) {
       console.log("sendMsgHandler, Error:", err);
       sweetErrorHandling(err).then();
@@ -111,7 +111,6 @@ const Chatting = () => {
   const getKeyHandler = (e: any) => {
     try {
       if (e.key === "Enter") {
-        assert.ok(message, Definer.input_err3);
         sendMsgHandler();
       }
     } catch (err) {

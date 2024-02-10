@@ -526,7 +526,8 @@ $screen-sm-min: 420px;
           }
         }
         .event_cart_active {
-          border: 1px solid rgb(154, 143, 167);
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+            rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         }
       }
     }
@@ -592,9 +593,6 @@ $screen-sm-min: 420px;
           .event_content {
             font-size: 14px;
           }
-        }
-        .event_cart_active {
-          border: 1px solid rgb(154, 143, 167);
         }
       }
     }

@@ -119,6 +119,14 @@ const Navbar = () => {
     },
   ];
 
+  const homePageHandler = () => {
+    navigate("/");
+    setOpenMenu(false);
+  };
+  const shopPageHandler = () => {
+    navigate("/shop");
+    setOpenMenu(false);
+  };
   return (
     <>
       <div
@@ -226,13 +234,13 @@ const Navbar = () => {
               />
             </Box>
             <Box className="menu_right_section">
-              <p>HOME</p>
-              <p>SHOP</p>
-              <p>SERVICE</p>
-              <p>DAENGGRAM</p>
-              <p>HELP</p>
-              <p>SIGN UP</p>
-              <p>LOG IN</p>
+              <p onClick={homePageHandler}>HOME</p>
+              <p onClick={shopPageHandler}>SHOP</p>
+              <p onClick={shopPageHandler}>SERVICE</p>
+              <p onClick={shopPageHandler}>DAENGGRAM</p>
+              <p onClick={shopPageHandler}>HELP</p>
+              <p onClick={shopPageHandler}>SIGN UP</p>
+              <p onClick={shopPageHandler}>LOG IN</p>
             </Box>
           </Stack>
         </Container>
