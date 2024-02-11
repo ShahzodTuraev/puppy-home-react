@@ -1,5 +1,5 @@
 /*RESPONSIVE DESIGN START*/
-$screen-sm-min: 420px;
+$screen-sm-min: 440px;
 @mixin sm {
   @media (max-width: #{$screen-sm-min}) {
     @content;
@@ -10,6 +10,7 @@ $screen-sm-min: 420px;
 .shop_cart {
   @include sm {
     width: 165px;
+    margin-bottom: 10px;
   }
   width: 300px;
   height: auto;

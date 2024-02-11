@@ -48,7 +48,6 @@ const BigSales = () => {
       <Box className="bottom_box">
         <Box className="link_wrap">
           <h4 className="link_all">See all products</h4>
-          {/* todo: navigate shop by sorting discount */}
           <EastIcon />
         </Box>
       </Box>

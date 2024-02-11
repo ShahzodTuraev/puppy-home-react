@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;800&display=swap");
 
 /*RESPONSIVE DESIGN START*/
-$screen-sm-min: 420px;
+$screen-sm-min: 440px;
 @mixin sm {
   @media (max-width: #{$screen-sm-min}) {
     @content;
